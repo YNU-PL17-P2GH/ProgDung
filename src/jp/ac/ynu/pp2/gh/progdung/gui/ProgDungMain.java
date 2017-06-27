@@ -13,7 +13,7 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 
 	public ProgDungMain() {
 		super("Programme Dungeona");
-		setSize(1280, 720);
+		setSize(1280, 760);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 		

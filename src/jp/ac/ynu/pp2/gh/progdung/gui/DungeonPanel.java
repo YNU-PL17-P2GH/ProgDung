@@ -1,8 +1,10 @@
 package jp.ac.ynu.pp2.gh.progdung.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import javafx.scene.layout.Border;
@@ -23,13 +25,13 @@ public class DungeonPanel extends JPanel {
 		super();
 		
 		callback = pCallback;
-		
 		setLayout(new BorderLayout());
 		
 		JPanel lPlayCoverPanel = new JPanel();
 		FlowLayout lFlow1 = new FlowLayout();
-		lFlow1.setAlignment(FlowLayout.CENTER);
+		lFlow1.setAlignment(FlowLayout.LEFT);
 		lPlayCoverPanel.setLayout(lFlow1);
+		lPlayCoverPanel.setBorder(BorderFactory.createEmptyBorder(0, 720-352, 0, 0));
 		lDungeonPlay = new DungeonPlay(callback);
 		lPlayCoverPanel.add(lDungeonPlay);
 		add(lPlayCoverPanel, BorderLayout.CENTER);

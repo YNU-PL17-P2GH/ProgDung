@@ -2,6 +2,7 @@ package jp.ac.ynu.pp2.gh.progdung.gui;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -44,6 +45,7 @@ public class DungeonPlay extends Canvas {
 		mainwindow = this;
 		//ウインドウの設定
 		this.mainwindow.setSize(704, 704);
+		this.mainwindow.setPreferredSize(new Dimension(704, 704));
 //		this.mainwindow.setLocationRelativeTo(null);
 		this.mainwindow.setVisible(true);
 //		this.mainwindow.setResizable(false);
