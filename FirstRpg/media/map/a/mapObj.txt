@@ -1,0 +1,1 @@
+nextMap,a,3,3,4,3,21,4,21,3,22,4,22fixObj,tubo,15,15,null

@@ -1,0 +1,1 @@
+moveObjData 4 4
