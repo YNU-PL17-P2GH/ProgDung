@@ -65,6 +65,11 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public JFrame getMainFrame() {
+		return this;
+	}
 	
 	
 

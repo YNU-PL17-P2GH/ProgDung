@@ -15,27 +15,29 @@ import javax.swing.JPanel;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.KEY_STATE;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.sequence.RootSequence;
+import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 
 public class DungeonPlay extends Canvas {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6888570703399298605L;
-
-	public static void main(String[] args) {
-		DungeonPlay fst = new DungeonPlay();
-		fst.start();
-	}
+	
+	private static final int RENDER_TIMER_RATE = 10;
 
 	Canvas mainwindow;
 	BufferStrategy strategy;
 	RootSequence display;
 	private boolean newKeystate[] = new boolean[8];
+	
+	TransitionCallback callback;
 
 	//コンストラクタ
-	DungeonPlay(){
+	DungeonPlay(TransitionCallback pCallback){
 		super();
+		setFocusable(false);
 
+		callback = pCallback;
 	}
 	
 	public void init() {
@@ -49,8 +51,8 @@ public class DungeonPlay extends Canvas {
 		this.mainwindow.setIgnoreRepaint(true);
 		this.mainwindow.createBufferStrategy(2);
 		this.strategy = this.mainwindow.getBufferStrategy();
-		//キーアダプター
-		this.mainwindow.addKeyListener(new MyKeyAdapter());
+
+		// KeyAdapter
 		for(int i = 0; i < 8; i++){
 			newKeystate[i] = false;
 		}
@@ -59,8 +61,9 @@ public class DungeonPlay extends Canvas {
 
 	void start() {
 		Timer t = new Timer();
-		t.schedule(new RenderTask(), 0, 16);
-			//16ミリ秒ごと(60fps)に run() を呼び出すようにする
+		t.schedule(new RenderTask(), 0, RENDER_TIMER_RATE);
+
+		callback.getMainFrame().addKeyListener(new MyKeyAdapter());
 	}
 
 	long lasttime = System.currentTimeMillis();
@@ -74,8 +77,7 @@ public class DungeonPlay extends Canvas {
 
 		Graphics2D g = (Graphics2D)this.strategy.getDrawGraphics();
 		g.setBackground(Color.black);
-		g.clearRect(0, 0,
-				this.mainwindow.getWidth(), this.mainwindow.getHeight());
+		g.clearRect(0, 0, this.mainwindow.getWidth(), this.mainwindow.getHeight());
 		sinfo.g = g;
 
 		this.display.show(sinfo);

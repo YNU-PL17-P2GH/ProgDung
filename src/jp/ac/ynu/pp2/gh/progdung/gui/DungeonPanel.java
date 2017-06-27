@@ -30,7 +30,7 @@ public class DungeonPanel extends JPanel {
 		FlowLayout lFlow1 = new FlowLayout();
 		lFlow1.setAlignment(FlowLayout.CENTER);
 		lPlayCoverPanel.setLayout(lFlow1);
-		lDungeonPlay = new DungeonPlay();
+		lDungeonPlay = new DungeonPlay(callback);
 		lPlayCoverPanel.add(lDungeonPlay);
 		add(lPlayCoverPanel, BorderLayout.CENTER);
 	}

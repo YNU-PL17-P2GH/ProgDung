@@ -1,5 +1,7 @@
 package jp.ac.ynu.pp2.gh.progdung.util;
 
+import javax.swing.JFrame;
+
 public interface TransitionCallback {
 	
 	boolean login(String pUsername, char[] pWord);
@@ -16,5 +18,7 @@ public interface TransitionCallback {
 	void showSelect();
 	
 	void showDungeon(int selectedStage);
+	
+	JFrame getMainFrame();
 
 }
