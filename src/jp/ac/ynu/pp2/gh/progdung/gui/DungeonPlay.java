@@ -1,5 +1,6 @@
-package jp.ac.ynu.pp2.gh.naclo.mapseq;
+package jp.ac.ynu.pp2.gh.progdung.gui;
 
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
@@ -9,30 +10,41 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
+import jp.ac.ynu.pp2.gh.naclo.mapseq.KEY_STATE;
+import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.sequence.RootSequence;
 
-public class FirstRPG {
+public class DungeonPlay extends Canvas {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6888570703399298605L;
+
 	public static void main(String[] args) {
-		FirstRPG fst = new FirstRPG();
+		DungeonPlay fst = new DungeonPlay();
 		fst.start();
 	}
 
-	JFrame mainwindow;
+	Canvas mainwindow;
 	BufferStrategy strategy;
 	RootSequence display;
 	private boolean newKeystate[] = new boolean[8];
 
 	//コンストラクタ
-	FirstRPG(){
+	DungeonPlay(){
+		super();
+
+	}
+	
+	public void init() {
+		mainwindow = this;
 		//ウインドウの設定
-		this.mainwindow = new JFrame("RPG(仮)");
-		this.mainwindow.
-			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.mainwindow.setSize(704, 704);
-		this.mainwindow.setLocationRelativeTo(null);
+//		this.mainwindow.setLocationRelativeTo(null);
 		this.mainwindow.setVisible(true);
-		this.mainwindow.setResizable(false);
+//		this.mainwindow.setResizable(false);
 		//バッファストラテジーの設定
 		this.mainwindow.setIgnoreRepaint(true);
 		this.mainwindow.createBufferStrategy(2);
@@ -75,7 +87,7 @@ public class FirstRPG {
 	class RenderTask extends TimerTask{
 		@Override
 		public void run() {
-			FirstRPG.this.render();
+			DungeonPlay.this.render();
 		}
 	}
 

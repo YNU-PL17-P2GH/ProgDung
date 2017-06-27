@@ -1,0 +1,46 @@
+package jp.ac.ynu.pp2.gh.progdung.gui;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JPanel;
+
+import javafx.scene.layout.Border;
+import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
+
+public class DungeonPanel extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5911049728428748438L;
+	
+	private TransitionCallback callback;
+
+	private DungeonPlay lDungeonPlay;
+	
+	public DungeonPanel(TransitionCallback pCallback) {
+		super();
+		
+		callback = pCallback;
+		
+		setLayout(new BorderLayout());
+		
+		JPanel lPlayCoverPanel = new JPanel();
+		FlowLayout lFlow1 = new FlowLayout();
+		lFlow1.setAlignment(FlowLayout.CENTER);
+		lPlayCoverPanel.setLayout(lFlow1);
+		lDungeonPlay = new DungeonPlay();
+		lPlayCoverPanel.add(lDungeonPlay);
+		add(lPlayCoverPanel, BorderLayout.CENTER);
+	}
+	
+	public void init() {
+		lDungeonPlay.init();
+	}
+	
+	public void start() {
+		lDungeonPlay.start();
+	}
+
+}
