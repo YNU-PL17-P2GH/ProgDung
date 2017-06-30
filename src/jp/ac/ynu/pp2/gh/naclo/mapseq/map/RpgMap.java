@@ -24,8 +24,9 @@ public class RpgMap {
 		BufferedReader ibr = null;
 
 		try {
-			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/" + mapName + "/map.txt").openStream()));
+			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/" + mapName + "/map2.txt").openStream()));
 			String line = ibr.readLine();
+
 			String datas[] = line.split(",", 3);
 			boxs = new MapBox[Integer.parseInt(datas[0])][Integer.parseInt(datas[1])];
 			//レイヤー数設定
@@ -45,26 +46,25 @@ public class RpgMap {
 					}
 				}
 			}
-			String line2;
-			String datas2[];
+
+
 			for(int k = 0; k < layer; k++){
 				for(int i = 0; i < boxs.length; i++){
+
 					line = ibr.readLine();
 					if(line.indexOf(',') < 0){
 						i--;
 						continue;
 					}
-					line2 = ibr.readLine();
-					datas = line.split(",", boxs[i].length * 2);
-					datas2 = line2.split(",", boxs[i].length * 2);
+
+					datas = line.split(",",  0);
 					for(int j = 0; j < boxs[i].length; j++){
-						boxs[i][j].setChip(Integer.parseInt(datas[j * 2]), Integer.parseInt(datas[j * 2 + 1]),
-								Integer.parseInt(datas2[j * 2]), Integer.parseInt(datas2[j * 2 + 1]), k);
+						boxs[i][j].setChip(Integer.parseInt(datas[j]), k);
 					}
 				}
 			}
 			ibr.close();
-			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/" + mapName + "/mapObj.txt").openStream()));
+			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/" + mapName + "/mapObj2.txt").openStream()));
 			line = ibr.readLine();
 			myObj = new ArrayList<MapObject>();
 			while(line != null){
@@ -73,6 +73,7 @@ public class RpgMap {
 					int boxNum = Integer.parseInt(datas[4]);
 					int x = Integer.parseInt(datas[2]);
 					int y = Integer.parseInt(datas[3]);
+					System.out.println();
 					for(int i = 0; i < boxNum; i++){
 						((NextMapBox)boxs[Integer.parseInt(datas[6 + i * 2])][Integer.parseInt(datas[5 + i * 2])]).setNextMap(datas[1], x, y);
 					}
@@ -124,8 +125,8 @@ public class RpgMap {
 		}
 
 		//背景描画
-		for(int i = -1; i < 12; i++){
-			for(int j = -1; j < 12; j++){
+		for(int i = -1; i < 24; i++){
+			for(int j = -1; j < 24; j++){
 				if(i + y < 0 || i + y >= boxs.length  || j + x < 0 || j + x >= boxs[0].length){
 					continue;
 				}

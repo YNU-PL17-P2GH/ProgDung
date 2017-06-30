@@ -19,6 +19,7 @@ public class MapMoveObject extends MapObject{
 	protected int directNum;			//向きの数
 	protected int imgNum;				//画像枚数
 	protected int direction;			//現在の向き
+	
 
 	public MapMoveObject(int bx, int by, String objName, int direct, RpgMap map){
 		myMap = map;
