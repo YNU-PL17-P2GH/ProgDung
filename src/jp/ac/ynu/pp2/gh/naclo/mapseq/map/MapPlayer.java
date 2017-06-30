@@ -1,8 +1,5 @@
 package jp.ac.ynu.pp2.gh.naclo.mapseq.map;
 
-import javax.swing.JOptionPane;
-
-import javafx.scene.control.DialogPane;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.KEY_STATE;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 
@@ -35,15 +32,63 @@ public class MapPlayer extends MapMoveObject{
 
 	public void move(ShareInfo sinfo){
 		//System.out.println(box_x + " " + box_y + " " + next_x + " " + next_y);
-		if(next_x == box_x && next_y == box_y){
-			if(sinfo.getKeyPress(KEY_STATE.RIGHT) || sinfo.getKeyRepeat(KEY_STATE.RIGHT)){
+		if(!this.isMoving()){
+			int dx = 0, dy = 0;
+			if(sinfo.getKeyRepeat(KEY_STATE.RIGHT)){
+				dx++;
+			}
+			if(sinfo.getKeyRepeat(KEY_STATE.UP)){
+				dy--;
+			}
+			if(sinfo.getKeyRepeat(KEY_STATE.DOWN)){
+				dy++;
+			}
+			if(sinfo.getKeyRepeat(KEY_STATE.LEFT)){
+				dx--;
+			}
+			
+			if(dx == 0 && dy == 0){
+				if(sinfo.getKeyPress(KEY_STATE.RIGHT)){
+					direction = MAP_CONST.DIRECTION_RIGHT;
+				}else if(sinfo.getKeyPress(KEY_STATE.UP)){
+					direction = MAP_CONST.DIRECTION_UP;
+				}else if(sinfo.getKeyPress(KEY_STATE.DOWN)){
+					direction = MAP_CONST.DIRECTION_DOUN;
+				}else if(sinfo.getKeyPress(KEY_STATE.LEFT)){
+					direction = MAP_CONST.DIRECTION_LEFY;
+				}
+			}else if(dx == 1 && dy == 0){
 				direction = MAP_CONST.DIRECTION_RIGHT;
-			}else if(sinfo.getKeyPress(KEY_STATE.UP) || sinfo.getKeyRepeat(KEY_STATE.UP)){
-				direction = MAP_CONST.DIRECTION_UP;
-			}else if(sinfo.getKeyPress(KEY_STATE.DOWN) || sinfo.getKeyRepeat(KEY_STATE.DOWN)){
+			}else if(dx == 0 && dy == 1){
 				direction = MAP_CONST.DIRECTION_DOUN;
-			}else if(sinfo.getKeyPress(KEY_STATE.LEFT) || sinfo.getKeyRepeat(KEY_STATE.LEFT)){
+			}else if(dx == 0 && dy == -1){
+				direction = MAP_CONST.DIRECTION_UP;
+			}else if(dx == -1 && dy == 0){
 				direction = MAP_CONST.DIRECTION_LEFY;
+			}else if(dx == 1 && dy == 1){
+				if(direction == MAP_CONST.DIRECTION_RIGHT){
+					direction = MAP_CONST.DIRECTION_DOUN;
+				}else{
+					direction = MAP_CONST.DIRECTION_RIGHT;
+				}
+			}else if(dx == 1 && dy == -1){
+				if(direction == MAP_CONST.DIRECTION_UP){
+					direction = MAP_CONST.DIRECTION_RIGHT;
+				}else{
+					direction = MAP_CONST.DIRECTION_UP;
+				}
+			}else if(dx == -1 && dy == 1){
+				if(direction == MAP_CONST.DIRECTION_DOUN){
+					direction = MAP_CONST.DIRECTION_LEFY;
+				}else{
+					direction = MAP_CONST.DIRECTION_DOUN;
+				}
+			}else if(dx == -1 && dy == -1){
+				if(direction == MAP_CONST.DIRECTION_LEFY){
+					direction = MAP_CONST.DIRECTION_UP;
+				}else{
+					direction = MAP_CONST.DIRECTION_LEFY;
+				}
 			}
 		}
 
@@ -77,7 +122,7 @@ public class MapPlayer extends MapMoveObject{
 			}
 		}
 
-		if(next_x == box_x && next_y == box_y){
+		if(!this.isMoving()){
 			if(direction == MAP_CONST.DIRECTION_RIGHT){
 				if(sinfo.getKeyRepeat(KEY_STATE.RIGHT)){
 					next_x = box_x + 1;
