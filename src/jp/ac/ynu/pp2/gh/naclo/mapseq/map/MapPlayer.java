@@ -26,7 +26,9 @@ public class MapPlayer extends MapMoveObject{
 				y = point_y - player_y;
 			}
 		}
-		sinfo.g.drawImage(objImg[(animeCount / 10) % imgNum + direction * imgNum], x, y, null);
+		sinfo.g.drawImage(objImg, x, y, x + MAP_CONST.MAP_BOX_SIZE , y + MAP_CONST.MAP_BOX_SIZE ,
+				(animeCount / delay % imgNum) * 32, (direction % directNum) * 32, (animeCount / delay % imgNum + 1) * 32, (direction % directNum+ 1) * 32, null);
+
 		animeCount++;
 	}
 
@@ -46,7 +48,7 @@ public class MapPlayer extends MapMoveObject{
 			if(sinfo.getKeyRepeat(KEY_STATE.LEFT)){
 				dx--;
 			}
-			
+
 			if(dx == 0 && dy == 0){
 				if(sinfo.getKeyPress(KEY_STATE.RIGHT)){
 					direction = MAP_CONST.DIRECTION_RIGHT;
@@ -184,3 +186,4 @@ public class MapPlayer extends MapMoveObject{
 		next_y = box_y;
 	}
 }
+
