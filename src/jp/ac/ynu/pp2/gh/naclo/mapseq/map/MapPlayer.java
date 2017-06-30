@@ -26,7 +26,7 @@ public class MapPlayer extends MapMoveObject{
 				y = point_y - player_y;
 			}
 		}
-		sinfo.g.drawImage(objImg, x, y, x + MAP_CONST.MAP_BOX_SIZE , y + MAP_CONST.MAP_BOX_SIZE ,
+		sinfo.g.drawImage(objImg, x + MAP_CONST.MAP_BOX_SIZE / 4, y + MAP_CONST.MAP_BOX_SIZE / 4, x + MAP_CONST.MAP_BOX_SIZE  / 4 * 3, y + MAP_CONST.MAP_BOX_SIZE / 4 * 3 ,
 				(animeCount / delay % imgNum) * 32, (direction % directNum) * 32, (animeCount / delay % imgNum + 1) * 32, (direction % directNum+ 1) * 32, null);
 
 		animeCount++;
