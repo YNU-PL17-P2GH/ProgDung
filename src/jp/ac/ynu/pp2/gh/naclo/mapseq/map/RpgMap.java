@@ -15,16 +15,17 @@ public class RpgMap {
 	private MapPlayer myPlayer;
 	public RpgMap(String mapName , int player_x, int player_y, int player_direct){
 		loadMap(mapName);
+		myMapChip = new MapChip(mapName);
 		myPlayer = new MapPlayer(player_x,  player_y, "player", player_direct, this);
 	}
 	private ArrayList<MapObject> myObj;
 
 	private void loadMap(String mapName){
-		myMapChip = new MapChip(mapName);
+		//myMapChip = new MapChip(mapName);
 		BufferedReader ibr = null;
 
 		try {
-			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/" + mapName + "/map2.txt").openStream()));
+			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/" + mapName + "/map.txt").openStream()));
 			String line = ibr.readLine();
 
 			String datas[] = line.split(",", 3);
@@ -65,7 +66,7 @@ public class RpgMap {
 				}
 			}
 			ibr.close();
-			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/" + mapName + "/mapObj2.txt").openStream()));
+			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/" + mapName + "/mapObj.txt").openStream()));
 			line = ibr.readLine();
 			myObj = new ArrayList<MapObject>();
 			while(line != null){

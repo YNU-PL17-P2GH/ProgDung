@@ -1,0 +1,4 @@
+chipData 3
+autoMap 38 8
+doorMap 152 32
+mapchipMap 162 46

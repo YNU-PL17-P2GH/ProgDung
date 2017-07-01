@@ -18,7 +18,7 @@ public class MapChip {
 		//ファイルからロードに
 		BufferedReader ibr = null;
 		try {
-			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/" + mapName + "/chip.txt").openStream()));
+			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/chips/chip.txt").openStream()));
 			String line = ibr.readLine();
 
 			if(line.indexOf("chipData") >= 0){
@@ -30,12 +30,12 @@ public class MapChip {
 				JOptionPane.showMessageDialog(null, "エラー");
 				System.exit(0);
 			}
-			String x_y[];
+			String data[];
 			for (int i = 0; i < mapChipImags.length; i++) {
-				mapChipImags[i] = ImageIO.read(getClass().getClassLoader().getResource("media/map/" + mapName + "/"+ i + ".png"));
-				x_y = ibr.readLine().split(" ", 0);
-				chipX[i] = Integer.parseInt(x_y[0]);
-				chipY[i] = Integer.parseInt(x_y[1]);
+				data = ibr.readLine().split(" ", 0);
+				mapChipImags[i] = ImageIO.read(getClass().getClassLoader().getResource("media/map//chips/"+ data[0] + ".png"));
+				chipX[i] = Integer.parseInt(data[1]);
+				chipY[i] = Integer.parseInt(data[2]);
 			}
 			ibr.close();
 		} catch (IOException e) {
@@ -47,13 +47,14 @@ public class MapChip {
 	public void drawChip(ShareInfo sinfo, int x, int y, int box_mapchipID){
 		int i = 0;
 		int id = box_mapchipID;
-		if(id < 0){
+		if(id <= 0){
 			return;
 		}
 		while(id >= (chipX[i] * chipY[i])){
 			id = id - (chipX[i] * chipY[i]);
 			i++;
 		}
+		id--;
 		/*System.out.println((x + MAP_CONST.MAP_BOX_SIZE / 2 * (j % 2))+" "+ (y + MAP_CONST.MAP_BOX_SIZE / 2 * (j / 2))+ " " +
 				(x + MAP_CONST.MAP_BOX_SIZE / 2 * (j % 2 + 1)) + " " + (y + MAP_CONST.MAP_BOX_SIZE / 2 * (j / 2 + 1)));*/
 		sinfo.g.drawImage(mapChipImags[i], x, y, x + MAP_CONST.MAP_BOX_SIZE , y + MAP_CONST.MAP_BOX_SIZE ,
