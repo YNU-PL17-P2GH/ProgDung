@@ -41,6 +41,7 @@ public class RpgMap {
 					state = Integer.parseInt(datas[j]);
 					if(state == 2){
 						boxs[i][j] = new NextMapBox(state);
+						System.out.print(j + ","+i+",");
 					}else{
 						boxs[i][j] = new MapBox(state);
 					}
@@ -99,25 +100,25 @@ public class RpgMap {
 	public void draw(ShareInfo sinfo){		//マップ描画
 		int x, y;			//右上端座標
 		int dx = 0, dy = 0;			//自キャラ位置によるズレ
-		x = myPlayer.box_x - 5;
-		y = myPlayer.box_y - 5;
+		x = myPlayer.box_x - 10;
+		y = myPlayer.box_y - 10;
 		int playerX = 0, playerY = 0;
 		//マップの描画座標の計算
-		if(myPlayer.point_x <= MAP_CONST.MAP_BOX_SIZE * 5){
+		if(myPlayer.point_x <= MAP_CONST.MAP_BOX_SIZE * 10){
 			x = 0;
 			playerX = -1;
-		}else if(myPlayer.point_x >= MAP_CONST.MAP_BOX_SIZE *(boxs[0].length - 6)){
-			x = (boxs[0].length - 11);
+		}else if(myPlayer.point_x >= MAP_CONST.MAP_BOX_SIZE *(boxs[0].length - 12)){
+			x = (boxs[0].length - 22);
 			playerX = x * MAP_CONST.MAP_BOX_SIZE;
 		}else{
 			dx = myPlayer.point_x - myPlayer.box_x * MAP_CONST.MAP_BOX_SIZE;
 			playerX = myPlayer.point_x;
 		}
-		if(myPlayer.point_y <= MAP_CONST.MAP_BOX_SIZE * 5){
+		if(myPlayer.point_y <= MAP_CONST.MAP_BOX_SIZE * 10){
 			y = 0;
 			playerY = -1;
-		}else if(myPlayer.point_y >= MAP_CONST.MAP_BOX_SIZE *(boxs.length - 6)){
-			y = (boxs.length - 11);
+		}else if(myPlayer.point_y >= MAP_CONST.MAP_BOX_SIZE *(boxs.length - 12)){
+			y = (boxs.length - 22);
 			playerY = y * MAP_CONST.MAP_BOX_SIZE;
 		}else{
 			dy = myPlayer.point_y - myPlayer.box_y * MAP_CONST.MAP_BOX_SIZE;
@@ -125,8 +126,8 @@ public class RpgMap {
 		}
 
 		//背景描画
-		for(int i = -1; i < 24; i++){
-			for(int j = -1; j < 24; j++){
+		for(int i = -1; i < 23; i++){
+			for(int j = -1; j < 23; j++){
 				if(i + y < 0 || i + y >= boxs.length  || j + x < 0 || j + x >= boxs[0].length){
 					continue;
 				}

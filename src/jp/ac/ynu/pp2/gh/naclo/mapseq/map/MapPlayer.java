@@ -10,8 +10,9 @@ public class MapPlayer extends MapMoveObject{
 	}
 	@Override
 	public void draw(ShareInfo sinfo, int player_x, int player_y) {
-		int x = 5 * MAP_CONST.MAP_BOX_SIZE;
-		int y = 5 * MAP_CONST.MAP_BOX_SIZE;
+		System.out.println(box_x + " "+box_y);
+		int x = 10 * MAP_CONST.MAP_BOX_SIZE;
+		int y = 10 * MAP_CONST.MAP_BOX_SIZE;
 		if(player_x != point_x){
 			if(player_x < 0){
 				x = point_x;
