@@ -17,13 +17,13 @@ public class RpgMap {
 		loadMap(mapName);
 		myMapChip = new MapChip(mapName);
 		myPlayer = new MapPlayer(player_x,  player_y, "player", player_direct, this);
+		myObj.add(new MapSortObject(25, 13, "sort", this));
 	}
 	private ArrayList<MapObject> myObj;
 
 	private void loadMap(String mapName){
 		//myMapChip = new MapChip(mapName);
 		BufferedReader ibr = null;
-
 		try {
 			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/" + mapName + "/map.txt").openStream()));
 			String line = ibr.readLine();
@@ -90,11 +90,15 @@ public class RpgMap {
 			JOptionPane.showMessageDialog(null, "エラー");
 			System.exit(0);
 		}
+
 	}
 
 
 	public void update(ShareInfo sinfo){	//マップ更新
 		myPlayer.move(sinfo);
+		for(int i = 0; i < myObj.size(); i++){
+			myObj.get(i).update();;
+		}
 	}
 
 	public void draw(ShareInfo sinfo){		//マップ描画
@@ -133,6 +137,20 @@ public class RpgMap {
 				}
 				//System.out.println((i + y) +" "+ (j + x));
 				boxs[i + y][j + x].draw(sinfo, MAP_CONST.MAP_BOX_SIZE * j - dx, MAP_CONST.MAP_BOX_SIZE * i - dy, myMapChip);
+			}
+		}
+
+		//オブジェクト描画
+		for(int i = -1; i < 23; i++){
+			for(int j = -1; j < 23; j++){
+				if(i + y < 0 || i + y >= boxs.length  || j + x < 0 || j + x >= boxs[0].length){
+					continue;
+				}
+				if(j + x == 5 && i + y==30){
+					System.out.println((i + y) +" "+ (j + x));
+				}
+				//System.out.println((i + y) +" "+ (j + x));
+				boxs[i + y][j + x].drawObj(sinfo, MAP_CONST.MAP_BOX_SIZE * j - dx, MAP_CONST.MAP_BOX_SIZE * i - dy, j + x, i + y);
 			}
 		}
 

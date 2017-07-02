@@ -32,4 +32,6 @@ public class MapFixedObject extends MapObject{
 		sinfo.g.drawImage(objImg, map_x, map_y, null);
 	}
 
+	@Override
+	public void update() {}
 }

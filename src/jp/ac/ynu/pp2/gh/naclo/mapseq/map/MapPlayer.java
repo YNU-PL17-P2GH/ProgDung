@@ -213,5 +213,8 @@ public class MapPlayer extends MapMoveObject{
 		next_x = box_x;
 		next_y = box_y;
 	}
+
+	@Override
+	public void update() {}
 }
 

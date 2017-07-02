@@ -33,12 +33,21 @@ public class MapBox {
 		for(int i = 0; i < layerNum; i++){
 			myMapChip.drawChip(sinfo, x, y, box_mapchipID[i]);
 		}
-		if(boxObj != null){
-			boxObj.draw(sinfo, x, y);
-		}
+
 	}
 
 	public static void setLayerNum(int layer){
 		layerNum = layer;
+	}
+
+	public void drawObj(ShareInfo sinfo, int x, int y, int bx, int by) {
+		if(boxObj != null){
+			if(boxObj.getdrawFlag()){
+				return;
+			}
+			boxObj.draw(sinfo, x + (boxObj.getBox_x() - bx) * MAP_CONST.MAP_BOX_SIZE, y +
+					(boxObj.getBox_y() - by) * MAP_CONST.MAP_BOX_SIZE);//オブジェクトの一番右上の座標
+
+		}
 	}
 }
