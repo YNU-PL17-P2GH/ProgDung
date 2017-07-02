@@ -10,8 +10,9 @@ public class MapPlayer extends MapMoveObject{
 	}
 	@Override
 	public void draw(ShareInfo sinfo, int player_x, int player_y) {
-		int x = 5 * MAP_CONST.MAP_BOX_SIZE;
-		int y = 5 * MAP_CONST.MAP_BOX_SIZE;
+		System.out.println(box_x + " "+box_y);
+		int x = 10 * MAP_CONST.MAP_BOX_SIZE;
+		int y = 10 * MAP_CONST.MAP_BOX_SIZE;
 		if(player_x != point_x){
 			if(player_x < 0){
 				x = point_x;
@@ -26,8 +27,8 @@ public class MapPlayer extends MapMoveObject{
 				y = point_y - player_y;
 			}
 		}
-		sinfo.g.drawImage(objImg, x + 12, y + 12, x + MAP_CONST.MAP_BOX_SIZE  - 12, y + MAP_CONST.MAP_BOX_SIZE  - 12,
-				(animeCount / delay % imgNum) * 32, (direction % directNum) * 32, (animeCount / delay % imgNum + 1) * 32, (direction % directNum+ 1) * 32, null);
+		sinfo.g.drawImage(objImg, x,y , x + MAP_CONST.MAP_BOX_SIZE, y + MAP_CONST.MAP_BOX_SIZE,
+				(animeCount / delay % imgNum) * 32, (direction % directNum) * MAP_CONST.MAP_BOX_SIZE, (animeCount / delay % imgNum + 1) * MAP_CONST.MAP_BOX_SIZE, (direction % directNum+ 1) * MAP_CONST.MAP_BOX_SIZE, null);
 
 		animeCount++;
 	}
