@@ -42,7 +42,6 @@ public class RpgMap {
 					state = Integer.parseInt(datas[j]);
 					if(state == 2){
 						boxs[i][j] = new NextMapBox(state);
-						System.out.print(j + ","+i+",");
 					}else{
 						boxs[i][j] = new MapBox(state);
 					}
@@ -143,9 +142,22 @@ public class RpgMap {
 
 	public int chackPlayerFoot(){
 		if(myPlayer.isMoving()){
-			return 0;
+			return MAP_CONST.MAP_STATE_ENPTY;
 		}
-		return boxs[myPlayer.getBox_y()][myPlayer.getBox_x()].getState();
+		//System.out.println(boxs[myPlayer.getBox_y()-1][myPlayer.getBox_x()].getState());
+		if(boxs[myPlayer.getBox_y()][myPlayer.getBox_x()].getState() != MAP_CONST.MAP_STATE_ENPTY){
+			return boxs[myPlayer.getBox_y()][myPlayer.getBox_x()].getState();
+		}
+		if(boxs[myPlayer.getBox_y()][myPlayer.getBox_x() + 1].getState() != MAP_CONST.MAP_STATE_ENPTY){
+			return boxs[myPlayer.getBox_y()][myPlayer.getBox_x() + 1].getState();
+		}
+		if(boxs[myPlayer.getBox_y() + 1][myPlayer.getBox_x()].getState() != MAP_CONST.MAP_STATE_ENPTY){
+			return boxs[myPlayer.getBox_y() + 1][myPlayer.getBox_x()].getState();
+		}
+		if(boxs[myPlayer.getBox_y() + 1][myPlayer.getBox_x() + 1].getState() != MAP_CONST.MAP_STATE_ENPTY){
+			return boxs[myPlayer.getBox_y() + 1][myPlayer.getBox_x() + 1].getState();
+		}
+		return MAP_CONST.MAP_STATE_ENPTY;
 	}
 
 	public void mapToMap(){
