@@ -35,6 +35,7 @@ public class MapPlayer extends MapMoveObject{
 
 	public void move(ShareInfo sinfo){
 		//System.out.println(box_x + " " + box_y + " " + next_x + " " + next_y);
+		//向き変更
 		if(!this.isMoving()){
 			int dx = 0, dy = 0;
 			if(sinfo.getKeyRepeat(KEY_STATE.RIGHT)){
@@ -95,6 +96,7 @@ public class MapPlayer extends MapMoveObject{
 			}
 		}
 
+		//進もうとしている方向に進み続ける
 		if(next_x - box_x == -1){
 			point_x = point_x - 2;
 		}else if(next_x - box_x == 1){
@@ -105,6 +107,7 @@ public class MapPlayer extends MapMoveObject{
 			point_y = point_y + 2;
 		}
 
+		//進み始める
 		if(!this.isMoving()){
 			if(direction == MAP_CONST.DIRECTION.RIGHT){
 				if(myMap.getBox(box_x + 2, box_y).getState() == MAP_CONST.STATE.BLOCK
@@ -129,6 +132,7 @@ public class MapPlayer extends MapMoveObject{
 			}
 		}
 
+		//マスの境に達したときにマスの位置更新
 		if(!this.isMoving()){
 			if(direction == MAP_CONST.DIRECTION.RIGHT){
 				if(sinfo.getKeyRepeat(KEY_STATE.RIGHT)){
@@ -213,7 +217,51 @@ public class MapPlayer extends MapMoveObject{
 		next_x = box_x;
 		next_y = box_y;
 	}
-	
+
+	public void forcedMove(int dx, int dy){	//押し出しなど(スマートな書き方じゃないのでなんかいい方法あるならよろしく)
+		//元居た部分をENPTYに
+		myMap.setBoxState(box_x, box_y, MAP_CONST.STATE.EMPTY);
+		myMap.setBoxState(box_x, box_y + 1, MAP_CONST.STATE.EMPTY);
+		myMap.setBoxState(box_x + 1, box_y, MAP_CONST.STATE.EMPTY);
+		myMap.setBoxState(box_x + 1, box_y + 1, MAP_CONST.STATE.EMPTY);
+		myMap.setBoxState(next_x, next_y, MAP_CONST.STATE.EMPTY);
+		myMap.setBoxState(next_x, next_y + 1, MAP_CONST.STATE.EMPTY);
+		myMap.setBoxState(next_x + 1, next_y, MAP_CONST.STATE.EMPTY);
+		myMap.setBoxState(next_x + 1, next_y + 1, MAP_CONST.STATE.EMPTY);
+		
+		box_x = box_x + dx;
+		box_y = box_y + dy;
+		//足元の判定も移動
+		if(myMap.getBox(box_x, box_y).getState() != MAP_CONST.STATE.NEXT)	//押し出しによる移動をさせるため
+			myMap.setBoxState(box_x, box_y, MAP_CONST.STATE.BLOCK);
+
+		if(myMap.getBox(box_x, box_y + 1).getState() != MAP_CONST.STATE.NEXT)	//押し出しによる移動をさせるため
+			myMap.setBoxState(box_x, box_y + 1, MAP_CONST.STATE.BLOCK);
+
+		if(myMap.getBox(box_x + 1, box_y).getState() !=MAP_CONST.STATE.NEXT)	//押し出しによる移動をさせるため
+			myMap.setBoxState(box_x + 1, box_y, MAP_CONST.STATE.BLOCK);
+
+		if(myMap.getBox(box_x + 1, box_y + 1).getState() !=MAP_CONST.STATE.NEXT)	//押し出しによる移動をさせるため
+			myMap.setBoxState(box_x + 1, box_y + 1, MAP_CONST.STATE.BLOCK);
+
+
+		point_x = point_x + MAP_CONST.MAP_BOX_SIZE * dx;
+		point_y = point_y + MAP_CONST.MAP_BOX_SIZE * dy;
+
+		next_x = next_x + dx;
+		next_y = next_y + dy;
+		if(myMap.getBox(next_x, next_y).getState() !=MAP_CONST.STATE.NEXT)	//押し出しによる移動をさせるため
+			myMap.setBoxState(next_x, next_y, MAP_CONST.STATE.BLOCK);
+
+		if(myMap.getBox(next_x, next_y + 1).getState() !=MAP_CONST.STATE.NEXT)	//押し出しによる移動をさせるため
+			myMap.setBoxState(next_x, next_y + 1, MAP_CONST.STATE.BLOCK);
+		
+		if(myMap.getBox(next_x + 1, next_y).getState() !=MAP_CONST.STATE.NEXT)	//押し出しによる移動をさせるため
+			myMap.setBoxState(next_x + 1, next_y, MAP_CONST.STATE.BLOCK);
+		
+		if(myMap.getBox(next_x + 1, next_y + 1).getState() !=MAP_CONST.STATE.NEXT)	//押し出しによる移動をさせるため
+			myMap.setBoxState(next_x + 1, next_y + 1, MAP_CONST.STATE.BLOCK);
+	}
 	@Override
 	public void update() {}
 }

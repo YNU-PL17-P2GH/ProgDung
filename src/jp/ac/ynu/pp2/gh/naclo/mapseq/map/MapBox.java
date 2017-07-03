@@ -30,7 +30,7 @@ public class MapBox {
 	}
 
 	public void draw(ShareInfo sinfo, int x, int y, MapChip myMapChip) {
-		for(int i = 0; i < layerNum; i++){
+		for(int i = 0; i < layerNum; i++){		//タイルチップには階層がある
 			myMapChip.drawChip(sinfo, x, y, box_mapchipID[i]);
 		}
 
@@ -41,8 +41,8 @@ public class MapBox {
 	}
 
 	public void drawObj(ShareInfo sinfo, int x, int y, int bx, int by) {
-		if(boxObj != null){
-			if(boxObj.getdrawFlag()){
+		if(boxObj != null){		//設置物がないマス用
+			if(boxObj.getdrawFlag()){		//複数のマスにまたがる設置物が複数回書かれないための処理
 				return;
 			}
 			boxObj.draw(sinfo, x + (boxObj.getBox_x() - bx) * MAP_CONST.MAP_BOX_SIZE, y +

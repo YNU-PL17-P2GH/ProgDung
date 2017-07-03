@@ -17,11 +17,11 @@ public class RpgMap {
 		loadMap(mapName);
 		myMapChip = new MapChip(mapName);
 		myPlayer = new MapPlayer(player_x,  player_y, "player", player_direct, this);
-		myObj.add(new MapSortObject(25, 13, "sort", this));
+		
 	}
 	private ArrayList<MapObject> myObj;
 
-	private void loadMap(String mapName){
+	private void loadMap(String mapName){	//マップロード
 		//myMapChip = new MapChip(mapName);
 		BufferedReader ibr = null;
 		try {
@@ -33,14 +33,15 @@ public class RpgMap {
 			//レイヤー数設定
 			int layer = Integer.parseInt(datas[2]);
 			MapBox.setLayerNum(layer);
-			//マップチップ配置
+
+			//マップの初期STATE設定
 			for(int i = 0; i < boxs.length; i++){
 				line = ibr.readLine();
 				datas = line.split(",", boxs[i].length);
 				MAP_CONST.STATE state;
 				for(int j = 0; j < boxs[i].length; j++){
 					state = MAP_CONST.STATE.getValue(Integer.parseInt(datas[j]));
-					if(state == MAP_CONST.STATE.NEXT){
+					if(state == MAP_CONST.STATE.NEXT){		//マップ移動マスは特殊(移動先のマップ情報が必要だから)
 						boxs[i][j] = new NextMapBox(state);
 					}else{
 						boxs[i][j] = new MapBox(state);
@@ -48,16 +49,14 @@ public class RpgMap {
 				}
 			}
 
-
+			//マップチップ配置 レイヤーごと
 			for(int k = 0; k < layer; k++){
 				for(int i = 0; i < boxs.length; i++){
-
 					line = ibr.readLine();
 					if(line.indexOf(',') < 0){
 						i--;
 						continue;
 					}
-
 					datas = line.split(",",  0);
 					for(int j = 0; j < boxs[i].length; j++){
 						boxs[i][j].setChip(Integer.parseInt(datas[j]), k);
@@ -69,7 +68,7 @@ public class RpgMap {
 			line = ibr.readLine();
 			myObj = new ArrayList<MapObject>();
 			while(line != null){
-				if(line.indexOf("nextMap") >= 0){
+				if(line.indexOf("nextMap") >= 0){	//マップ移動マスのデータをセット
 					datas = line.split(",", 0);
 					int boxNum = Integer.parseInt(datas[4]);
 					int x = Integer.parseInt(datas[2]);
@@ -78,9 +77,13 @@ public class RpgMap {
 					for(int i = 0; i < boxNum; i++){
 						((NextMapBox)boxs[Integer.parseInt(datas[6 + i * 2])][Integer.parseInt(datas[5 + i * 2])]).setNextMap(datas[1], x, y);
 					}
-				}else if(line.indexOf("fixObj") >= 0){
+				}else if(line.indexOf("fixObj") >= 0){	//固定設置物
 					datas = line.split(",", 0);
 					myObj.add(new MapFixedObject(Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), datas[1], this));
+				}else if(line.indexOf("progObj") >= 0){
+					datas = line.split(",", 0);
+					//datas[1]にロードするプログラム
+					myObj.add(new MapSortObject(Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), "sort", this));	//今はソートしかないので
 				}
 				line = ibr.readLine();
 			}
@@ -108,20 +111,20 @@ public class RpgMap {
 		y = myPlayer.box_y - 10;
 		int playerX = 0, playerY = 0;
 		//マップの描画座標の計算
-		if(myPlayer.point_x <= MAP_CONST.MAP_BOX_SIZE * 10){
+		if(myPlayer.point_x <= MAP_CONST.MAP_BOX_SIZE * 10){	//マップ左端が画面内
 			x = 0;
 			playerX = -1;
-		}else if(myPlayer.point_x >= MAP_CONST.MAP_BOX_SIZE *(boxs[0].length - 12)){
+		}else if(myPlayer.point_x >= MAP_CONST.MAP_BOX_SIZE *(boxs[0].length - 12)){	//マップ右端が画面内
 			x = (boxs[0].length - 22);
 			playerX = x * MAP_CONST.MAP_BOX_SIZE;
 		}else{
 			dx = myPlayer.point_x - myPlayer.box_x * MAP_CONST.MAP_BOX_SIZE;
 			playerX = myPlayer.point_x;
 		}
-		if(myPlayer.point_y <= MAP_CONST.MAP_BOX_SIZE * 10){
+		if(myPlayer.point_y <= MAP_CONST.MAP_BOX_SIZE * 10){	//マップ上端が画面内
 			y = 0;
 			playerY = -1;
-		}else if(myPlayer.point_y >= MAP_CONST.MAP_BOX_SIZE *(boxs.length - 12)){
+		}else if(myPlayer.point_y >= MAP_CONST.MAP_BOX_SIZE *(boxs.length - 12)){	//マップ下端が画面内
 			y = (boxs.length - 22);
 			playerY = y * MAP_CONST.MAP_BOX_SIZE;
 		}else{
@@ -129,7 +132,7 @@ public class RpgMap {
 			playerY = myPlayer.point_y;
 		}
 
-		//背景描画
+		//背景描画(タイル)
 		for(int i = -1; i < 23; i++){
 			for(int j = -1; j < 23; j++){
 				if(i + y < 0 || i + y >= boxs.length  || j + x < 0 || j + x >= boxs[0].length){
@@ -145,9 +148,6 @@ public class RpgMap {
 			for(int j = -1; j < 23; j++){
 				if(i + y < 0 || i + y >= boxs.length  || j + x < 0 || j + x >= boxs[0].length){
 					continue;
-				}
-				if(j + x == 5 && i + y==30){
-					System.out.println((i + y) +" "+ (j + x));
 				}
 				//System.out.println((i + y) +" "+ (j + x));
 				boxs[i + y][j + x].drawObj(sinfo, MAP_CONST.MAP_BOX_SIZE * j - dx, MAP_CONST.MAP_BOX_SIZE * i - dy, j + x, i + y);
@@ -192,8 +192,11 @@ public class RpgMap {
 		boxs[y][x].setState(state);
 	}
 
-
 	public void setObj(int x, int y, MapObject obj) {
 		boxs[y][x].setObj(obj);
+	}
+
+	public MapPlayer getMyPlayer() {
+		return myPlayer;
 	}
 }

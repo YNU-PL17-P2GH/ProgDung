@@ -17,7 +17,6 @@ public class Game_Map_Main extends TherdLayerSequence{
 		gm.myMap.draw(sinfo);
 //		System.out.println(gm.myMap.chackPlayerFoot());
 		if(gm.myMap.chackPlayerFoot() == MAP_CONST.STATE.NEXT){
-			System.exit(0);
 			gm.myMap.mapToMap();
 		}
 		return this;

@@ -6,7 +6,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
-import jnr.ffi.Struct.int16_t;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 
 public class MapFixedObject extends MapObject{
