@@ -8,7 +8,7 @@ public class Game_Map extends SecondLayerSequence{
 	public Game_Map(BaseSequence parent) {
 		super(parent);
 		mChild = new Game_Map_Main(this);
-		myMap = new RpgMap("a", 10, 10 ,1);		//セーブデータからロードするべき
+		myMap = new RpgMap("sort", 6, 33 ,1);		//セーブデータからロードするべき
 	}
 
 	@Override
