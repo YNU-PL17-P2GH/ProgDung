@@ -4,8 +4,8 @@ public class MAP_CONST {
 	public static enum DIRECTION {
 		RIGHT(0),
 		UP(1),
-		DOWN(2),
-		LEFT(3);
+		DOWN(3),
+		LEFT(2);
 		
 		private int val;
 		
