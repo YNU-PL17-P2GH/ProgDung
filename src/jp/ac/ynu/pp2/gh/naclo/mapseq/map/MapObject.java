@@ -22,4 +22,8 @@ public abstract class MapObject {
 	public boolean getdrawFlag(){
 		return drawFlag;
 	}
+	
+	public RpgMap getMap() {
+		return myMap;
+	}
 }

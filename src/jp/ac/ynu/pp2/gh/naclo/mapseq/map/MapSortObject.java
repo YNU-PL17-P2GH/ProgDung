@@ -40,7 +40,7 @@ public class MapSortObject extends MapProgObject{
 		}
 		for(int i = 0; i < showArray.length * 2 ; i++){
 			for(int j = 0 ;j < showArray[i / 2]; j++){
-				myMap.setBoxState(box_x - j, box_y + i, MAP_CONST.MAP_STATE_BLOCK);
+				myMap.setBoxState(box_x - j, box_y + i, MAP_CONST.STATE.BLOCK);
 			}
 		}
 		runRuby(Ruby.newInstance());
@@ -73,21 +73,21 @@ public class MapSortObject extends MapProgObject{
 		}else{
 			if(animeCount % 50 == 0){
 				if(showArray[indexA] > b){
-					myMap.setBoxState(box_x - showArray[indexA], box_y + indexA * 2, MAP_CONST.MAP_STATE_ENPTY);
-					myMap.setBoxState(box_x - showArray[indexA], box_y + indexA * 2 + 1, MAP_CONST.MAP_STATE_ENPTY);
+					myMap.setBoxState(box_x - showArray[indexA], box_y + indexA * 2, MAP_CONST.STATE.EMPTY);
+					myMap.setBoxState(box_x - showArray[indexA], box_y + indexA * 2 + 1, MAP_CONST.STATE.EMPTY);
 					showArray[indexA]--;
 				}else if(showArray[indexA] < b){
-					myMap.setBoxState(box_x - showArray[indexA], box_y + indexA * 2, MAP_CONST.MAP_STATE_BLOCK);
-					myMap.setBoxState(box_x - showArray[indexA], box_y + indexA * 2 + 1, MAP_CONST.MAP_STATE_BLOCK);
+					myMap.setBoxState(box_x - showArray[indexA], box_y + indexA * 2, MAP_CONST.STATE.BLOCK);
+					myMap.setBoxState(box_x - showArray[indexA], box_y + indexA * 2 + 1, MAP_CONST.STATE.BLOCK);
 					showArray[indexA]++;
 				}
 				if(showArray[indexB] > a){
-					myMap.setBoxState(box_x - showArray[indexB], box_y + indexB * 2, MAP_CONST.MAP_STATE_ENPTY);
-					myMap.setBoxState(box_x - showArray[indexB], box_y + indexB * 2 + 1, MAP_CONST.MAP_STATE_ENPTY);
+					myMap.setBoxState(box_x - showArray[indexB], box_y + indexB * 2, MAP_CONST.STATE.EMPTY);
+					myMap.setBoxState(box_x - showArray[indexB], box_y + indexB * 2 + 1, MAP_CONST.STATE.EMPTY);
 					showArray[indexB]--;
 				}else if(showArray[indexB] < a){
-					myMap.setBoxState(box_x - showArray[indexB], box_y + indexB * 2, MAP_CONST.MAP_STATE_BLOCK);
-					myMap.setBoxState(box_x - showArray[indexB], box_y + indexB * 2 + 1, MAP_CONST.MAP_STATE_BLOCK);
+					myMap.setBoxState(box_x - showArray[indexB], box_y + indexB * 2, MAP_CONST.STATE.BLOCK);
+					myMap.setBoxState(box_x - showArray[indexB], box_y + indexB * 2 + 1, MAP_CONST.STATE.BLOCK);
 					showArray[indexB]++;
 				}
 				if(showArray[indexA] == b && showArray[indexB] == a){

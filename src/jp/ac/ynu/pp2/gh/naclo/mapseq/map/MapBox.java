@@ -4,16 +4,16 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 
 public class MapBox {
 	private static int layerNum = 0;
-	private int box_state;
+	private MAP_CONST.STATE box_state;
 	private int box_mapchipID[];
 	private MapObject boxObj = null;
 
-	public MapBox(int state){
+	public MapBox(MAP_CONST.STATE state){
 		box_mapchipID = new int[layerNum];
 		box_state = state;
 	}
 
-	public void setState(int state){
+	public void setState(MAP_CONST.STATE state){
 		box_state = state;
 	}
 
@@ -21,7 +21,7 @@ public class MapBox {
 		boxObj = obj;
 	}
 
-	public int getState() {
+	public MAP_CONST.STATE getState() {
 		return box_state;
 	}
 

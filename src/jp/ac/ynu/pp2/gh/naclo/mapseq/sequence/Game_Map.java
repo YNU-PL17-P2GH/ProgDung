@@ -1,6 +1,7 @@
 package jp.ac.ynu.pp2.gh.naclo.mapseq.sequence;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.RpgMap;
 
 public class Game_Map extends SecondLayerSequence{
@@ -8,7 +9,7 @@ public class Game_Map extends SecondLayerSequence{
 	public Game_Map(BaseSequence parent) {
 		super(parent);
 		mChild = new Game_Map_Main(this);
-		myMap = new RpgMap("sort", 6, 33 ,1);		//セーブデータからロードするべき
+		myMap = new RpgMap("sort", 6, 33 ,MAP_CONST.DIRECTION.UP);		//セーブデータからロードするべき
 	}
 
 	@Override

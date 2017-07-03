@@ -13,7 +13,7 @@ public class RpgMap {
 	private MapBox boxs[][];
 	private MapChip myMapChip;
 	private MapPlayer myPlayer;
-	public RpgMap(String mapName , int player_x, int player_y, int player_direct){
+	public RpgMap(String mapName , int player_x, int player_y, MAP_CONST.DIRECTION player_direct){
 		loadMap(mapName);
 		myMapChip = new MapChip(mapName);
 		myPlayer = new MapPlayer(player_x,  player_y, "player", player_direct, this);
@@ -37,10 +37,10 @@ public class RpgMap {
 			for(int i = 0; i < boxs.length; i++){
 				line = ibr.readLine();
 				datas = line.split(",", boxs[i].length);
-				int state;
+				MAP_CONST.STATE state;
 				for(int j = 0; j < boxs[i].length; j++){
-					state = Integer.parseInt(datas[j]);
-					if(state == 2){
+					state = MAP_CONST.STATE.getValue(Integer.parseInt(datas[j]));
+					if(state == MAP_CONST.STATE.NEXT){
 						boxs[i][j] = new NextMapBox(state);
 					}else{
 						boxs[i][j] = new MapBox(state);
@@ -158,24 +158,24 @@ public class RpgMap {
 		myPlayer.draw(sinfo, playerX , playerY);
 	}
 
-	public int chackPlayerFoot(){
+	public MAP_CONST.STATE chackPlayerFoot(){
 		if(myPlayer.isMoving()){
-			return MAP_CONST.MAP_STATE_ENPTY;
+			return MAP_CONST.STATE.EMPTY;
 		}
 		//System.out.println(boxs[myPlayer.getBox_y()-1][myPlayer.getBox_x()].getState());
-		if(boxs[myPlayer.getBox_y()][myPlayer.getBox_x()].getState() != MAP_CONST.MAP_STATE_ENPTY){
+		if(boxs[myPlayer.getBox_y()][myPlayer.getBox_x()].getState() != MAP_CONST.STATE.EMPTY){
 			return boxs[myPlayer.getBox_y()][myPlayer.getBox_x()].getState();
 		}
-		if(boxs[myPlayer.getBox_y()][myPlayer.getBox_x() + 1].getState() != MAP_CONST.MAP_STATE_ENPTY){
+		if(boxs[myPlayer.getBox_y()][myPlayer.getBox_x() + 1].getState() != MAP_CONST.STATE.EMPTY){
 			return boxs[myPlayer.getBox_y()][myPlayer.getBox_x() + 1].getState();
 		}
-		if(boxs[myPlayer.getBox_y() + 1][myPlayer.getBox_x()].getState() != MAP_CONST.MAP_STATE_ENPTY){
+		if(boxs[myPlayer.getBox_y() + 1][myPlayer.getBox_x()].getState() != MAP_CONST.STATE.EMPTY){
 			return boxs[myPlayer.getBox_y() + 1][myPlayer.getBox_x()].getState();
 		}
-		if(boxs[myPlayer.getBox_y() + 1][myPlayer.getBox_x() + 1].getState() != MAP_CONST.MAP_STATE_ENPTY){
+		if(boxs[myPlayer.getBox_y() + 1][myPlayer.getBox_x() + 1].getState() != MAP_CONST.STATE.EMPTY){
 			return boxs[myPlayer.getBox_y() + 1][myPlayer.getBox_x() + 1].getState();
 		}
-		return MAP_CONST.MAP_STATE_ENPTY;
+		return MAP_CONST.STATE.EMPTY;
 	}
 
 	public void mapToMap(){
@@ -188,7 +188,7 @@ public class RpgMap {
 		return boxs[y][x];
 	}
 
-	public void setBoxState(int x, int y, int state){
+	public void setBoxState(int x, int y, MAP_CONST.STATE state){
 		boxs[y][x].setState(state);
 	}
 

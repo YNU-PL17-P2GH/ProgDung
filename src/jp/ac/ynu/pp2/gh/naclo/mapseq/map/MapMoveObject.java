@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.DIRECTION;
 
 public class MapMoveObject extends MapObject{
 	protected static final int delay = 10;
@@ -18,10 +19,10 @@ public class MapMoveObject extends MapObject{
 	protected int animeCount;
 	protected int directNum;			//向きの数
 	protected int imgNum;				//画像枚数
-	protected int direction;			//現在の向き
+	protected DIRECTION direction;			//現在の向き
 
 
-	public MapMoveObject(int bx, int by, String objName, int direct, RpgMap map){
+	public MapMoveObject(int bx, int by, String objName, MAP_CONST.DIRECTION direct, RpgMap map){
 		myMap = map;
 		box_x = bx;
 		box_y = by;
@@ -52,7 +53,7 @@ public class MapMoveObject extends MapObject{
 		point_y = MAP_CONST.MAP_BOX_SIZE * by;
 		next_x = box_x;
 		next_y = box_y;
-		myMap.setBoxState(box_x, box_y, MAP_CONST.MAP_STATE_BLOCK);
+		myMap.setBoxState(box_x, box_y, MAP_CONST.STATE.BLOCK);
 		direction = direct;
 	}
 
@@ -61,7 +62,7 @@ public class MapMoveObject extends MapObject{
 		int x = point_x - (player_x - 5 * MAP_CONST.MAP_BOX_SIZE);
 		int y = point_y - (player_y - 5 * MAP_CONST.MAP_BOX_SIZE);
 		sinfo.g.drawImage(objImg, x, y, x + MAP_CONST.MAP_BOX_SIZE , y + MAP_CONST.MAP_BOX_SIZE ,
-			(animeCount % imgNum) * MAP_CONST.MAP_CHIP_SIZE, (direction % directNum) * MAP_CONST.MAP_CHIP_SIZE, (animeCount % imgNum + 1) * MAP_CONST.MAP_CHIP_SIZE, (direction % directNum+ 1) * MAP_CONST.MAP_CHIP_SIZE, null);
+			(animeCount % imgNum) * MAP_CONST.MAP_CHIP_SIZE, (direction.getVal() % directNum) * MAP_CONST.MAP_CHIP_SIZE, (animeCount % imgNum + 1) * MAP_CONST.MAP_CHIP_SIZE, (direction.getVal() % directNum+ 1) * MAP_CONST.MAP_CHIP_SIZE, null);
 
 		animeCount++;
 	}

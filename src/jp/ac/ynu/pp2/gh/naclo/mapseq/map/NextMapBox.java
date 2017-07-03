@@ -3,7 +3,7 @@ package jp.ac.ynu.pp2.gh.naclo.mapseq.map;
 public class NextMapBox extends MapBox{
 	private int next_x, next_y;
 	private String nextMapName;
-	public NextMapBox(int state) {
+	public NextMapBox(MAP_CONST.STATE state) {
 		super(state);
 	}
 

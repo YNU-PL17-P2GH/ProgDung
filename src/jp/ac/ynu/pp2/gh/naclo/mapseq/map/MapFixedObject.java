@@ -26,7 +26,7 @@ public class MapFixedObject extends MapObject{
 		int y = objImg.getHeight() / MAP_CONST.MAP_CHIP_SIZE;
 		for(int i = 0; i < y; i++){
 			for(int j = 0; j < x; j++){
-				myMap.setBoxState(box_x + j, box_y + x, MAP_CONST.MAP_STATE_BLOCK);
+				myMap.setBoxState(box_x + j, box_y + x, MAP_CONST.STATE.BLOCK);
 				myMap.setObj(box_x + j, box_y + x, this);
 			}
 		}

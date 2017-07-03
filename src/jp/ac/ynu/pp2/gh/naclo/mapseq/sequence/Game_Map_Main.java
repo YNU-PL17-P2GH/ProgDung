@@ -1,6 +1,7 @@
 package jp.ac.ynu.pp2.gh.naclo.mapseq.sequence;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST;
 
 public class Game_Map_Main extends TherdLayerSequence{
 
@@ -15,7 +16,7 @@ public class Game_Map_Main extends TherdLayerSequence{
 		gm.myMap.update(sinfo);
 		gm.myMap.draw(sinfo);
 //		System.out.println(gm.myMap.chackPlayerFoot());
-		if(gm.myMap.chackPlayerFoot() == 2){
+		if(gm.myMap.chackPlayerFoot() == MAP_CONST.STATE.NEXT){
 			System.exit(0);
 			gm.myMap.mapToMap();
 		}
