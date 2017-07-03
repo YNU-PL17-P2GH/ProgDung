@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
+import jnr.ffi.Struct.int16_t;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 
 public class MapFixedObject extends MapObject{
@@ -21,8 +22,15 @@ public class MapFixedObject extends MapObject{
 			JOptionPane.showMessageDialog(null, "エラー");
 			System.exit(0);
 		}
-		myMap.setBoxState(box_x, box_y, MAP_CONST.MAP_STATE_BLOCK);
-		myMap.setObj(box_x, box_y, this);
+		int x = objImg.getWidth() / MAP_CONST.MAP_CHIP_SIZE;
+		int y = objImg.getHeight() / MAP_CONST.MAP_CHIP_SIZE;
+		for(int i = 0; i < y; i++){
+			for(int j = 0; j < x; j++){
+				myMap.setBoxState(box_x + j, box_y + x, MAP_CONST.MAP_STATE_BLOCK);
+				myMap.setObj(box_x + j, box_y + x, this);
+			}
+		}
+		
 	}
 
 	@Override
