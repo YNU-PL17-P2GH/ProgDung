@@ -22,7 +22,9 @@ public class MapMoveObject extends MapObject{
 	protected DIRECTION direction;			//現在の向き
 
 
-	public MapMoveObject(int bx, int by, String objName, MAP_CONST.DIRECTION direct, RpgMap map){
+	public MapMoveObject(MapHandlerBase pHandler,int bx, int by, String objName, MAP_CONST.DIRECTION direct, RpgMap map){
+		super(pHandler);
+		
 		myMap = map;
 		box_x = bx;
 		box_y = by;
@@ -67,6 +69,6 @@ public class MapMoveObject extends MapObject{
 	}
 
 	@Override
-	public void update() {}
+	public void update(ShareInfo sinfo) {}
 }
 

@@ -10,7 +10,9 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 
 public class MapFixedObject extends MapObject{
 	private BufferedImage objImg;
-	public MapFixedObject(int bx, int by, String objName, RpgMap map){
+	public MapFixedObject(MapHandlerBase pHandler, int bx, int by, String objName, RpgMap map){
+		super(pHandler);
+
 		myMap = map;
 		box_x = bx;
 		box_y = by;
@@ -40,5 +42,5 @@ public class MapFixedObject extends MapObject{
 	}
 
 	@Override
-	public void update() {}
+	public void update(ShareInfo sinfo) {}
 }

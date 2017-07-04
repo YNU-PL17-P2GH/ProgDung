@@ -6,8 +6,8 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.STATE;
 
 public class MapPlayer extends MapMoveObject{
 
-	public MapPlayer(int bx, int by, String objName, MAP_CONST.DIRECTION direct, RpgMap map){
-		super(bx, by, objName, direct, map);
+	public MapPlayer(MapHandlerBase pHandler,int bx, int by, String objName, MAP_CONST.DIRECTION direct, RpgMap map){
+		super(pHandler, bx, by, objName, direct, map);
 	}
 	@Override
 	public void draw(ShareInfo sinfo, int player_x, int player_y) {
@@ -37,7 +37,8 @@ public class MapPlayer extends MapMoveObject{
 	public void move(ShareInfo sinfo){
 		//System.out.println(box_x + " " + box_y + " " + next_x + " " + next_y);
 		//向き変更
-		if(!this.isJustPlacedOnBox()){
+		if (checkPlayerFoot() == STATE.BLOCK) return;
+		if(!this.isStartMoving()){
 			int dx = 0, dy = 0;
 			if(sinfo.getKeyRepeat(KEY_STATE.RIGHT)){
 				dx++;
@@ -138,7 +139,7 @@ public class MapPlayer extends MapMoveObject{
 //		}
 
 		//マスの境に達したときにマスの位置更新
-		if(!this.isJustPlacedOnBox()){
+		if(!this.isStartMoving()){
 			if(direction == MAP_CONST.DIRECTION.RIGHT){
 				if(sinfo.getKeyRepeat(KEY_STATE.RIGHT)){
 					next_x = box_x + 1;
@@ -167,7 +168,7 @@ public class MapPlayer extends MapMoveObject{
 		}
 
 		if(point_x % MAP_CONST.MAP_BOX_SIZE == 0 && point_y % MAP_CONST.MAP_BOX_SIZE == 0){
-			if(isJustPlacedOnBox()){
+			if(isStartMoving()){
 				/*
 				for(int i = 0; i < holdBox.length; i++){
 					 if(!checkHold(box_x + holdBox[i][0], box_y + holdBox[i][1])){
@@ -193,7 +194,7 @@ public class MapPlayer extends MapMoveObject{
 		return false;
 	}
 
-	public boolean isJustPlacedOnBox() {
+	public boolean isStartMoving() {
 		return (box_x != next_x || box_y != next_y);
 	}
 
@@ -207,6 +208,8 @@ public class MapPlayer extends MapMoveObject{
 	}
 
 	public void forcedMove(int dx, int dy){	//押し出しなど(スマートな書き方じゃないのでなんかいい方法あるならよろしく)
+		System.err.println("FORCE");
+		/*
 		//元居た部分をENPTYに
 		myMap.setBoxState(box_x, box_y, MAP_CONST.STATE.EMPTY);
 		myMap.setBoxState(box_x, box_y + 1, MAP_CONST.STATE.EMPTY);
@@ -216,9 +219,12 @@ public class MapPlayer extends MapMoveObject{
 		myMap.setBoxState(next_x, next_y + 1, MAP_CONST.STATE.EMPTY);
 		myMap.setBoxState(next_x + 1, next_y, MAP_CONST.STATE.EMPTY);
 		myMap.setBoxState(next_x + 1, next_y + 1, MAP_CONST.STATE.EMPTY);
+		*/
 		
 		box_x = box_x + dx;
 		box_y = box_y + dy;
+
+		/*
 		//足元の判定も移動
 		if(myMap.getBox(box_x, box_y).getState() != MAP_CONST.STATE.NEXT)	//押し出しによる移動をさせるため
 			myMap.setBoxState(box_x, box_y, MAP_CONST.STATE.BLOCK);
@@ -231,13 +237,15 @@ public class MapPlayer extends MapMoveObject{
 
 		if(myMap.getBox(box_x + 1, box_y + 1).getState() !=MAP_CONST.STATE.NEXT)	//押し出しによる移動をさせるため
 			myMap.setBoxState(box_x + 1, box_y + 1, MAP_CONST.STATE.BLOCK);
-
+		*/
 
 		point_x = point_x + MAP_CONST.MAP_BOX_SIZE * dx;
 		point_y = point_y + MAP_CONST.MAP_BOX_SIZE * dy;
 
-		next_x = next_x + dx;
-		next_y = next_y + dy;
+		next_x = box_x;
+		next_y = box_y;
+
+		/*
 		if(myMap.getBox(next_x, next_y).getState() !=MAP_CONST.STATE.NEXT)	//押し出しによる移動をさせるため
 			myMap.setBoxState(next_x, next_y, MAP_CONST.STATE.BLOCK);
 
@@ -249,26 +257,25 @@ public class MapPlayer extends MapMoveObject{
 		
 		if(myMap.getBox(next_x + 1, next_y + 1).getState() !=MAP_CONST.STATE.NEXT)	//押し出しによる移動をさせるため
 			myMap.setBoxState(next_x + 1, next_y + 1, MAP_CONST.STATE.BLOCK);
+		*/
 	}
 	@Override
-	public void update() {
-		// TODO moving
-		if (isJustPlacedOnBox() && checkPlayerFoot(myMap) == STATE.NEXT) {
-			myMap.mapToMap();
+	public void update(ShareInfo sinfo) {
+		move(sinfo);
+		if (checkPlayerFoot() == STATE.NEXT) {
+			handler.moveMap();
 		}
 	}
 
-	public MAP_CONST.STATE checkPlayerFoot(RpgMap rpgMap){
+	public MAP_CONST.STATE checkPlayerFoot(){
 		int pX = getBox_x();
 		int pY = getBox_y();
 		
-		System.out.printf("[POS]%d / %d\n", pX, pY);
-		//System.out.println(boxs[myPlayer.getBox_y()-1][myPlayer.getBox_x()].getState());
-		if(rpgMap.boxs[pY + 1][pX].getState() != MAP_CONST.STATE.EMPTY){
-			return rpgMap.boxs[pY + 1][pX].getState();
+		if(myMap.getBox(pX, pY + 1).getState() != MAP_CONST.STATE.EMPTY){
+			return myMap.getBox(pX, pY + 1).getState();
 		}
-		if(rpgMap.boxs[pY + 1][pX + 1].getState() != MAP_CONST.STATE.EMPTY){
-			return rpgMap.boxs[pY + 1][pX + 1].getState();
+		if(myMap.getBox(pX + 1, pY + 1).getState() != MAP_CONST.STATE.EMPTY){
+			return myMap.getBox(pX + 1, pY + 1).getState();
 		}
 		return MAP_CONST.STATE.EMPTY;
 	}

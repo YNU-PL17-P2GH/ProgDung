@@ -5,11 +5,16 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 public abstract class MapObject {
 	protected int box_x, box_y;
 	protected RpgMap myMap;
+	protected MapHandlerBase handler;
 	protected boolean drawFlag = false;
+	
+	public MapObject(MapHandlerBase pHandler) {
+		handler = pHandler;
+	}
 
 	public abstract void draw(ShareInfo sinfo, int map_x, int map_y);
 
-	public abstract void update();
+	public abstract void update(ShareInfo sinfo);
 
 	public int getBox_x() {
 		return box_x;

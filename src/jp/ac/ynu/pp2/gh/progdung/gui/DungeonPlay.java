@@ -10,12 +10,9 @@ import java.awt.image.BufferStrategy;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import jp.ac.ynu.pp2.gh.naclo.mapseq.KEY_STATE;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
-import jp.ac.ynu.pp2.gh.naclo.mapseq.sequence.RootSequence;
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 
 public class DungeonPlay extends Canvas {
@@ -28,7 +25,7 @@ public class DungeonPlay extends Canvas {
 
 	Canvas mainwindow;
 	BufferStrategy strategy;
-	RootSequence display;
+	MapHandlerBase handler;
 	private boolean newKeystate[] = new boolean[8];
 	
 	TransitionCallback callback;
@@ -58,7 +55,7 @@ public class DungeonPlay extends Canvas {
 		for(int i = 0; i < 8; i++){
 			newKeystate[i] = false;
 		}
-		display = new RootSequence(null);
+		handler = new MapHandlerBase("sort");
 	}
 
 	void start() {
@@ -82,7 +79,7 @@ public class DungeonPlay extends Canvas {
 		g.clearRect(0, 0, this.mainwindow.getWidth(), this.mainwindow.getHeight());
 		sinfo.g = g;
 
-		this.display.show(sinfo);
+		this.handler.draw(sinfo);
 
 		g.dispose();
 		this.strategy.show();

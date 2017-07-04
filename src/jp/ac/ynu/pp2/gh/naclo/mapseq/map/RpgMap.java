@@ -13,15 +13,21 @@ public class RpgMap {
 	MapBox boxs[][];
 	private MapChip myMapChip;
 	MapPlayer myPlayer;
-	public RpgMap(String mapName , int player_x, int player_y, MAP_CONST.DIRECTION player_direct){
+	private ArrayList<MapObject> myObj;
+	
+	MapHandlerBase handler;
+
+	public RpgMap(MapHandlerBase pHandler, String mapName , int player_x, int player_y, MAP_CONST.DIRECTION player_direct){
+		handler = pHandler;
+		
 		loadMap(mapName);
 		myMapChip = new MapChip(mapName);
-		myPlayer = new MapPlayer(player_x,  player_y, "player", player_direct, this);
+		myPlayer = new MapPlayer(handler, player_x,  player_y, "player", player_direct, this);
 		
 	}
-	private ArrayList<MapObject> myObj;
 
-	private void loadMap(String mapName){	//マップロード
+
+	final void loadMap(String mapName){	//マップロード
 		//myMapChip = new MapChip(mapName);
 		BufferedReader ibr = null;
 		try {
@@ -79,11 +85,11 @@ public class RpgMap {
 					}
 				}else if(line.indexOf("fixObj") >= 0){	//固定設置物
 					datas = line.split(",", 0);
-					myObj.add(new MapFixedObject(Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), datas[1], this));
+					myObj.add(new MapFixedObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), datas[1], this));
 				}else if(line.indexOf("progObj") >= 0){
 					datas = line.split(",", 0);
 					//datas[1]にロードするプログラム
-					myObj.add(new MapSortObject(Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), "sort", this));	//今はソートしかないので
+					myObj.add(new MapSortObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), "sort", this));	//今はソートしかないので
 				}
 				line = ibr.readLine();
 			}
@@ -98,9 +104,9 @@ public class RpgMap {
 
 
 	public void update(ShareInfo sinfo){	//マップ更新
-		myPlayer.move(sinfo);
+		myPlayer.update(sinfo);
 		for(int i = 0; i < myObj.size(); i++){
-			myObj.get(i).update();;
+			myObj.get(i).update(sinfo);
 		}
 	}
 
@@ -156,12 +162,6 @@ public class RpgMap {
 
 		//プレイヤー描画
 		myPlayer.draw(sinfo, playerX , playerY);
-	}
-
-	public void mapToMap(){
-		loadMap(((NextMapBox)boxs[myPlayer.getBox_y()][myPlayer.getBox_x()]).getNextMapName());
-		myPlayer.setPosition(((NextMapBox)boxs[myPlayer.getBox_y()][myPlayer.getBox_x()]).getNext_x(),
-				((NextMapBox)boxs[myPlayer.getBox_y()][myPlayer.getBox_x()]).getNext_y());
 	}
 
 	public MapBox getBox(int x, int y){

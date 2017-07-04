@@ -19,7 +19,9 @@ public class MapSortObject extends MapProgObject{
 	private volatile LinkedList<Point> exhengList = new LinkedList<Point>();
 	ArrayOperator myArrayOperator = new ArrayOperator();
 	private BufferedImage objImg;
-	public MapSortObject(int bx, int by, String objName, RpgMap map){
+	public MapSortObject(MapHandlerBase pHandler, int bx, int by, String objName, RpgMap map){
+		super(pHandler);
+
 		myMap = map;
 		box_x = bx;
 		box_y = by;
@@ -63,7 +65,7 @@ public class MapSortObject extends MapProgObject{
 	int indexA, indexB;
 	int a, b;
 	@Override
-	public void update() {
+	public void update(ShareInfo sinfo) {
 		drawFlag = false;
 		if(!swaping){
 			if(exhengList.size() > 0){
