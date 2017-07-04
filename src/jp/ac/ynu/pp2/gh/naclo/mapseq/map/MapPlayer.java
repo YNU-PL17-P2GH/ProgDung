@@ -2,6 +2,7 @@ package jp.ac.ynu.pp2.gh.naclo.mapseq.map;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.KEY_STATE;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.STATE;
 
 public class MapPlayer extends MapMoveObject{
 
@@ -36,7 +37,7 @@ public class MapPlayer extends MapMoveObject{
 	public void move(ShareInfo sinfo){
 		//System.out.println(box_x + " " + box_y + " " + next_x + " " + next_y);
 		//向き変更
-		if(!this.isMoving()){
+		if(!this.isJustPlacedOnBox()){
 			int dx = 0, dy = 0;
 			if(sinfo.getKeyRepeat(KEY_STATE.RIGHT)){
 				dx++;
@@ -106,89 +107,74 @@ public class MapPlayer extends MapMoveObject{
 		}else if(next_y - box_y == 1){
 			point_y = point_y + 2;
 		}
+		
+		System.out.printf("[POS]%d / %d\n", box_x, box_y);
 
-		//進み始める
-		if(!this.isMoving()){
+		// 壁
+//		if(!this.isJustPlacedOnBox()){
 			if(direction == MAP_CONST.DIRECTION.RIGHT){
-				if(myMap.getBox(box_x + 2, box_y).getState() == MAP_CONST.STATE.BLOCK
-						|| myMap.getBox(box_x + 2, box_y + 1).getState() == MAP_CONST.STATE.BLOCK){
+				if(myMap.getBox(box_x + 2, box_y + 1).getState() == MAP_CONST.STATE.BLOCK){
+					System.err.println("RIGHT BLOCK");
 					return;
 				}
 			}else if(direction == MAP_CONST.DIRECTION.UP){
-				if(myMap.getBox(box_x, box_y - 1).getState() == MAP_CONST.STATE.BLOCK
-						|| myMap.getBox(box_x + 1, box_y - 1).getState() == MAP_CONST.STATE.BLOCK){
+				if(myMap.getBox(box_x, box_y).getState() == MAP_CONST.STATE.BLOCK
+						|| myMap.getBox(box_x + 1, box_y).getState() == MAP_CONST.STATE.BLOCK){
+					System.err.println("UP BLOCK");
 					return;
 				}
 			}else if(direction == MAP_CONST.DIRECTION.DOWN){
 				if(myMap.getBox(box_x, box_y + 2).getState() == MAP_CONST.STATE.BLOCK
 						|| myMap.getBox(box_x + 1, box_y + 2).getState() == MAP_CONST.STATE.BLOCK){
+					System.err.println("DOWN BLOCK");
 					return;
 				}
 			}else if(direction == MAP_CONST.DIRECTION.LEFT){
-				if(myMap.getBox(box_x - 1, box_y).getState() == MAP_CONST.STATE.BLOCK
-						|| myMap.getBox(box_x - 1, box_y + 1).getState() == MAP_CONST.STATE.BLOCK){
+				if(myMap.getBox(box_x - 1, box_y + 1).getState() == MAP_CONST.STATE.BLOCK){
+					System.err.println("LEFT BLOCK");
 					return;
 				}
 			}
-		}
+//		}
 
 		//マスの境に達したときにマスの位置更新
-		if(!this.isMoving()){
+		if(!this.isJustPlacedOnBox()){
 			if(direction == MAP_CONST.DIRECTION.RIGHT){
 				if(sinfo.getKeyRepeat(KEY_STATE.RIGHT)){
 					next_x = box_x + 1;
 					next_y = box_y;
 					point_x = point_x + 2;
-					if(myMap.getBox(next_x + 1, next_y).getState() == MAP_CONST.STATE.EMPTY
-							&& myMap.getBox(next_x + 1, next_y + 1).getState() == MAP_CONST.STATE.EMPTY){
-						myMap.setBoxState(next_x + 1, next_y, MAP_CONST.STATE.BLOCK);
-						myMap.setBoxState(next_x + 1, next_y + 1, MAP_CONST.STATE.BLOCK);
-					}
 				}
 			}else if(direction == MAP_CONST.DIRECTION.UP){
 				if(sinfo.getKeyRepeat(KEY_STATE.UP)){
 					next_x = box_x;
 					next_y = box_y - 1;
 					point_y = point_y - 2;
-					if(myMap.getBox(next_x, next_y).getState() == MAP_CONST.STATE.EMPTY
-							&& myMap.getBox(next_x + 1, next_y).getState() == MAP_CONST.STATE.EMPTY){
-						myMap.setBoxState(next_x, next_y, MAP_CONST.STATE.BLOCK);
-						myMap.setBoxState(next_x + 1, next_y, MAP_CONST.STATE.BLOCK);
-					}
 				}
 			}else if(direction == MAP_CONST.DIRECTION.DOWN){
 				if(sinfo.getKeyRepeat(KEY_STATE.DOWN)){
 					next_x = box_x;
 					next_y = box_y + 1;
 					point_y = point_y + 2;
-					if(myMap.getBox(next_x, next_y + 1).getState() == MAP_CONST.STATE.EMPTY
-							&& myMap.getBox(next_x + 1, next_y + 1).getState() == MAP_CONST.STATE.EMPTY){
-						myMap.setBoxState(next_x, next_y + 1, MAP_CONST.STATE.BLOCK);
-						myMap.setBoxState(next_x + 1, next_y + 1, MAP_CONST.STATE.BLOCK);
-					}
 				}
 			}else if(direction == MAP_CONST.DIRECTION.LEFT){
 				if(sinfo.getKeyRepeat(KEY_STATE.LEFT)){
 					next_x = box_x - 1;
 					next_y = box_y;
 					point_x = point_x - 2;
-					if(myMap.getBox(next_x, next_y).getState() == MAP_CONST.STATE.EMPTY
-							&& myMap.getBox(next_x, next_y + 1).getState() == MAP_CONST.STATE.EMPTY){
-						myMap.setBoxState(next_x, next_y, MAP_CONST.STATE.BLOCK);
-						myMap.setBoxState(next_x, next_y + 1, MAP_CONST.STATE.BLOCK);
-					}
 				}
 			}
 		}
 
 		if(point_x % MAP_CONST.MAP_BOX_SIZE == 0 && point_y % MAP_CONST.MAP_BOX_SIZE == 0){
-			if(isMoving()){
+			if(isJustPlacedOnBox()){
+				/*
 				for(int i = 0; i < holdBox.length; i++){
-					 if(!chackHold(box_x + holdBox[i][0], box_y + holdBox[i][1])){
+					 if(!checkHold(box_x + holdBox[i][0], box_y + holdBox[i][1])){
 						myMap.setBoxState(box_x + holdBox[i][0], box_y + holdBox[i][1], MAP_CONST.STATE.EMPTY);
 					 }
 				}
-
+				*/
 				box_x = next_x;
 				box_y = next_y;
 				next_x = box_x;
@@ -197,7 +183,8 @@ public class MapPlayer extends MapMoveObject{
 		}
 	}
 	private int holdBox[][] = {{0, 0}, {1, 0}, {0, 1}, {1, 1}};
-	private boolean chackHold(int x,int y){
+
+	private boolean checkHold(int x,int y){
 		for(int i = 0; i < holdBox.length; i++){
 			if(x == next_x + holdBox[i][0] && y ==next_y + holdBox[i][1]){
 				return true;
@@ -206,9 +193,10 @@ public class MapPlayer extends MapMoveObject{
 		return false;
 	}
 
-	public boolean isMoving() {
+	public boolean isJustPlacedOnBox() {
 		return (box_x != next_x || box_y != next_y);
 	}
+
 	public void setPosition(int x, int y) {
 		box_x = x;
 		box_y = y;
@@ -263,6 +251,26 @@ public class MapPlayer extends MapMoveObject{
 			myMap.setBoxState(next_x + 1, next_y + 1, MAP_CONST.STATE.BLOCK);
 	}
 	@Override
-	public void update() {}
+	public void update() {
+		// TODO moving
+		if (isJustPlacedOnBox() && checkPlayerFoot(myMap) == STATE.NEXT) {
+			myMap.mapToMap();
+		}
+	}
+
+	public MAP_CONST.STATE checkPlayerFoot(RpgMap rpgMap){
+		int pX = getBox_x();
+		int pY = getBox_y();
+		
+		System.out.printf("[POS]%d / %d\n", pX, pY);
+		//System.out.println(boxs[myPlayer.getBox_y()-1][myPlayer.getBox_x()].getState());
+		if(rpgMap.boxs[pY + 1][pX].getState() != MAP_CONST.STATE.EMPTY){
+			return rpgMap.boxs[pY + 1][pX].getState();
+		}
+		if(rpgMap.boxs[pY + 1][pX + 1].getState() != MAP_CONST.STATE.EMPTY){
+			return rpgMap.boxs[pY + 1][pX + 1].getState();
+		}
+		return MAP_CONST.STATE.EMPTY;
+	}
 }
 

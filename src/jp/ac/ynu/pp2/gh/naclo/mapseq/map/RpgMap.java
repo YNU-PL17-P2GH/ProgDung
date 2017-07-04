@@ -10,9 +10,9 @@ import javax.swing.JOptionPane;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 
 public class RpgMap {
-	private MapBox boxs[][];
+	MapBox boxs[][];
 	private MapChip myMapChip;
-	private MapPlayer myPlayer;
+	MapPlayer myPlayer;
 	public RpgMap(String mapName , int player_x, int player_y, MAP_CONST.DIRECTION player_direct){
 		loadMap(mapName);
 		myMapChip = new MapChip(mapName);
@@ -156,26 +156,6 @@ public class RpgMap {
 
 		//プレイヤー描画
 		myPlayer.draw(sinfo, playerX , playerY);
-	}
-
-	public MAP_CONST.STATE chackPlayerFoot(){
-		if(myPlayer.isMoving()){
-			return MAP_CONST.STATE.EMPTY;
-		}
-		//System.out.println(boxs[myPlayer.getBox_y()-1][myPlayer.getBox_x()].getState());
-		if(boxs[myPlayer.getBox_y()][myPlayer.getBox_x()].getState() != MAP_CONST.STATE.EMPTY){
-			return boxs[myPlayer.getBox_y()][myPlayer.getBox_x()].getState();
-		}
-		if(boxs[myPlayer.getBox_y()][myPlayer.getBox_x() + 1].getState() != MAP_CONST.STATE.EMPTY){
-			return boxs[myPlayer.getBox_y()][myPlayer.getBox_x() + 1].getState();
-		}
-		if(boxs[myPlayer.getBox_y() + 1][myPlayer.getBox_x()].getState() != MAP_CONST.STATE.EMPTY){
-			return boxs[myPlayer.getBox_y() + 1][myPlayer.getBox_x()].getState();
-		}
-		if(boxs[myPlayer.getBox_y() + 1][myPlayer.getBox_x() + 1].getState() != MAP_CONST.STATE.EMPTY){
-			return boxs[myPlayer.getBox_y() + 1][myPlayer.getBox_x() + 1].getState();
-		}
-		return MAP_CONST.STATE.EMPTY;
 	}
 
 	public void mapToMap(){

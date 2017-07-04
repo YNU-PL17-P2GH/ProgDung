@@ -121,10 +121,12 @@ public class MapSortObject extends MapProgObject{
 				}
 			}
 		}
+		/*
 		for(int i = 0 ; i < showArray.length; i++){
 			System.out.print(showArray[i] + " ");
 		}
 		System.out.println();
+		*/
 		animeCount++;
 	}
 	@Override

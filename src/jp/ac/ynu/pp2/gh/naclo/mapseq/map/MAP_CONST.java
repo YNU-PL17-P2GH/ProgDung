@@ -58,6 +58,7 @@ public class MAP_CONST {
 		public int getVal() {
 			return val;
 		}
+		
 	}
 	
 	public static final int MAP_BOX_SIZE = 32;

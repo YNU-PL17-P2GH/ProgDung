@@ -53,7 +53,6 @@ public class MapMoveObject extends MapObject{
 		point_y = MAP_CONST.MAP_BOX_SIZE * by;
 		next_x = box_x;
 		next_y = box_y;
-		myMap.setBoxState(box_x, box_y, MAP_CONST.STATE.BLOCK);
 		direction = direct;
 	}
 
