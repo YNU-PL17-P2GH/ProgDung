@@ -50,11 +50,14 @@ public class MapChip {
 		if(id <= 0){
 			return;
 		}
+		//タイルセットの番号は1から
+		id--;
+		//System.out.println(id);
 		while(id >= (chipX[i] * chipY[i])){
 			id = id - (chipX[i] * chipY[i]);
 			i++;
 		}
-		id--;
+
 		/*System.out.println((x + MAP_CONST.MAP_BOX_SIZE / 2 * (j % 2))+" "+ (y + MAP_CONST.MAP_BOX_SIZE / 2 * (j / 2))+ " " +
 				(x + MAP_CONST.MAP_BOX_SIZE / 2 * (j % 2 + 1)) + " " + (y + MAP_CONST.MAP_BOX_SIZE / 2 * (j / 2 + 1)));*/
 		sinfo.g.drawImage(mapChipImags[i], x, y, x + MAP_CONST.MAP_BOX_SIZE , y + MAP_CONST.MAP_BOX_SIZE ,

@@ -10,24 +10,24 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.DIRECTION;
  *
  */
 public class MapHandlerBase {
-	
+
 	public Object rubyOperator;
-	
+
 	public RpgMap myMap;
-	
+
 	/**
 	 * 引数に読み込むMapのパスを指定してHandler生成.
 	 * @param pMapName
 	 */
 	public MapHandlerBase(String pMapName) {
-		myMap = new RpgMap(this, pMapName, 6, 33, DIRECTION.UP);
+		myMap = new RpgMap(this, pMapName, 12, 10, DIRECTION.UP);
 	}
-	
+
 	public void draw(ShareInfo sinfo) {
 		myMap.update(sinfo);
 		myMap.draw(sinfo);
 	}
-	
+
 	public void moveMap() {
 		// TODO moving
 	}

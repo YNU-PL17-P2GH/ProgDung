@@ -1,4 +1,6 @@
-chipData 3
+chipData 5
 autoMap 38 8
-doorMap 152 32
 mapchipMap 162 46
+objects 32 32
+mapbase2 32 24
+mapbase4 32 32
