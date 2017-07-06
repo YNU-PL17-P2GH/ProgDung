@@ -17,17 +17,17 @@ import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 
 public class DungeonPlay extends Canvas {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 6888570703399298605L;
-	
+
 	private static final int RENDER_TIMER_RATE = 10;
 
 	Canvas mainwindow;
 	BufferStrategy strategy;
 	MapHandlerBase handler;
 	private boolean newKeystate[] = new boolean[8];
-	
+
 	TransitionCallback callback;
 
 	//コンストラクタ
@@ -37,7 +37,7 @@ public class DungeonPlay extends Canvas {
 
 		callback = pCallback;
 	}
-	
+
 	public void init() {
 		mainwindow = this;
 		//ウインドウの設定
@@ -55,7 +55,7 @@ public class DungeonPlay extends Canvas {
 		for(int i = 0; i < 8; i++){
 			newKeystate[i] = false;
 		}
-		handler = new MapHandlerBase("hanoi");
+		handler = new MapHandlerBase("zentai");
 	}
 
 	void start() {

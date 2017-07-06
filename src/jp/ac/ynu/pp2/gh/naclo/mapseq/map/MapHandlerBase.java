@@ -20,7 +20,7 @@ public class MapHandlerBase {
 	 * @param pMapName
 	 */
 	public MapHandlerBase(String pMapName) {
-		myMap = new RpgMap(this, pMapName, 12, 10, DIRECTION.UP);
+		myMap = new RpgMap(this, pMapName, 19, 40, DIRECTION.UP);
 	}
 
 	public void draw(ShareInfo sinfo) {

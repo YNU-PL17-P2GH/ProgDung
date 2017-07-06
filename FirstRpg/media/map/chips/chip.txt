@@ -1,6 +1,9 @@
-chipData 5
+chipData 8
 autoMap 38 8
 mapchipMap 162 46
 objects 32 32
 mapbase2 32 24
 mapbase4 32 32
+chips1 32 32
+chips2 32 32
+chips8 32 32

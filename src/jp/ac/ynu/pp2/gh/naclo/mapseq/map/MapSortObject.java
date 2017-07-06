@@ -27,7 +27,7 @@ public class MapSortObject extends MapProgObject{
 		box_y = by;
 		//objNameに従ってロード
 		try {
-			objImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/sort/sort.png"));
+			objImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/sort1/sort.png"));
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "エラー");
 			System.exit(0);
@@ -134,7 +134,7 @@ public class MapSortObject extends MapProgObject{
 	@Override
 	public void runRuby(Ruby ruby) {
 		ScriptingContainer container = new ScriptingContainer();
-		container.runScriptlet(org.jruby.embed.PathType.RELATIVE, "FirstRpg/media/map/sort/sort.rb");
+		container.runScriptlet(org.jruby.embed.PathType.RELATIVE, "FirstRpg/media/map/sort1/sort.rb");
 		System.out.println("バブルソート");
 		container.callMethod(ruby.getCurrentContext(), "sort", myArrayOperator);
 	}
