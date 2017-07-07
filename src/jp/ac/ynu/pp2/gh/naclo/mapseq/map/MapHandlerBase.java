@@ -17,6 +17,7 @@ public class MapHandlerBase {
 
 	/**
 	 * 引数に読み込むMapのパスを指定してHandler生成.
+	 * TODO 初期位置はMapデータ依存が望ましい.
 	 * @param pMapName
 	 */
 	public MapHandlerBase(String pMapName) {
@@ -28,8 +29,14 @@ public class MapHandlerBase {
 		myMap.draw(sinfo);
 	}
 
-	public void moveMap() {
+	public void moveMap(NextMapBox pBox) {
 		// TODO moving
+		if (pBox == null) {
+			throw new NullPointerException("Move Called but argument is null");
+		}
+		
+		myMap.loadMap(pBox.getNextMapName());
+		myMap.myPlayer.setPosition(pBox.getNext_x(), pBox.getNext_y());
 	}
 
 }

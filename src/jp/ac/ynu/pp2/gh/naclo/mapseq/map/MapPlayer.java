@@ -37,7 +37,7 @@ public class MapPlayer extends MapMoveObject{
 	public void move(ShareInfo sinfo){
 		//System.out.println(box_x + " " + box_y + " " + next_x + " " + next_y);
 		//向き変更
-		if (checkPlayerFoot() == STATE.BLOCK) return;
+		if (getPlayerFoot() == STATE.BLOCK) return;
 		if(!this.isStartMoving()){
 			int dx = 0, dy = 0;
 			if(sinfo.getKeyRepeat(KEY_STATE.RIGHT)){
@@ -262,12 +262,12 @@ public class MapPlayer extends MapMoveObject{
 	@Override
 	public void update(ShareInfo sinfo) {
 		move(sinfo);
-		if (checkPlayerFoot() == STATE.NEXT) {
-			handler.moveMap();
+		if (getPlayerFoot() == STATE.NEXT) {
+			handler.moveMap(getNextBoxOnFoot());
 		}
 	}
 
-	public MAP_CONST.STATE checkPlayerFoot(){
+	public MAP_CONST.STATE getPlayerFoot(){
 		int pX = getBox_x();
 		int pY = getBox_y();
 		
@@ -278,6 +278,21 @@ public class MapPlayer extends MapMoveObject{
 			return myMap.getBox(pX + 1, pY + 1).getState();
 		}
 		return MAP_CONST.STATE.EMPTY;
+	}
+	
+	public NextMapBox getNextBoxOnFoot() {
+		int pX = getBox_x();
+		int pY = getBox_y();
+		
+		MapBox pBox;
+		for (int i = 0; i < 2; i++) {
+			pBox = myMap.getBox(pX + i, pY + 1);
+			if (pBox.getState() == STATE.NEXT) {
+				return (NextMapBox) pBox;
+			}
+		}
+		
+		return null;
 	}
 }
 
