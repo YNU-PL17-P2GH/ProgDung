@@ -31,7 +31,7 @@ public class MapFixedObject extends MapObject{
 				myMap.setObj(box_x + j, box_y + x, this);
 			}
 		}
-		
+
 	}
 
 	@Override
@@ -43,4 +43,10 @@ public class MapFixedObject extends MapObject{
 
 	@Override
 	public void update(ShareInfo sinfo) {}
+
+	@Override
+	public boolean hitCheck(MapObject obj) {
+		// TODO 自動生成されたメソッド・スタブ
+		return false;
+	}
 }

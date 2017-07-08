@@ -24,7 +24,7 @@ public class MapMoveObject extends MapObject{
 
 	public MapMoveObject(MapHandlerBase pHandler,int bx, int by, String objName, MAP_CONST.DIRECTION direct, RpgMap map){
 		super(pHandler);
-		
+
 		myMap = map;
 		box_x = bx;
 		box_y = by;
@@ -70,5 +70,10 @@ public class MapMoveObject extends MapObject{
 
 	@Override
 	public void update(ShareInfo sinfo) {}
+
+	@Override
+	public boolean hitCheck(MapObject obj) {
+		return false;
+	}
 }
 

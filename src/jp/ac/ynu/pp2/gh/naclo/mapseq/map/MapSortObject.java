@@ -195,4 +195,9 @@ public class MapSortObject extends MapProgObject{
 			return array.length;
 		}
 	}
+
+	@Override
+	public boolean hitCheck(MapObject obj) {
+		return false;
+	}
 }

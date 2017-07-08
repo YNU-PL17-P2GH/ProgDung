@@ -14,16 +14,16 @@ public class RpgMap {
 	private MapChip myMapChip;
 	MapPlayer myPlayer;
 	private ArrayList<MapObject> myObj;
-	
+
 	MapHandlerBase handler;
 
 	public RpgMap(MapHandlerBase pHandler, String mapName , int player_x, int player_y, MAP_CONST.DIRECTION player_direct){
 		handler = pHandler;
-		
+
 		loadMap(mapName);
 		myMapChip = new MapChip(mapName);
 		myPlayer = new MapPlayer(handler, player_x,  player_y, "player", player_direct, this);
-		
+
 	}
 
 
@@ -86,6 +86,9 @@ public class RpgMap {
 				}else if(line.indexOf("fixObj") >= 0){	//固定設置物
 					datas = line.split(",", 0);
 					myObj.add(new MapFixedObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), datas[1], this));
+				}else if(line.indexOf("doorObj") >= 0){	//ドア設置
+					datas = line.split(",", 0);
+					myObj.add(new MapDoorObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]),Integer.parseInt(datas[4]), Integer.parseInt(datas[5]), datas[1], this));
 				}else if(line.indexOf("progObj") >= 0){
 					datas = line.split(",", 0);
 					//datas[1]にロードするプログラム
@@ -107,6 +110,11 @@ public class RpgMap {
 		myPlayer.update(sinfo);
 		for(int i = 0; i < myObj.size(); i++){
 			myObj.get(i).update(sinfo);
+		}
+		for(int i = 0; i < myObj.size(); i++){
+			if(handler.hitChecktoObj(myObj.get(i))){
+				myPlayer.moveCancel();
+			}
 		}
 	}
 

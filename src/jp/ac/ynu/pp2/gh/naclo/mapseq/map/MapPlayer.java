@@ -8,6 +8,8 @@ public class MapPlayer extends MapMoveObject{
 
 	public MapPlayer(MapHandlerBase pHandler,int bx, int by, String objName, MAP_CONST.DIRECTION direct, RpgMap map){
 		super(pHandler, bx, by, objName, direct, map);
+		width = 2;
+		height = 2;
 	}
 	@Override
 	public void draw(ShareInfo sinfo, int player_x, int player_y) {
@@ -108,7 +110,7 @@ public class MapPlayer extends MapMoveObject{
 		}else if(next_y - box_y == 1){
 			point_y = point_y + 2;
 		}
-		
+
 		System.out.printf("[POS]%d / %d\n", box_x, box_y);
 
 		// 壁
@@ -207,7 +209,7 @@ public class MapPlayer extends MapMoveObject{
 		next_y = box_y;
 	}
 
-	public void forcedMove(int dx, int dy){	//押し出しなど(スマートな書き方じゃないのでなんかいい方法あるならよろしく)
+	public void forcedMove(int dx, int dy){	//押し出しなど
 		System.err.println("FORCE");
 		/*
 		//元居た部分をENPTYに
@@ -220,7 +222,7 @@ public class MapPlayer extends MapMoveObject{
 		myMap.setBoxState(next_x + 1, next_y, MAP_CONST.STATE.EMPTY);
 		myMap.setBoxState(next_x + 1, next_y + 1, MAP_CONST.STATE.EMPTY);
 		*/
-		
+
 		box_x = box_x + dx;
 		box_y = box_y + dy;
 
@@ -251,10 +253,10 @@ public class MapPlayer extends MapMoveObject{
 
 		if(myMap.getBox(next_x, next_y + 1).getState() !=MAP_CONST.STATE.NEXT)	//押し出しによる移動をさせるため
 			myMap.setBoxState(next_x, next_y + 1, MAP_CONST.STATE.BLOCK);
-		
+
 		if(myMap.getBox(next_x + 1, next_y).getState() !=MAP_CONST.STATE.NEXT)	//押し出しによる移動をさせるため
 			myMap.setBoxState(next_x + 1, next_y, MAP_CONST.STATE.BLOCK);
-		
+
 		if(myMap.getBox(next_x + 1, next_y + 1).getState() !=MAP_CONST.STATE.NEXT)	//押し出しによる移動をさせるため
 			myMap.setBoxState(next_x + 1, next_y + 1, MAP_CONST.STATE.BLOCK);
 		*/
@@ -270,7 +272,7 @@ public class MapPlayer extends MapMoveObject{
 	public MAP_CONST.STATE getPlayerFoot(){
 		int pX = getBox_x();
 		int pY = getBox_y();
-		
+
 		if(myMap.getBox(pX, pY + 1).getState() != MAP_CONST.STATE.EMPTY){
 			return myMap.getBox(pX, pY + 1).getState();
 		}
@@ -279,11 +281,11 @@ public class MapPlayer extends MapMoveObject{
 		}
 		return MAP_CONST.STATE.EMPTY;
 	}
-	
+
 	public NextMapBox getNextBoxOnFoot() {
 		int pX = getBox_x();
 		int pY = getBox_y();
-		
+
 		MapBox pBox;
 		for (int i = 0; i < 2; i++) {
 			pBox = myMap.getBox(pX + i, pY + 1);
@@ -291,8 +293,27 @@ public class MapPlayer extends MapMoveObject{
 				return (NextMapBox) pBox;
 			}
 		}
-		
+
 		return null;
 	}
+
+	public void moveCancel() {
+		point_x = MAP_CONST.MAP_BOX_SIZE * box_x;
+		point_y = MAP_CONST.MAP_BOX_SIZE * box_y;
+		next_x = box_x;
+		next_y = box_y;
+	}
+
+	@Override
+	public boolean hitCheck(MapObject obj) {
+		//足元の移動先で判定
+		if(this.next_x  < (obj.box_x + obj.width) && (this.next_x + 1 ) > obj.box_x){
+				if(this.next_y + 1 < (obj.box_y + obj.height) && (this.next_y + 1) > obj.box_y){
+				return !obj.getCanPass();
+			}
+		}
+		return false;
+	}
+
 }
 

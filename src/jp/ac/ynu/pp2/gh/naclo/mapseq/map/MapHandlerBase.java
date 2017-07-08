@@ -34,9 +34,15 @@ public class MapHandlerBase {
 		if (pBox == null) {
 			throw new NullPointerException("Move Called but argument is null");
 		}
-		
+
 		myMap.loadMap(pBox.getNextMapName());
 		myMap.myPlayer.setPosition(pBox.getNext_x(), pBox.getNext_y());
 	}
 
+	public boolean hitChecktoPlayer(MapObject obj){
+		return obj.hitCheck(myMap.myPlayer);
+	}
+	public boolean hitChecktoObj(MapObject obj){
+		return myMap.myPlayer.hitCheck(obj);
+	}
 }

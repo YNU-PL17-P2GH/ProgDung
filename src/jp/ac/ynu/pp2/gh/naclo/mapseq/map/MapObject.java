@@ -4,10 +4,12 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 
 public abstract class MapObject {
 	protected int box_x, box_y;
+	protected int width, height;				//オブジェクトの大きさ(タイルの枚数)
 	protected RpgMap myMap;
 	protected MapHandlerBase handler;
 	protected boolean drawFlag = false;
-	
+	protected boolean canPass = false;
+
 	public MapObject(MapHandlerBase pHandler) {
 		handler = pHandler;
 	}
@@ -27,8 +29,14 @@ public abstract class MapObject {
 	public boolean getdrawFlag(){
 		return drawFlag;
 	}
-	
+
 	public RpgMap getMap() {
 		return myMap;
 	}
+
+	public boolean getCanPass() {
+		return canPass;
+	}
+
+	public abstract boolean hitCheck(MapObject obj);
 }
