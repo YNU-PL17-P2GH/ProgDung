@@ -65,13 +65,13 @@ public class MapDoorObject extends MapObject{
 					imgNumNow--;
 				}
 			}
-			
+
 			if(imgNumNow == (imgNum - 1)){
 				canPass = true;
 			}else{
 				canPass = false;
 			}
-			
+
 			animeCount++;
 		}
 		drawFlag = false;

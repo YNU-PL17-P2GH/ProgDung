@@ -89,8 +89,8 @@ public class MapSortObject extends MapProgObject{
 				}else if(showArray[indexA] < b){
 					//穴の状態は書き換えない
 					if(myMap.getBox(box_x - showArray[indexA], box_y + indexA * 2).getState() != MAP_CONST.STATE.NEXT){
-						if(myMap.getBox(box_x - showArray[indexA], box_y + indexA * 2).getState() == MAP_CONST.STATE.BLOCK
-								|| myMap.getBox(box_x - showArray[indexA], box_y + indexA * 2 + 1).getState() == MAP_CONST.STATE.BLOCK){
+						hitIndex = indexA;
+						while(handler.hitChecktoPlayer(this)){
 							myMap.getMyPlayer().forcedMove(-1, 0);
 						}
 						myMap.setBoxState(box_x - showArray[indexA], box_y + indexA * 2, MAP_CONST.STATE.BLOCK);
@@ -109,8 +109,8 @@ public class MapSortObject extends MapProgObject{
 					//穴の状態は書き換えない
 					if(myMap.getBox(box_x - showArray[indexB], box_y + indexB * 2).getState() != MAP_CONST.STATE.NEXT){
 						//プレイヤーが存在するときそのマスはMAP_CONST.STATE.BLOCK
-						if(myMap.getBox(box_x - showArray[indexB], box_y + indexB * 2).getState() == MAP_CONST.STATE.BLOCK
-								|| myMap.getBox(box_x - showArray[indexB], box_y + indexB * 2 + 1).getState() == MAP_CONST.STATE.BLOCK){
+						hitIndex = indexB;
+						while(handler.hitChecktoPlayer(this)){
 							myMap.getMyPlayer().forcedMove(-1, 0);
 						}
 						myMap.setBoxState(box_x - showArray[indexB], box_y + indexB * 2, MAP_CONST.STATE.BLOCK);
@@ -195,9 +195,17 @@ public class MapSortObject extends MapProgObject{
 			return array.length;
 		}
 	}
-
+	int hitIndex = -1;
 	@Override
 	public boolean hitCheck(MapObject obj) {
+		//足元で判定
+		//一つ増えたときの判定が必要である
+		if(this.box_x - showArray[hitIndex] - 1  < (obj.box_x + 1) && (this.box_x) > obj.box_x){
+			if((this.box_y + hitIndex * 2) < (obj.box_y + 2) && (this.box_y + 2 + hitIndex * 2) > (obj.box_y + 1)){
+				return !obj.getCanPass();
+			}
+		}
+
 		return false;
 	}
 }

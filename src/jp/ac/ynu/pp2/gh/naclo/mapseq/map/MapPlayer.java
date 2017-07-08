@@ -39,6 +39,12 @@ public class MapPlayer extends MapMoveObject{
 	public void move(ShareInfo sinfo){
 		//System.out.println(box_x + " " + box_y + " " + next_x + " " + next_y);
 		//向き変更
+		if(Math.abs((double)point_x / (double)MAP_CONST.MAP_BOX_SIZE  - (double)box_x) > 1.0
+				|| Math.abs((double)point_y/ (double)MAP_CONST.MAP_BOX_SIZE  - (double)box_y) > 1.0){	//原因不明位置ずれ補正
+			point_x = box_x * MAP_CONST.MAP_BOX_SIZE;
+			point_y = box_y * MAP_CONST.MAP_BOX_SIZE;
+		}
+		
 		if (getPlayerFoot() == STATE.BLOCK) return;
 		if(!this.isStartMoving()){
 			int dx = 0, dy = 0;
@@ -111,10 +117,10 @@ public class MapPlayer extends MapMoveObject{
 			point_y = point_y + 2;
 		}
 
-		System.out.printf("[POS]%d / %d\n", box_x, box_y);
+		System.out.printf("[POS]%d / %d %d / %d\n", box_x, box_y, point_x,point_y);
 
 		// 壁
-//		if(!this.isJustPlacedOnBox()){
+		if(!this.isStartMoving()){
 			if(direction == MAP_CONST.DIRECTION.RIGHT){
 				if(myMap.getBox(box_x + 2, box_y + 1).getState() == MAP_CONST.STATE.BLOCK){
 					System.err.println("RIGHT BLOCK");
@@ -138,7 +144,7 @@ public class MapPlayer extends MapMoveObject{
 					return;
 				}
 			}
-//		}
+		}
 
 		//マスの境に達したときにマスの位置更新
 		if(!this.isStartMoving()){
@@ -241,8 +247,17 @@ public class MapPlayer extends MapMoveObject{
 			myMap.setBoxState(box_x + 1, box_y + 1, MAP_CONST.STATE.BLOCK);
 		*/
 
-		point_x = point_x + MAP_CONST.MAP_BOX_SIZE * dx;
-		point_y = point_y + MAP_CONST.MAP_BOX_SIZE * dy;
+		if(dx != 0){	//強制移動があったらマスに座標を合わせる
+			point_x = MAP_CONST.MAP_BOX_SIZE * box_x;
+		}else{
+			point_x = point_x + MAP_CONST.MAP_BOX_SIZE * dx;
+		}
+		if(dy != 0){	//強制移動があったらマスに座標を合わせる
+			point_y = MAP_CONST.MAP_BOX_SIZE * box_y;
+		}else{
+			point_y = point_y + MAP_CONST.MAP_BOX_SIZE * dy;
+		}
+
 
 		next_x = box_x;
 		next_y = box_y;
@@ -308,7 +323,7 @@ public class MapPlayer extends MapMoveObject{
 	public boolean hitCheck(MapObject obj) {
 		//足元の移動先で判定
 		if(this.next_x  < (obj.box_x + obj.width) && (this.next_x + 1 ) > obj.box_x){
-				if(this.next_y + 1 < (obj.box_y + obj.height) && (this.next_y + 1) > obj.box_y){
+				if(this.next_y + 1 < (obj.box_y + obj.height) && (this.next_y + 2) > obj.box_y){
 				return !obj.getCanPass();
 			}
 		}
