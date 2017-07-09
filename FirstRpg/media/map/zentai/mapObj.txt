@@ -10,3 +10,7 @@ nextMap,knight2,5,14,4,83,52,83,53,83,54,83,55
 nextMap,meiro,6,33,4,97,42,98,42,99,42,100,42
 nextMap,shortest,6,33,4,108,9,109,9,108,10,109,10
 doorObj,silver,26,28,4,4
+doorObj,silver,60,28,4,4
+doorObj,silverL,51,55,1,4
+doorObj,silverL,83,52,1,4
+doorObj,silverR,75,67,1,4

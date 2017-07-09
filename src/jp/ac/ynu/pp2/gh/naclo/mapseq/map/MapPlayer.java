@@ -322,7 +322,7 @@ public class MapPlayer extends MapMoveObject{
 	@Override
 	public boolean hitCheck(MapObject obj) {
 		//足元の移動先で判定
-		if(this.next_x  < (obj.box_x + obj.width) && (this.next_x + 1 ) > obj.box_x){
+		if(this.next_x  < (obj.box_x + obj.width) && (this.next_x + this.width ) > obj.box_x){
 				if(this.next_y + 1 < (obj.box_y + obj.height) && (this.next_y + 2) > obj.box_y){
 				return !obj.getCanPass();
 			}
