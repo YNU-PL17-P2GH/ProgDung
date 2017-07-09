@@ -44,7 +44,7 @@ public class MapPlayer extends MapMoveObject{
 			point_x = box_x * MAP_CONST.MAP_BOX_SIZE;
 			point_y = box_y * MAP_CONST.MAP_BOX_SIZE;
 		}
-		
+
 		if (getPlayerFoot() == STATE.BLOCK) return;
 		if(!this.isStartMoving()){
 			int dx = 0, dy = 0;
