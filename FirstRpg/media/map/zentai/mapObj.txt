@@ -14,3 +14,8 @@ doorObj,silver,60,28,4,4
 doorObj,silverL,51,55,1,4
 doorObj,silverL,83,52,1,4
 doorObj,silverR,75,67,1,4
+doorObj,silverL,51,73,1,4
+doorObj,silverR,23,73,1,4
+doorObj,silverB,65,11,4,1
+doorObj,silverB,97,42,4,1
+doorObj,silverH,108,7,2,4
