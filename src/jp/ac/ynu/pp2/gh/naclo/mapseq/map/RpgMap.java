@@ -80,8 +80,12 @@ public class RpgMap {
 					int x = Integer.parseInt(datas[2]);
 					int y = Integer.parseInt(datas[3]);
 					System.out.println();
+					MAP_CONST.DIRECTION d = null;
+					if(datas.length > (5 + boxNum * 2)){
+						d = MAP_CONST.DIRECTION.getValue(Integer.parseInt(datas[5 + boxNum * 2]));
+					}
 					for(int i = 0; i < boxNum; i++){
-						((NextMapBox)boxs[Integer.parseInt(datas[6 + i * 2])][Integer.parseInt(datas[5 + i * 2])]).setNextMap(datas[1], x, y);
+						((NextMapBox)boxs[Integer.parseInt(datas[6 + i * 2])][Integer.parseInt(datas[5 + i * 2])]).setNextMap(datas[1], x, y, d);
 					}
 				}else if(line.indexOf("fixObj") >= 0){	//固定設置物
 					datas = line.split(",", 0);

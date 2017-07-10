@@ -37,6 +37,11 @@ public class MapHandlerBase {
 
 		myMap.loadMap(pBox.getNextMapName());
 		myMap.myPlayer.setPosition(pBox.getNext_x(), pBox.getNext_y());
+		MAP_CONST.DIRECTION d = pBox.getNext_d();
+		//もし移動先の自キャラの向きが指定されているなら
+		if(d != null){
+			myMap.myPlayer.setDirection(d);
+		}
 	}
 
 	public boolean hitChecktoPlayer(MapObject obj){

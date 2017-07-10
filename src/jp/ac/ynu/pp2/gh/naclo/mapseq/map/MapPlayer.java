@@ -329,6 +329,9 @@ public class MapPlayer extends MapMoveObject{
 		}
 		return false;
 	}
+	public void setDirection(MAP_CONST.DIRECTION d) {
+		direction = d;
+	}
 
 }
 

@@ -9,4 +9,4 @@ chips2 32 32
 chips8 32 32
 chips12 32 32
 chips6 32 32
-chips11 32 32
+chips11 32 24

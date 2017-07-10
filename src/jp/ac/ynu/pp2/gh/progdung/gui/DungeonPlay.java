@@ -55,7 +55,7 @@ public class DungeonPlay extends Canvas {
 		for(int i = 0; i < 8; i++){
 			newKeystate[i] = false;
 		}
-		handler = new MapHandlerBase("zentai");
+		handler = new MapHandlerBase("roby");
 	}
 
 	void start() {
