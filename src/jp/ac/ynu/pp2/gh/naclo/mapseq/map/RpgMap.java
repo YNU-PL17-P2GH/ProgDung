@@ -12,9 +12,6 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 public class RpgMap {
 	MapBox boxs[][];
 	private MapChip myMapChip;
-	MapPlayer myPlayer;
-	private ArrayList<MapObject> myObj;
-
 	MapHandlerBase handler;
 
 	public RpgMap(MapHandlerBase pHandler, String mapName , int player_x, int player_y, MAP_CONST.DIRECTION player_direct){
@@ -22,8 +19,6 @@ public class RpgMap {
 
 		loadMap(mapName);
 		myMapChip = new MapChip(mapName);
-		myPlayer = new MapPlayer(handler, player_x,  player_y, "player", player_direct, this);
-
 	}
 
 
@@ -72,7 +67,7 @@ public class RpgMap {
 			ibr.close();
 			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/" + mapName + "/mapObj.txt").openStream()));
 			line = ibr.readLine();
-			myObj = new ArrayList<MapObject>();
+
 			while(line != null){
 				if(line.indexOf("nextMap") >= 0){	//マップ移動マスのデータをセット
 					datas = line.split(",", 0);
@@ -89,14 +84,14 @@ public class RpgMap {
 					}
 				}else if(line.indexOf("fixObj") >= 0){	//固定設置物
 					datas = line.split(",", 0);
-					myObj.add(new MapFixedObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), datas[1], this));
+					handler.theObj.add(new MapFixedObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), datas[1], this));
 				}else if(line.indexOf("doorObj") >= 0){	//ドア設置
 					datas = line.split(",", 0);
-					myObj.add(new MapDoorObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]),Integer.parseInt(datas[4]), Integer.parseInt(datas[5]), datas[1], this));
+					handler.theObj.add(new MapDoorObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]),Integer.parseInt(datas[4]), Integer.parseInt(datas[5]), datas[1], this));
 				}else if(line.indexOf("progObj") >= 0){
 					datas = line.split(",", 0);
 					//datas[1]にロードするプログラム
-					myObj.add(new MapSortObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), "sort", this));	//今はソートしかないので
+					handler.theObj.add(new MapSortObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), "sort", this));	//今はソートしかないので
 				}
 				line = ibr.readLine();
 			}
@@ -111,13 +106,13 @@ public class RpgMap {
 
 
 	public void update(ShareInfo sinfo){	//マップ更新
-		myPlayer.update(sinfo);
-		for(int i = 0; i < myObj.size(); i++){
-			myObj.get(i).update(sinfo);
+		handler.thePlayer.update(sinfo);
+		for(int i = 0; i < handler.theObj.size(); i++){
+			handler.theObj.get(i).update(sinfo);
 		}
-		for(int i = 0; i < myObj.size(); i++){
-			if(handler.hitChecktoObj(myObj.get(i))){
-				myPlayer.moveCancel();
+		for(int i = 0; i < handler.theObj.size(); i++){
+			if(handler.hitChecktoObj(handler.theObj.get(i))){
+				handler.thePlayer.moveCancel();
 			}
 		}
 	}
@@ -125,29 +120,29 @@ public class RpgMap {
 	public void draw(ShareInfo sinfo){		//マップ描画
 		int x, y;			//右上端座標
 		int dx = 0, dy = 0;			//自キャラ位置によるズレ
-		x = myPlayer.box_x - 10;
-		y = myPlayer.box_y - 10;
+		x = handler.thePlayer.box_x - 10;
+		y = handler.thePlayer.box_y - 10;
 		int playerX = 0, playerY = 0;
 		//マップの描画座標の計算
-		if(myPlayer.point_x <= MAP_CONST.MAP_BOX_SIZE * 10){	//マップ左端が画面内
+		if(handler.thePlayer.point_x <= MAP_CONST.MAP_BOX_SIZE * 10){	//マップ左端が画面内
 			x = 0;
 			playerX = -1;
-		}else if(myPlayer.point_x >= MAP_CONST.MAP_BOX_SIZE *(boxs[0].length - 12)){	//マップ右端が画面内
+		}else if(handler.thePlayer.point_x >= MAP_CONST.MAP_BOX_SIZE *(boxs[0].length - 12)){	//マップ右端が画面内
 			x = (boxs[0].length - 22);
 			playerX = x * MAP_CONST.MAP_BOX_SIZE;
 		}else{
-			dx = myPlayer.point_x - myPlayer.box_x * MAP_CONST.MAP_BOX_SIZE;
-			playerX = myPlayer.point_x;
+			dx = handler.thePlayer.point_x - handler.thePlayer.box_x * MAP_CONST.MAP_BOX_SIZE;
+			playerX = handler.thePlayer.point_x;
 		}
-		if(myPlayer.point_y <= MAP_CONST.MAP_BOX_SIZE * 10){	//マップ上端が画面内
+		if(handler.thePlayer.point_y <= MAP_CONST.MAP_BOX_SIZE * 10){	//マップ上端が画面内
 			y = 0;
 			playerY = -1;
-		}else if(myPlayer.point_y >= MAP_CONST.MAP_BOX_SIZE *(boxs.length - 12)){	//マップ下端が画面内
+		}else if(handler.thePlayer.point_y >= MAP_CONST.MAP_BOX_SIZE *(boxs.length - 12)){	//マップ下端が画面内
 			y = (boxs.length - 22);
 			playerY = y * MAP_CONST.MAP_BOX_SIZE;
 		}else{
-			dy = myPlayer.point_y - myPlayer.box_y * MAP_CONST.MAP_BOX_SIZE;
-			playerY = myPlayer.point_y;
+			dy = handler.thePlayer.point_y - handler.thePlayer.box_y * MAP_CONST.MAP_BOX_SIZE;
+			playerY = handler.thePlayer.point_y;
 		}
 
 		//背景描画(タイル)
@@ -173,7 +168,7 @@ public class RpgMap {
 		}
 
 		//プレイヤー描画
-		myPlayer.draw(sinfo, playerX , playerY);
+		handler.thePlayer.draw(sinfo, playerX , playerY);
 	}
 
 	public MapBox getBox(int x, int y){
@@ -189,6 +184,6 @@ public class RpgMap {
 	}
 
 	public MapPlayer getMyPlayer() {
-		return myPlayer;
+		return handler.thePlayer;
 	}
 }

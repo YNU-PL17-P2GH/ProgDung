@@ -1,5 +1,7 @@
 package jp.ac.ynu.pp2.gh.naclo.mapseq.map;
 
+import java.util.ArrayList;
+
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.DIRECTION;
 
@@ -13,7 +15,11 @@ public class MapHandlerBase {
 
 	public Object rubyOperator;
 
-	public RpgMap myMap;
+	public RpgMap theMap;
+
+	MapPlayer thePlayer;
+
+	ArrayList<MapObject> theObj;
 
 	/**
 	 * 引数に読み込むMapのパスを指定してHandler生成.
@@ -21,12 +27,15 @@ public class MapHandlerBase {
 	 * @param pMapName
 	 */
 	public MapHandlerBase(String pMapName) {
-		myMap = new RpgMap(this, pMapName, 19, 40, DIRECTION.UP);
+		theObj = new ArrayList<MapObject>();
+
+		theMap = new RpgMap(this, pMapName, 19, 40, DIRECTION.UP);
+		thePlayer = new MapPlayer(this, 19, 40, "player", DIRECTION.UP, theMap);
 	}
 
 	public void draw(ShareInfo sinfo) {
-		myMap.update(sinfo);
-		myMap.draw(sinfo);
+		theMap.update(sinfo);
+		theMap.draw(sinfo);
 	}
 
 	public void moveMap(NextMapBox pBox) {
@@ -35,19 +44,19 @@ public class MapHandlerBase {
 			throw new NullPointerException("Move Called but argument is null");
 		}
 
-		myMap.loadMap(pBox.getNextMapName());
-		myMap.myPlayer.setPosition(pBox.getNext_x(), pBox.getNext_y());
+		theMap.loadMap(pBox.getNextMapName());
+		thePlayer.setPosition(pBox.getNext_x(), pBox.getNext_y());
 		MAP_CONST.DIRECTION d = pBox.getNext_d();
 		//もし移動先の自キャラの向きが指定されているなら
 		if(d != null){
-			myMap.myPlayer.setDirection(d);
+			thePlayer.setDirection(d);
 		}
 	}
 
 	public boolean hitChecktoPlayer(MapObject obj){
-		return obj.hitCheck(myMap.myPlayer);
+		return obj.hitCheck(thePlayer);
 	}
 	public boolean hitChecktoObj(MapObject obj){
-		return myMap.myPlayer.hitCheck(obj);
+		return thePlayer.hitCheck(obj);
 	}
 }
