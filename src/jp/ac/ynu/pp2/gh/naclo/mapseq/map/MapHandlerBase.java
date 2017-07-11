@@ -43,9 +43,11 @@ public class MapHandlerBase {
 		if (pBox == null) {
 			throw new NullPointerException("Move Called but argument is null");
 		}
-
+		
+		theObj.clear();
 		theMap.loadMap(pBox.getNextMapName());
 		thePlayer.setPosition(pBox.getNext_x(), pBox.getNext_y());
+		
 		MAP_CONST.DIRECTION d = pBox.getNext_d();
 		//もし移動先の自キャラの向きが指定されているなら
 		if(d != null){

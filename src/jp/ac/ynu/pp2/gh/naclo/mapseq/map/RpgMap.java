@@ -109,11 +109,7 @@ public class RpgMap {
 		handler.thePlayer.update(sinfo);
 		for(int i = 0; i < handler.theObj.size(); i++){
 			handler.theObj.get(i).update(sinfo);
-		}
-		for(int i = 0; i < handler.theObj.size(); i++){
-			if(handler.hitChecktoObj(handler.theObj.get(i))){
-				handler.thePlayer.moveCancel();
-			}
+			//System.out.println(handler.theObj.get(i).getCanPass());
 		}
 	}
 
