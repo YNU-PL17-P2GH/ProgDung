@@ -13,7 +13,6 @@ public class SaveData implements Serializable {
 	
 	private String userName;
 	private String nickName;
-	private String progressStage;
 
 	private Map<String, String> flags;
 	

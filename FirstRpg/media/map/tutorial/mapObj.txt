@@ -1,2 +1,4 @@
 doorObj,silver,7,4,4,4
 nextMap,Lobby,13,34,8,7,6,8,6,9,6,10,6,7,7,8,7,9,7,10,7,2
+fixObj,tori,15,38
+fixObj,tori,35,17
