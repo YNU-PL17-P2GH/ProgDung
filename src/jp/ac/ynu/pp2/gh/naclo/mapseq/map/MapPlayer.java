@@ -146,8 +146,9 @@ public class MapPlayer extends MapMoveObject{
 			}
 		}
 		//theObjとの当たり判定
-		for(int i = 0; i < handler.theObj.size(); i++){
-			if(handler.hitChecktoObj(handler.theObj.get(i))){
+		for(MapObject tObj : handler.theObj){
+			if(handler.hitChecktoObj(tObj)){
+				handler.onPlayerHitTo(tObj);
 				moveCancel();
 			}
 		}

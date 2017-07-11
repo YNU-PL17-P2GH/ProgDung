@@ -10,6 +10,7 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 	 * 
 	 */
 	private static final long serialVersionUID = 3568697032148655175L;
+	private DungeonPanel lDungeonPanel;
 
 	public ProgDungMain() {
 		super("Programme Dungeona");
@@ -19,7 +20,7 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 		
 		setVisible(true);
 
-		DungeonPanel lDungeonPanel = new DungeonPanel(this);
+		lDungeonPanel = new DungeonPanel(this);
 		add(lDungeonPanel);
 		validate();
 		lDungeonPanel.init();
@@ -69,6 +70,11 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 	@Override
 	public JFrame getMainFrame() {
 		return this;
+	}
+
+	@Override
+	public void showHint(String string) {
+		lDungeonPanel.showHint(string);
 	}
 	
 	

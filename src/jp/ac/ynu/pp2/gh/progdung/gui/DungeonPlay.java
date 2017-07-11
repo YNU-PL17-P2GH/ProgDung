@@ -62,6 +62,10 @@ public class DungeonPlay extends Canvas {
 		handler = new Lobby(19, 40, DIRECTION.UP, this);
 	}
 	
+	public void showHint(String pString) {
+		callback.showHint(pString);
+	}
+	
 	public final void moveMap(String name, int pX, int pY, DIRECTION pD) {
 		try {
 			Constructor<MapHandlerBase> cnst = (Constructor<MapHandlerBase>) Class.forName(name)

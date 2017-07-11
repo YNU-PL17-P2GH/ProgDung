@@ -68,4 +68,12 @@ public abstract class MapHandlerBase {
 	public boolean hitChecktoObj(MapObject obj){
 		return thePlayer.hitCheck(obj);
 	}
+	
+	protected void showHint(String pString) {
+		callback.showHint(pString);
+	}
+	
+	public abstract void playerUpdate();
+	
+	public abstract void onPlayerHitTo(MapObject object);
 }

@@ -20,5 +20,7 @@ public interface TransitionCallback {
 	void showDungeon(int selectedStage);
 	
 	JFrame getMainFrame();
+	
+	void showHint(String string);
 
 }
