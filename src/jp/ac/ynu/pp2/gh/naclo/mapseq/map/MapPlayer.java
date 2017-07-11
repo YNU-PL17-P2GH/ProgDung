@@ -285,6 +285,7 @@ public class MapPlayer extends MapMoveObject{
 	}
 	@Override
 	public void update(ShareInfo sinfo) {
+		handler.playerUpdate();
 		move(sinfo);
 		if (getPlayerFoot() == STATE.NEXT) {
 			handler.moveMap(getNextBoxOnFoot());
