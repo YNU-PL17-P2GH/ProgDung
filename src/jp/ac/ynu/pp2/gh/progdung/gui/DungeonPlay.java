@@ -7,12 +7,16 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.KEY_STATE;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.DIRECTION;
+import jp.ac.ynu.pp2.gh.progdung.map.handlers.Lobby;
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 
 public class DungeonPlay extends Canvas {
@@ -55,7 +59,25 @@ public class DungeonPlay extends Canvas {
 		for(int i = 0; i < 8; i++){
 			newKeystate[i] = false;
 		}
-		handler = new MapHandlerBase("roby");
+		handler = new Lobby(19, 40, DIRECTION.UP, this);
+	}
+	
+	public final void moveMap(String name, int pX, int pY, DIRECTION pD) {
+		try {
+			Constructor<MapHandlerBase> cnst = (Constructor<MapHandlerBase>) Class.forName(name)
+					.getConstructor(int.class, int.class, DIRECTION.class, DungeonPlay.class);
+			try {
+				handler = cnst.newInstance(pX, pY, pD, this);
+			} catch (InstantiationException | IllegalAccessException
+					| IllegalArgumentException | InvocationTargetException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
+		} catch (NoSuchMethodException | SecurityException
+				| ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 	}
 
 	void start() {

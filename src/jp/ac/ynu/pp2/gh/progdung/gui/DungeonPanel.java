@@ -1,13 +1,11 @@
 package jp.ac.ynu.pp2.gh.progdung.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import javafx.scene.layout.Border;
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 
 public class DungeonPanel extends JPanel {
@@ -23,7 +21,7 @@ public class DungeonPanel extends JPanel {
 	
 	public DungeonPanel(TransitionCallback pCallback) {
 		super();
-		
+
 		callback = pCallback;
 		setLayout(new BorderLayout());
 		

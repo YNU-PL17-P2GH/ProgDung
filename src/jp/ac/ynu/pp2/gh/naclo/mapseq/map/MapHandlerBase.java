@@ -4,53 +4,62 @@ import java.util.ArrayList;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.DIRECTION;
+import jp.ac.ynu.pp2.gh.progdung.gui.DungeonPlay;
 
 /**
  * マップ移動に関するすべての処理はここを通すようにする.
  * Rubyソースなんかもここに保持して,オブジェクトもここを介する.
+ * 基本的にマップごとにHandlerを作ることになる,
+ * その場合コンストラクタとしてint, int, DIRECTION, DungeonPlayを持たせること.
  * @author b1564304
  *
  */
-public class MapHandlerBase {
+public abstract class MapHandlerBase {
 
 	public Object rubyOperator;
 
-	public RpgMap theMap;
+	protected RpgMap theMap;
 
-	MapPlayer thePlayer;
+	protected MapPlayer thePlayer;
 
-	ArrayList<MapObject> theObj;
+	protected ArrayList<MapObject> theObj;
+	
+	DungeonPlay callback;
 
 	/**
 	 * 引数に読み込むMapのパスを指定してHandler生成.
 	 * TODO 初期位置はMapデータ依存が望ましい.
 	 * @param pMapName
 	 */
-	public MapHandlerBase(String pMapName) {
+	protected MapHandlerBase(String pMapName, int player_x, int player_y, DIRECTION player_d, DungeonPlay playCallback) {
+		callback = playCallback;
 		theObj = new ArrayList<MapObject>();
 
-		theMap = new RpgMap(this, pMapName, 19, 40, DIRECTION.UP);
-		thePlayer = new MapPlayer(this, 19, 40, "player", DIRECTION.UP, theMap);
+		theMap = new RpgMap(this, pMapName, player_x, player_y, player_d);
+		thePlayer = new MapPlayer(this, player_x, player_y, "player", player_d, theMap);
 	}
-
+	
 	public void draw(ShareInfo sinfo) {
 		theMap.update(sinfo);
 		theMap.draw(sinfo);
 	}
 
-	public void moveMap(NextMapBox pBox) {
+	public final void moveMap(NextMapBox pBox) {
 		// TODO moving
 		if (pBox == null) {
 			throw new NullPointerException("Move Called but argument is null");
 		}
 
-		theMap.loadMap(pBox.getNextMapName());
-		thePlayer.setPosition(pBox.getNext_x(), pBox.getNext_y());
-		MAP_CONST.DIRECTION d = pBox.getNext_d();
-		//もし移動先の自キャラの向きが指定されているなら
-		if(d != null){
-			thePlayer.setDirection(d);
+		String lClassName = "jp.ac.ynu.pp2.gh.progdung.map.handlers.".concat(pBox.getNextMapName());
+		int lX = pBox.getNext_x();
+		int lY = pBox.getNext_y();
+		DIRECTION lD = pBox.getNext_d();
+		if(lD == null){
+			lD = DIRECTION.UP;
 		}
+
+		callback.moveMap(lClassName, lX, lY, lD);
+		
 	}
 
 	public boolean hitChecktoPlayer(MapObject obj){
