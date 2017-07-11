@@ -23,7 +23,7 @@ public class MapMoveObject extends MapObject{
 
 
 	public MapMoveObject(MapHandlerBase pHandler,int bx, int by, String objName, MAP_CONST.DIRECTION direct, RpgMap map){
-		super(pHandler);
+		super(pHandler, objName);
 
 		myMap = map;
 		box_x = bx;

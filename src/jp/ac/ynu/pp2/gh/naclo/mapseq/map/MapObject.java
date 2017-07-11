@@ -9,8 +9,10 @@ public abstract class MapObject {
 	protected MapHandlerBase handler;
 	protected boolean drawFlag = false;
 	protected boolean canPass = false;
+	protected String objName;
 
-	public MapObject(MapHandlerBase pHandler) {
+	public MapObject(MapHandlerBase pHandler, String pObjName) {
+		objName = pObjName;
 		handler = pHandler;
 	}
 
@@ -36,6 +38,10 @@ public abstract class MapObject {
 
 	public boolean getCanPass() {
 		return canPass;
+	}
+	
+	public String getObjName() {
+		return objName;
 	}
 
 	public abstract boolean hitCheck(MapObject obj);
