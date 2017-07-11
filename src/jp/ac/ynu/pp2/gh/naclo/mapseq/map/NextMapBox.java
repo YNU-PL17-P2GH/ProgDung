@@ -5,8 +5,8 @@ public class NextMapBox extends MapBox{
 	private int next_x, next_y;
 	private MAP_CONST.DIRECTION next_d;
 	private String nextMapName;
-	public NextMapBox(MAP_CONST.STATE state) {
-		super(state);
+	public NextMapBox(MAP_CONST.STATE state, int pLayerNum) {
+		super(state, pLayerNum);
 	}
 
 	public void setNextMap(String name, int x,int y, MAP_CONST.DIRECTION d){

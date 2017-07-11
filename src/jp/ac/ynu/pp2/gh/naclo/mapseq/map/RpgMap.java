@@ -33,7 +33,7 @@ public class RpgMap {
 			boxs = new MapBox[Integer.parseInt(datas[0])][Integer.parseInt(datas[1])];
 			//レイヤー数設定
 			int layer = Integer.parseInt(datas[2]);
-			MapBox.setLayerNum(layer);
+//			MapBox.setLayerNum(layer);
 
 			//マップの初期STATE設定
 			for(int i = 0; i < boxs.length; i++){
@@ -43,9 +43,9 @@ public class RpgMap {
 				for(int j = 0; j < boxs[i].length; j++){
 					state = MAP_CONST.STATE.getValue(Integer.parseInt(datas[j]));
 					if(state == MAP_CONST.STATE.NEXT){		//マップ移動マスは特殊(移動先のマップ情報が必要だから)
-						boxs[i][j] = new NextMapBox(state);
+						boxs[i][j] = new NextMapBox(state, layer);
 					}else{
-						boxs[i][j] = new MapBox(state);
+						boxs[i][j] = new MapBox(state, layer);
 					}
 				}
 			}
