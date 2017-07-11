@@ -145,7 +145,14 @@ public class MapPlayer extends MapMoveObject{
 				}
 			}
 		}
-
+		//theObjとの当たり判定
+		for(int i = 0; i < handler.theObj.size(); i++){
+			if(handler.hitChecktoObj(handler.theObj.get(i))){
+				moveCancel();
+			}
+		}
+		
+	
 		//マスの境に達したときにマスの位置更新
 		if(!this.isStartMoving()){
 			if(direction == MAP_CONST.DIRECTION.RIGHT){
