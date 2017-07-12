@@ -289,6 +289,20 @@ public class MapPlayer extends MapMoveObject{
 	@Override
 	public void update(ShareInfo sinfo) {
 		handler.playerUpdate();
+		
+		// Press Z
+		if (!isStartMoving() && sinfo.getKeyRelease(KEY_STATE.Z)) {
+			for (MapObject tObject: handler.theObj) {
+				int bx = next_x; int by = next_y;
+				next_x += -direction.getVal() + 1;
+				next_y += direction.getVal() - 2;
+				if (handler.hitChecktoObj(tObject)) {
+					handler.onPlayerInteract(tObject);
+				}
+				next_x = bx; next_y = by;
+			}
+		}
+		
 		move(sinfo);
 		if (getPlayerFoot() == STATE.NEXT) {
 			handler.moveMap(getNextBoxOnFoot());

@@ -3,6 +3,7 @@ package jp.ac.ynu.pp2.gh.progdung.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -37,6 +38,7 @@ public class DungeonPanel extends JLayeredPane {
 		hintPanel.setBackground(Color.blue);
 		hintLabel = new JLabel();
 		hintLabel.setForeground(Color.white);
+		hintLabel.setFont(new Font("sans", Font.BOLD, 16));
 		hintPanel.add(hintLabel);
 		add(hintPanel);
 
@@ -70,7 +72,7 @@ public class DungeonPanel extends JLayeredPane {
 			return;
 		}
 		hintLabel.setText(string);
-		hintPanel.setBounds(640, 450, 300, 200);
+		hintPanel.setBounds(640-150, 400, 300, 200);
 		hintPanel.setVisible(true);
 //		setLayer(hintPanel, 2);
 		revalidate();

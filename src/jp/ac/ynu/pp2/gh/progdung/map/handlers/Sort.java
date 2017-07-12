@@ -23,4 +23,10 @@ public class Sort extends MapHandlerBase {
 		
 	}
 
+	@Override
+	public void onPlayerInteract(MapObject pObject) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

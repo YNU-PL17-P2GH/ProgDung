@@ -23,4 +23,10 @@ public class Tutorial extends MapHandlerBase {
 		}
 	}
 
+	@Override
+	public void onPlayerInteract(MapObject pObject) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

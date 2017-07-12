@@ -76,4 +76,6 @@ public abstract class MapHandlerBase {
 	public abstract void playerUpdate();
 	
 	public abstract void onPlayerHitTo(MapObject object);
+	
+	public abstract void onPlayerInteract(MapObject pObject);
 }

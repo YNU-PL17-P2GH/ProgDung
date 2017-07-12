@@ -19,8 +19,12 @@ public class Lobby extends MapHandlerBase {
 
 	@Override
 	public void onPlayerHitTo(MapObject object) {
-		// TODO Auto-generated method stub
-		
+		showHint("ようこそAlgeonへ.");
+	}
+
+	@Override
+	public void onPlayerInteract(MapObject pObject) {
+		showHint("これがソース入力画面です");
 	}
 
 }

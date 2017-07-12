@@ -66,6 +66,7 @@ public class DungeonPlay extends Canvas {
 		callback.showHint(pString);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public final void moveMap(String name, int pX, int pY, DIRECTION pD) {
 		try {
 			Constructor<MapHandlerBase> cnst = (Constructor<MapHandlerBase>) Class.forName(name)
