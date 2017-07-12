@@ -147,13 +147,15 @@ public class MapPlayer extends MapMoveObject{
 		}
 		//theObjとの当たり判定
 		for(MapObject tObj : handler.theObj){
-			if(handler.hitChecktoObj(tObj)){
-				handler.onPlayerHitTo(tObj);
-				moveCancel();
+			if(tObj.getdrawFlag()){				//前のフレームで描画されていれば、つまり描画領域内にあれば
+				if(handler.hitChecktoObj(tObj)){
+					handler.onPlayerHitTo(tObj);
+					moveCancel();
+				}
 			}
 		}
-		
-	
+
+
 		//マスの境に達したときにマスの位置更新
 		if(!this.isStartMoving()){
 			if(direction == MAP_CONST.DIRECTION.RIGHT){
