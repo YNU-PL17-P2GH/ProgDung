@@ -51,9 +51,10 @@ public class DungeonPanel extends JLayeredPane {
 		add(lPlayCoverPanel/*, BorderLayout.CENTER*/);
 		setLayer(lPlayCoverPanel, 1);
 		
-		hintPanel.setBounds(800, 450, 0, 0);
-		setLayer(hintPanel, 0);
-		validate();
+		hintPanel.setVisible(false);
+//		hintPanel.setBounds(800, 450, 0, 0);
+		setLayer(hintPanel, 2);
+		revalidate();
 	}
 	
 	public void init() {
@@ -65,22 +66,24 @@ public class DungeonPanel extends JLayeredPane {
 	}
 
 	void showHint(String string) {
-		if (getLayer(hintLabel) > 0) {
+		if (hintPanel.isVisible()) {
 			return;
 		}
 		hintLabel.setText(string);
 		hintPanel.setBounds(640, 450, 300, 200);
-		setLayer(hintPanel, 2);
-		validate();
+		hintPanel.setVisible(true);
+//		setLayer(hintPanel, 2);
+		revalidate();
 		new Thread() {
 			public void run() {
 				try {
 					Thread.sleep(5000);
 				} catch (InterruptedException e) {
 				}
-				hintPanel.setBounds(0, 0, 0, 0);
-				setLayer(hintPanel, 0);
-				validate();
+				hintPanel.setVisible(false);
+//				hintPanel.setBounds(0, 0, 0, 0);
+//				setLayer(hintPanel, 0);
+				revalidate();
 			};
 		}.start();
 	}
