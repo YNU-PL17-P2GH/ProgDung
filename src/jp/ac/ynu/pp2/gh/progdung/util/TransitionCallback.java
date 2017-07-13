@@ -23,4 +23,10 @@ public interface TransitionCallback {
 	
 	void showHint(String string);
 
+	void showCoder();
+
+	void hideCoder();
+
+	boolean isCoderShown();
+
 }

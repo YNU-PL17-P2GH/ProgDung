@@ -19,6 +19,8 @@ public abstract class MapHandlerBase {
 	public Object rubyOperator;
 
 	protected RpgMap theMap;
+	
+	public String sourceRuby;
 
 	protected MapPlayer thePlayer;
 
@@ -71,6 +73,10 @@ public abstract class MapHandlerBase {
 	
 	protected void showHint(String pString) {
 		callback.showHint(pString);
+	}
+	
+	protected void showCoder() {
+		callback.showCoder();
 	}
 	
 	public abstract void playerUpdate();

@@ -66,6 +66,18 @@ public class DungeonPlay extends Canvas {
 		callback.showHint(pString);
 	}
 	
+	public void showCoder() {
+		callback.showCoder();
+	}
+	
+	public void hideCoder() {
+		callback.hideCoder();
+	}
+	
+	public boolean isCorderShown() {
+		return callback.isCoderShown();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public final void moveMap(String name, int pX, int pY, DIRECTION pD) {
 		try {

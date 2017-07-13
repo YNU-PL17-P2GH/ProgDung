@@ -2,6 +2,7 @@ package jp.ac.ynu.pp2.gh.progdung.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 
@@ -9,7 +10,10 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
+import javafx.scene.layout.Border;
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 
 public class DungeonPanel extends JLayeredPane {
@@ -26,6 +30,10 @@ public class DungeonPanel extends JLayeredPane {
 	private JPanel hintPanel;
 
 	private JLabel hintLabel;
+
+	private JTextArea sourceArea;
+
+	private JScrollPane sourcePane;
 	
 	public DungeonPanel(TransitionCallback pCallback) {
 		super();
@@ -41,6 +49,17 @@ public class DungeonPanel extends JLayeredPane {
 		hintLabel.setFont(new Font("sans", Font.BOLD, 16));
 		hintPanel.add(hintLabel);
 		add(hintPanel);
+		
+		// TextArea
+		sourceArea = new JTextArea();
+		sourcePane = new JScrollPane(sourceArea,
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		sourcePane.setBounds(30, 30, callback.getMainFrame().getWidth()-75, callback.getMainFrame().getHeight()-90);
+		sourcePane.setVisible(false);
+		add(sourcePane);
+		setLayer(sourcePane, 1);
+		
 
 		JPanel lPlayCoverPanel = new JPanel();
 		lPlayCoverPanel.setOpaque(false);
@@ -51,7 +70,7 @@ public class DungeonPanel extends JLayeredPane {
 		lDungeonPlay = new DungeonPlay(callback);
 		lPlayCoverPanel.add(lDungeonPlay);
 		add(lPlayCoverPanel/*, BorderLayout.CENTER*/);
-		setLayer(lPlayCoverPanel, 1);
+		setLayer(lPlayCoverPanel, 0);
 		
 		hintPanel.setVisible(false);
 //		hintPanel.setBounds(800, 450, 0, 0);
@@ -88,6 +107,20 @@ public class DungeonPanel extends JLayeredPane {
 				revalidate();
 			};
 		}.start();
+	}
+
+	void showCoder() {
+		sourcePane.setVisible(true);
+		revalidate();
+	}
+
+	void hideCoder() {
+		sourcePane.setVisible(false);
+		revalidate();
+	}
+
+	boolean isCoderShown() {
+		return sourcePane.isVisible();
 	}
 
 }
