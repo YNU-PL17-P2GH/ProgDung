@@ -17,9 +17,12 @@ public class Tutorial extends MapHandlerBase {
 
 	@Override
 	public void onPlayerHitTo(MapObject object) {
-		// TODO この判定はかなり危ない気がする
+		if (callback.getSaveData().getBoolean("Tutorial003")) {
+			return;
+		}
 		if (object.getObjName().startsWith("pc")) {
-			showHint("<html>これがPCです.<br>Zキーでソースを入力できるようです.</html>");
+			showHint("<html>これがPCです.<br>Zキーでソースを入力できるようです.</html>", true);
+			callback.getSaveData().setTaken("Tutorial003");
 		}
 	}
 
@@ -29,8 +32,19 @@ public class Tutorial extends MapHandlerBase {
 			return;
 		}
 		if (pObject.getObjName().startsWith("pc")) {
-			showHint("<html>これがソース入力画面です.<br>Escキーで閉じます.</html>");
 			showCoder();
+			if (!callback.getSaveData().getBoolean("Tutorial004")) {
+				showHint("<html>これがソース入力画面です.<br>Escキーで閉じます.</html>", true);
+				callback.getSaveData().setTaken("Tutorial004");
+			}
+		}
+	}
+
+	@Override
+	public void onMapLoad() {
+		if (!callback.getSaveData().getBoolean("Tutorial002")) {	
+			showHint("<html>どこかにコードを入力するための<br>PCがあるはずです.探してみましょう...</html>", true);
+			callback.getSaveData().setTaken("Tutorial002");
 		}
 	}
 

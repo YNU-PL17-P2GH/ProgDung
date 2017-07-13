@@ -29,4 +29,10 @@ public class Sort extends MapHandlerBase {
 		
 	}
 
+	@Override
+	public void onMapLoad() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

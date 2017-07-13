@@ -71,13 +71,15 @@ public abstract class MapHandlerBase {
 		return thePlayer.hitCheck(obj);
 	}
 	
-	protected void showHint(String pString) {
-		callback.showHint(pString);
+	protected void showHint(String pString, boolean force) {
+		callback.showHint(pString, force);
 	}
 	
 	protected void showCoder() {
 		callback.showCoder();
 	}
+	
+	public abstract void onMapLoad();
 	
 	public abstract void playerUpdate();
 	

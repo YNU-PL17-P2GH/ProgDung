@@ -13,7 +13,7 @@ public class SaveData implements Serializable {
 	
 	private String userName;
 	private String nickName;
-
+	
 	private Map<String, String> flags;
 	
 	public SaveData() {
@@ -26,5 +26,13 @@ public class SaveData implements Serializable {
 	
 	public void setFlag(String pKey, String pFlag) {
 		flags.put(pKey, pFlag);
+	}
+	
+	public boolean getBoolean(String pKey) {
+		return Boolean.parseBoolean(getFlag(pKey));
+	}
+	
+	public void setTaken(String pKey) {
+		setFlag(pKey, "true");
 	}
 }

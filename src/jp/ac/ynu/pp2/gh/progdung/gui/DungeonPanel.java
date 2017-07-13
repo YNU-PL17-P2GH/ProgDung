@@ -36,6 +36,8 @@ public class DungeonPanel extends JLayeredPane {
 	private JTextArea sourceArea;
 
 	private JScrollPane sourcePane;
+
+	private Thread hideThread;
 	
 	public DungeonPanel(TransitionCallback pCallback) {
 		super();
@@ -110,8 +112,8 @@ public class DungeonPanel extends JLayeredPane {
 		lDungeonPlay.start();
 	}
 
-	void showHint(String string) {
-		if (isHintShown()) {
+	void showHint(String string, boolean force) {
+		if (!force && isHintShown()) {
 			return;
 		}
 		hintLabel.setText(string);
@@ -119,18 +121,22 @@ public class DungeonPanel extends JLayeredPane {
 		hintPanel.setVisible(true);
 //		setLayer(hintPanel, 2);
 		revalidate();
-		new Thread() {
+		if (hideThread != null && hideThread.isAlive()) {
+			hideThread.interrupt();
+		}
+		hideThread = new Thread() {
 			public void run() {
 				try {
 					Thread.sleep(5000);
+					hintPanel.setVisible(false);
+//					hintPanel.setBounds(0, 0, 0, 0);
+//					setLayer(hintPanel, 0);
+					revalidate();
 				} catch (InterruptedException e) {
 				}
-				hintPanel.setVisible(false);
-//				hintPanel.setBounds(0, 0, 0, 0);
-//				setLayer(hintPanel, 0);
-				revalidate();
 			};
-		}.start();
+		};
+		hideThread.start();
 	}
 
 	void showCoder() {

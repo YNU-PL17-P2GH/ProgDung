@@ -19,11 +19,18 @@ public class Lobby extends MapHandlerBase {
 
 	@Override
 	public void onPlayerHitTo(MapObject object) {
-		showHint("<html>ようこそAlgeonへ.<br>まずはすぐ左上の扉に入り,<br>プログラミングを体験してみましょう");
 	}
 
 	@Override
 	public void onPlayerInteract(MapObject pObject) {
+	}
+
+	@Override
+	public void onMapLoad() {
+		if (!callback.getSaveData().getBoolean("Tutorial001")) {
+			showHint("<html>ようこそAlgeonへ.<br>まずはすぐ左上の扉に入り,<br>プログラミングを体験してみましょう", true);
+			callback.getSaveData().setTaken("Tutorial001");
+		}
 	}
 
 }

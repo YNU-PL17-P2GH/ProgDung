@@ -2,6 +2,7 @@ package jp.ac.ynu.pp2.gh.progdung.gui;
 
 import javax.swing.JFrame;
 
+import jp.ac.ynu.pp2.gh.progdung.util.SaveData;
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 
 public class ProgDungMain extends JFrame implements TransitionCallback {
@@ -11,9 +12,11 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 	 */
 	private static final long serialVersionUID = 3568697032148655175L;
 	private DungeonPanel lDungeonPanel;
+	private SaveData myData;
 
 	public ProgDungMain() {
 		super("Programme Dungeona");
+		myData = new SaveData();
 		setSize(1280, 760);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
@@ -73,8 +76,8 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 	}
 
 	@Override
-	public void showHint(String string) {
-		lDungeonPanel.showHint(string);
+	public void showHint(String string, boolean force) {
+		lDungeonPanel.showHint(string, force);
 	}
 
 	@Override
@@ -95,6 +98,11 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 	@Override
 	public boolean isCoderShown() {
 		return lDungeonPanel.isCoderShown();
+	}
+
+	@Override
+	public SaveData getSaveData() {
+		return myData;
 	}
 	
 	

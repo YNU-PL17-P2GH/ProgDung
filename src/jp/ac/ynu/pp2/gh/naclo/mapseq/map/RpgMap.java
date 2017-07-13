@@ -19,6 +19,7 @@ public class RpgMap {
 
 		loadMap(mapName);
 		myMapChip = new MapChip(mapName);
+		handler.onMapLoad();
 	}
 
 
