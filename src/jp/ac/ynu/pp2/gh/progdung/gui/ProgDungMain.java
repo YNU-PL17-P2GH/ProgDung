@@ -78,6 +78,11 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 	}
 
 	@Override
+	public boolean isHintShown() {
+		return lDungeonPanel.isHintShown();
+	}
+
+	@Override
 	public void showCoder() {
 		lDungeonPanel.showCoder();
 	}

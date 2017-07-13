@@ -29,4 +29,6 @@ public interface TransitionCallback {
 
 	boolean isCoderShown();
 
+	boolean isHintShown();
+
 }

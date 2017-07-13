@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -57,6 +59,28 @@ public class DungeonPanel extends JLayeredPane {
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		sourcePane.setBounds(30, 30, callback.getMainFrame().getWidth()-75, callback.getMainFrame().getHeight()-90);
 		sourcePane.setVisible(false);
+		sourceArea.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+					hideCoder();
+					callback.getMainFrame().requestFocus();
+				}
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		add(sourcePane);
 		setLayer(sourcePane, 1);
 		
@@ -87,7 +111,7 @@ public class DungeonPanel extends JLayeredPane {
 	}
 
 	void showHint(String string) {
-		if (hintPanel.isVisible()) {
+		if (isHintShown()) {
 			return;
 		}
 		hintLabel.setText(string);
@@ -116,11 +140,16 @@ public class DungeonPanel extends JLayeredPane {
 
 	void hideCoder() {
 		sourcePane.setVisible(false);
+		lDungeonPlay.handler.sourceRuby = sourceArea.getText();
 		revalidate();
 	}
 
 	boolean isCoderShown() {
 		return sourcePane.isVisible();
+	}
+
+	boolean isHintShown() {
+		return hintPanel.isVisible();
 	}
 
 }

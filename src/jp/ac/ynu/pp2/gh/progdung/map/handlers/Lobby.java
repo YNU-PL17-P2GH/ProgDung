@@ -19,12 +19,11 @@ public class Lobby extends MapHandlerBase {
 
 	@Override
 	public void onPlayerHitTo(MapObject object) {
-		showHint("ようこそAlgeonへ.");
+		showHint("<html>ようこそAlgeonへ.<br>まずはすぐ左上の扉に入り,<br>プログラミングを体験してみましょう");
 	}
 
 	@Override
 	public void onPlayerInteract(MapObject pObject) {
-		showHint("これがソース入力画面です");
 	}
 
 }

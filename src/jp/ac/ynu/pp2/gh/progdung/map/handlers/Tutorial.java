@@ -19,14 +19,19 @@ public class Tutorial extends MapHandlerBase {
 	public void onPlayerHitTo(MapObject object) {
 		// TODO この判定はかなり危ない気がする
 		if (object.getObjName().startsWith("pc")) {
-			showHint("Welcome!");
+			showHint("<html>これがPCです.<br>Zキーでソースを入力できるようです.</html>");
 		}
 	}
 
 	@Override
 	public void onPlayerInteract(MapObject pObject) {
-		// TODO Auto-generated method stub
-		
+		if (callback.isHintShown()) {
+			return;
+		}
+		if (pObject.getObjName().startsWith("pc")) {
+			showHint("<html>これがソース入力画面です.<br>Escキーで閉じます.</html>");
+			showCoder();
+		}
 	}
 
 }

@@ -66,6 +66,10 @@ public class DungeonPlay extends Canvas {
 		callback.showHint(pString);
 	}
 	
+	public boolean isHintShown() {
+		return callback.isHintShown();
+	}
+	
 	public void showCoder() {
 		callback.showCoder();
 	}
@@ -169,6 +173,9 @@ public class DungeonPlay extends Canvas {
 				break;
 			case KeyEvent.VK_SPACE:
 				newKeystate[KEY_STATE.SPACE] = b;
+				break;
+			case KeyEvent.VK_ESCAPE:
+				hideCoder();
 				break;
 			}
 		}

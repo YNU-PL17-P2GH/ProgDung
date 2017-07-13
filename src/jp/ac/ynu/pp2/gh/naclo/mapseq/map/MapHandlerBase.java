@@ -26,7 +26,7 @@ public abstract class MapHandlerBase {
 
 	protected ArrayList<MapObject> theObj;
 	
-	DungeonPlay callback;
+	protected DungeonPlay callback;
 
 	/**
 	 * 引数に読み込むMapのパスを指定してHandler生成.
