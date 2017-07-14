@@ -56,6 +56,7 @@ public class DungeonPanel extends JLayeredPane {
 		
 		// TextArea
 		sourceArea = new JTextArea();
+		sourceArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 16));
 		sourcePane = new JScrollPane(sourceArea,
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -117,7 +118,7 @@ public class DungeonPanel extends JLayeredPane {
 			return;
 		}
 		hintLabel.setText(string);
-		hintPanel.setBounds(640-150, 400, 300, 200);
+		hintPanel.setBounds(640-150, 450, 300, 200);
 		hintPanel.setVisible(true);
 //		setLayer(hintPanel, 2);
 		revalidate();
@@ -156,6 +157,10 @@ public class DungeonPanel extends JLayeredPane {
 
 	boolean isHintShown() {
 		return hintPanel.isVisible();
+	}
+
+	void setSource(String pSource) {
+		sourceArea.setText(pSource);
 	}
 
 }

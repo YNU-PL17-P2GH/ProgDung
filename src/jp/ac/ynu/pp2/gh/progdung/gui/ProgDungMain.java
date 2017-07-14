@@ -96,6 +96,11 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 	}
 
 	@Override
+	public void setSource(String pSource) {
+		lDungeonPanel.setSource(pSource);
+	}
+
+	@Override
 	public boolean isCoderShown() {
 		return lDungeonPanel.isCoderShown();
 	}

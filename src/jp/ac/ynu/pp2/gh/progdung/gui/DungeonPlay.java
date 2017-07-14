@@ -181,4 +181,8 @@ public class DungeonPlay extends Canvas {
 	public SaveData getSaveData() {
 		return callback.getSaveData();
 	}
+	
+	public void setSource(String pSource) {
+		callback.setSource(pSource);
+	}
 }

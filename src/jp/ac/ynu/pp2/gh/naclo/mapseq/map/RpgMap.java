@@ -75,7 +75,7 @@ public class RpgMap {
 					int boxNum = Integer.parseInt(datas[4]);
 					int x = Integer.parseInt(datas[2]);
 					int y = Integer.parseInt(datas[3]);
-					System.out.println();
+
 					MAP_CONST.DIRECTION d = null;
 					if(datas.length > (5 + boxNum * 2)){
 						d = MAP_CONST.DIRECTION.getValue(Integer.parseInt(datas[5 + boxNum * 2]));
