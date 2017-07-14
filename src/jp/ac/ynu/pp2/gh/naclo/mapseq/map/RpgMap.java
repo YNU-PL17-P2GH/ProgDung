@@ -32,6 +32,7 @@ public class RpgMap {
 		//myMapChip = new MapChip(mapName);
 		BufferedReader ibr = null;
 		String tSeparator = "[ |\t]*,[ |\t]*";
+		Pattern tPattern = Pattern.compile(tSeparator);
 		try {
 			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/" + mapName + "/map.txt").openStream()));
 			String line = ibr.readLine();
@@ -42,11 +43,10 @@ public class RpgMap {
 			int layer = Integer.parseInt(datas[2]);
 //			MapBox.setLayerNum(layer);
 			
-			Pattern p = Pattern.compile("[ |\t]*,[ |\t]*");
 			//マップの初期STATE設定
 			for(int i = 0; i < boxs.length; i++){
 				line = ibr.readLine();
-				datas = p.split(line);
+				datas = tPattern.split(line);
 				MAP_CONST.STATE state;
 				for(int j = 0; j < boxs[i].length; j++){
 					state = MAP_CONST.STATE.getValue(Integer.parseInt(datas[j]));
@@ -66,7 +66,7 @@ public class RpgMap {
 						i--;
 						continue;
 					}
-					datas = p.split(line);
+					datas = tPattern.split(line);
 					for(int j = 0; j < boxs[i].length; j++){
 						boxs[i][j].setChip(Integer.parseInt(datas[j]), k);
 					}
@@ -79,7 +79,7 @@ public class RpgMap {
 
 			while(line != null){
 				if(line.startsWith("nextMap")){	//マップ移動マスのデータをセット
-					datas = line.split(",", 0);
+					datas = tPattern.split(line);
 					int boxNum = Integer.parseInt(datas[4]);
 					int x = Integer.parseInt(datas[2]);
 					int y = Integer.parseInt(datas[3]);
@@ -92,17 +92,17 @@ public class RpgMap {
 						((NextMapBox)boxs[Integer.parseInt(datas[6 + i * 2])][Integer.parseInt(datas[5 + i * 2])]).setNextMap(datas[1], x, y, d);
 					}
 				}else if(line.startsWith("fixObj")){	//固定設置物
-					datas = line.split(",", 0);
+					datas = tPattern.split(line);
 					handler.theObj.add(new MapFixedObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), datas[1], this));
 				}else if(line.startsWith("doorObj")){	//ドア設置
-					datas = line.split(",", 0);
+					datas = tPattern.split(line);
 					handler.theObj.add(new MapDoorObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]),Integer.parseInt(datas[4]), Integer.parseInt(datas[5]), datas[1], datas[6], this));
 				}else if (line.startsWith("pcObj")) {
 					// PC
-					datas = line.split(tSeparator);
+					datas = tPattern.split(line);
 					handler.theObj.add(new MapPcObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), datas[1], this, datas[4]));
 				}else if(line.startsWith("progObj")){
-					datas = line.split(tSeparator, 0);
+					datas = tPattern.split(line);
 					// datas[1]にロードするプログラム
 					// 該当のクラスはprogdung.map.progobjパッケージにある.
 					String className = "jp.ac.ynu.pp2.gh.progdung.map.progobj.".concat(datas[4]);
