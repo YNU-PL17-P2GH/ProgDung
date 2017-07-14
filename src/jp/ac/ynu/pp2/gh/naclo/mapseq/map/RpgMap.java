@@ -5,15 +5,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
-import jp.ac.ynu.pp2.gh.progdung.map.progobj.MapSortObject;
 
 public class RpgMap {
 	MapBox boxs[][];
@@ -43,11 +41,12 @@ public class RpgMap {
 			//レイヤー数設定
 			int layer = Integer.parseInt(datas[2]);
 //			MapBox.setLayerNum(layer);
-
+			
+			Pattern p = Pattern.compile("[ |\t]*,[ |\t]*");
 			//マップの初期STATE設定
 			for(int i = 0; i < boxs.length; i++){
 				line = ibr.readLine();
-				datas = line.split(",", boxs[i].length);
+				datas = p.split(line);
 				MAP_CONST.STATE state;
 				for(int j = 0; j < boxs[i].length; j++){
 					state = MAP_CONST.STATE.getValue(Integer.parseInt(datas[j]));
@@ -58,7 +57,7 @@ public class RpgMap {
 					}
 				}
 			}
-
+			
 			//マップチップ配置 レイヤーごと
 			for(int k = 0; k < layer; k++){
 				for(int i = 0; i < boxs.length; i++){
@@ -67,7 +66,7 @@ public class RpgMap {
 						i--;
 						continue;
 					}
-					datas = line.split(",",  0);
+					datas = p.split(line);
 					for(int j = 0; j < boxs[i].length; j++){
 						boxs[i][j].setChip(Integer.parseInt(datas[j]), k);
 					}
