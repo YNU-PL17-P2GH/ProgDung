@@ -151,6 +151,10 @@ public class DungeonPanel extends JLayeredPane {
 	}
 
 	void hideCoder() {
+		if (!sourcePane.isVisible()) {
+			return;
+		}
+
 		sourcePane.setVisible(false);
 		lDungeonPlay.handler.getCurrentFocusedPc().getAllocObj().sourceRuby = sourceArea.getText();
 		revalidate();
