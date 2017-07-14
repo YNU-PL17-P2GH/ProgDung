@@ -12,6 +12,7 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapProgObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.RpgMap;
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.STATE;
 
 public class TutorialObject extends MapProgObject {
 	
@@ -35,10 +36,20 @@ public class TutorialObject extends MapProgObject {
 		sourceRuby = "def run(" + pObjName + ")\n"
 				+ "\t# この下にソースを入力\n"
 				+ "end";
+		
 	}
 
 	@Override
 	public void runRuby(Ruby ruby) {
+		new Thread() {
+			@Override
+			public void run() {
+				rrwrapper(ruby);
+			}
+		}.start();
+	}
+	
+	private void rrwrapper(Ruby ruby) {
 		super.runRuby(ruby);
 	}
 
@@ -49,28 +60,69 @@ public class TutorialObject extends MapProgObject {
 	}
 
 	@Override
-	public void update(ShareInfo sinfo) {
-		handler.getMap().setObj(box_x, box_y, this);
+	public synchronized void update(ShareInfo sinfo) {
+		if (updateTick == -1) {
+			getMap().setObj(box_x, box_y, this);
+		}
 		drawFlag = false;
 		
 		// Move
-		if (updateTick == -1) {
-			runRuby(Ruby.newInstance());
+		if (currentState < 0) {
+			updateTick = 0;
+			return;
 		}
-		if (updateTick++ >= 100) {
+
+		if (updateTick++ >= 25) {
 			updateTick = 0;
 		} else {
 			return;
 		}
 		
+		int bx = box_x;
+		int by = box_y;
+
 		switch (currentState) {
 		case 0:
-			getMap().setObj(box_x, box_y, null);
+			for (int i = 0; i < 4; i++) {
+				if (getMap().getBox(box_x + 2, box_y + i).getState() == STATE.BLOCK) {
+					currentState = -1;
+					return;
+				}
+			}
 			box_x++;
+			break;
+		case 1:
+			for (int i = 0; i < 2; i++) {
+				if (getMap().getBox(box_x + i, box_y - 1).getState() == STATE.BLOCK) {
+					currentState = -1;
+					return;
+				}
+			}
+			box_y--;
+			break;
+		case 2:
+			for (int i = 0; i < 4; i++) {
+				if (getMap().getBox(box_x - 1, box_y + i).getState() == STATE.BLOCK) {
+					currentState = -1;
+					return;
+				}
+			}
+			box_x--;
+			break;
+		case 3:
+			for (int i = 0; i < 2; i++) {
+				if (getMap().getBox(box_x + i, box_y + 4).getState() == STATE.BLOCK) {
+					currentState = -1;
+					return;
+				}
+			}
+			box_y++;
 			break;
 		default:
 			break;
 		}
+		getMap().setObj(bx, by, null);
+		getMap().setObj(box_x, box_y, this);
 	}
 	
 	@Override
@@ -86,8 +138,45 @@ public class TutorialObject extends MapProgObject {
 	
 	public class TutorialOperator {
 		public void moveRight() {
-			currentState = 0;
+			try {
+				while (currentState >= 0) {
+					Thread.sleep(1000);
+				}
+				currentState = 0;
+			} catch (InterruptedException e) {
+			}
 		}
-	}
 
+		public void moveUp() {
+			try {
+				while (currentState >= 0) {
+					Thread.sleep(1000);
+				}
+				currentState = 1;
+			} catch (InterruptedException e) {
+			}
+		}
+		
+		public void moveLeft() {
+			try {
+				while (currentState >= 0) {
+					Thread.sleep(1000);
+				}
+				currentState = 2;
+			} catch (InterruptedException e) {
+			}
+		}
+		
+		public void moveDown() {
+			try {
+				while (currentState >= 0) {
+					Thread.sleep(1000);
+				}
+				currentState = 3;
+			} catch (InterruptedException e) {
+			}
+		}
+		
+	}
+	
 }

@@ -8,11 +8,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+
+import org.jruby.Ruby;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapPcObject;
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
@@ -147,9 +151,20 @@ public class DungeonPanel extends JLayeredPane {
 	}
 
 	void hideCoder() {
+		if (!sourcePane.isVisible()) {
+			return;
+		}
+
 		sourcePane.setVisible(false);
 		lDungeonPlay.handler.getCurrentFocusedPc().getAllocObj().sourceRuby = sourceArea.getText();
 		revalidate();
+		
+		// 実行?
+		if (JOptionPane.showConfirmDialog(
+				callback.getMainFrame(), "プログラムを今すぐ実行しますか?", "", JOptionPane.YES_NO_OPTION)
+				== JOptionPane.YES_OPTION) {
+			lDungeonPlay.handler.getCurrentFocusedPc().getAllocObj().runRuby(Ruby.newInstance());
+		}
 	}
 
 	boolean isCoderShown() {

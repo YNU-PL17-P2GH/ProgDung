@@ -16,8 +16,6 @@ import jp.ac.ynu.pp2.gh.progdung.gui.DungeonPlay;
  */
 public abstract class MapHandlerBase {
 
-	public Object rubyOperator;
-
 	private RpgMap theMap;
 
 	protected MapPlayer thePlayer;
