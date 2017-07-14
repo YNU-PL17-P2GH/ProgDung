@@ -5,28 +5,28 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
 import jp.ac.ynu.pp2.gh.progdung.gui.DungeonPlay;
 
-public class Sort extends MapHandlerBase {
+public class Output extends MapHandlerBase{
 
-	public Sort(int player_x, int player_y, DIRECTION player_d, DungeonPlay play) {
-		super("sort1", player_x, player_y, player_d, play);
+	public Output(int player_x, int player_y, DIRECTION player_d, DungeonPlay play) {
+		super("output", player_x, player_y, player_d, play);
 	}
 
 	@Override
 	public void playerUpdate() {
-		// TODO Auto-generated method stub
-
+		// TODO 自動生成されたメソッド・スタブ
+		
 	}
 
 	@Override
 	public void onPlayerHitTo(MapObject object) {
-		// TODO Auto-generated method stub
-
+		// TODO 自動生成されたメソッド・スタブ
+		
 	}
 
 	@Override
 	public void onPlayerInteract(MapObject pObject) {
-		// TODO Auto-generated method stub
-
+		// TODO 自動生成されたメソッド・スタブ
+		
 	}
 
 }

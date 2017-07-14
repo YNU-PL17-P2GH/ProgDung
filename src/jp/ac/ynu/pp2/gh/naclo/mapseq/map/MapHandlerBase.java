@@ -23,7 +23,7 @@ public abstract class MapHandlerBase {
 	protected MapPlayer thePlayer;
 
 	protected ArrayList<MapObject> theObj;
-	
+
 	DungeonPlay callback;
 
 	/**
@@ -38,7 +38,7 @@ public abstract class MapHandlerBase {
 		theMap = new RpgMap(this, pMapName, player_x, player_y, player_d);
 		thePlayer = new MapPlayer(this, player_x, player_y, "player", player_d, theMap);
 	}
-	
+
 	public void draw(ShareInfo sinfo) {
 		theMap.update(sinfo);
 		theMap.draw(sinfo);
@@ -59,7 +59,7 @@ public abstract class MapHandlerBase {
 		}
 
 		callback.moveMap(lClassName, lX, lY, lD);
-		
+
 	}
 
 	public boolean hitChecktoPlayer(MapObject obj){
@@ -68,14 +68,14 @@ public abstract class MapHandlerBase {
 	public boolean hitChecktoObj(MapObject obj){
 		return thePlayer.hitCheck(obj);
 	}
-	
+
 	protected void showHint(String pString) {
 		callback.showHint(pString);
 	}
-	
+
 	public abstract void playerUpdate();
-	
+
 	public abstract void onPlayerHitTo(MapObject object);
-	
+
 	public abstract void onPlayerInteract(MapObject pObject);
 }

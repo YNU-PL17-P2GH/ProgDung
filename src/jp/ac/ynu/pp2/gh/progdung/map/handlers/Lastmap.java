@@ -26,7 +26,7 @@ public class Lastmap extends MapHandlerBase {
 	@Override
 	public void onPlayerInteract(MapObject pObject) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
