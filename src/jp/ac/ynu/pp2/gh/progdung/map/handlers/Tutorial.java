@@ -6,10 +6,11 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
 import jp.ac.ynu.pp2.gh.progdung.gui.DungeonPlay;
 
 public class Tutorial extends MapHandlerBase {
-	
+
 	public Tutorial(int player_x, int player_y, DIRECTION player_d, DungeonPlay play) {
 		super("tutorial", player_x, player_y, player_d, play);
-		
+
+
 		sourceRuby = "def TutorialObject(tori)\n"
 				+ "\t# ここにソースを入力\n"
 				+ "end";
@@ -52,14 +53,15 @@ public class Tutorial extends MapHandlerBase {
 				}
 			}
 		}
+
 	}
 
 	@Override
 	public void onMapLoad() {
-		if (!callback.getSaveData().getBoolean("Tutorial002")) {	
+		if (!callback.getSaveData().getBoolean("Tutorial002")) {
 			showHint("<html>まずはマップを探索してみましょう.<br>下に道が続いているようですね.</html>", true);
 			callback.getSaveData().setTaken("Tutorial002");
 		}
 	}
-	
+
 }

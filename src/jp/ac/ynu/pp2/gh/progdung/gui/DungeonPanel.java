@@ -2,7 +2,6 @@ package jp.ac.ynu.pp2.gh.progdung.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
@@ -15,16 +14,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import javafx.scene.layout.Border;
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 
 public class DungeonPanel extends JLayeredPane {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 5911049728428748438L;
-	
+
 	private TransitionCallback callback;
 
 	private DungeonPlay lDungeonPlay;
@@ -38,13 +36,13 @@ public class DungeonPanel extends JLayeredPane {
 	private JScrollPane sourcePane;
 
 	private Thread hideThread;
-	
+
 	public DungeonPanel(TransitionCallback pCallback) {
 		super();
-		
+
 		callback = pCallback;
 		setLayout(new BorderLayout());
-		
+
 		// Overlay
 		hintPanel = new JPanel();
 		hintPanel.setBackground(Color.blue);
@@ -53,7 +51,7 @@ public class DungeonPanel extends JLayeredPane {
 		hintLabel.setFont(new Font("sans", Font.BOLD, 16));
 		hintPanel.add(hintLabel);
 		add(hintPanel);
-		
+
 		// TextArea
 		sourceArea = new JTextArea();
 		sourceArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 16));
@@ -63,13 +61,13 @@ public class DungeonPanel extends JLayeredPane {
 		sourcePane.setBounds(30, 30, callback.getMainFrame().getWidth()-75, callback.getMainFrame().getHeight()-90);
 		sourcePane.setVisible(false);
 		sourceArea.addKeyListener(new KeyListener() {
-			
+
 			@Override
 			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -77,16 +75,16 @@ public class DungeonPanel extends JLayeredPane {
 					callback.getMainFrame().requestFocus();
 				}
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 		add(sourcePane);
 		setLayer(sourcePane, 1);
-		
+
 
 		JPanel lPlayCoverPanel = new JPanel();
 		lPlayCoverPanel.setOpaque(false);
@@ -98,17 +96,17 @@ public class DungeonPanel extends JLayeredPane {
 		lPlayCoverPanel.add(lDungeonPlay);
 		add(lPlayCoverPanel/*, BorderLayout.CENTER*/);
 		setLayer(lPlayCoverPanel, 0);
-		
+
 		hintPanel.setVisible(false);
 //		hintPanel.setBounds(800, 450, 0, 0);
 		setLayer(hintPanel, 2);
 		revalidate();
 	}
-	
+
 	public void init() {
 		lDungeonPlay.init();
 	}
-	
+
 	public void start() {
 		lDungeonPlay.start();
 	}

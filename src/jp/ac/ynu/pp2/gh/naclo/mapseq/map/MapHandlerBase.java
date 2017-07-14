@@ -19,14 +19,16 @@ public abstract class MapHandlerBase {
 	public Object rubyOperator;
 
 	private RpgMap theMap;
-	
+
 	public String sourceRuby;
 
 	protected MapPlayer thePlayer;
 
 	protected ArrayList<MapObject> theObj;
-	
+
+
 	protected DungeonPlay callback;
+
 
 	/**
 	 * 引数に読み込むMapのパスを指定してHandler生成.
@@ -40,7 +42,7 @@ public abstract class MapHandlerBase {
 		theMap = new RpgMap(this, pMapName, player_x, player_y, player_d);
 		thePlayer = new MapPlayer(this, player_x, player_y, "player", player_d, getMap());
 	}
-	
+
 	public void draw(ShareInfo sinfo) {
 		getMap().update(sinfo);
 		getMap().draw(sinfo);
@@ -61,7 +63,7 @@ public abstract class MapHandlerBase {
 		}
 
 		callback.moveMap(lClassName, lX, lY, lD);
-		
+
 	}
 
 	public boolean hitChecktoPlayer(MapObject obj){
@@ -70,21 +72,23 @@ public abstract class MapHandlerBase {
 	public boolean hitChecktoObj(MapObject obj){
 		return thePlayer.hitCheck(obj);
 	}
-	
+
+
 	protected void showHint(String pString, boolean force) {
 		callback.showHint(pString, force);
 	}
-	
+
+
 	protected void showCoder() {
 		callback.showCoder();
 	}
-	
+
 	public abstract void onMapLoad();
-	
+
 	public abstract void playerUpdate();
-	
+
 	public abstract void onPlayerHitTo(MapObject object);
-	
+
 	public abstract void onPlayerInteract(MapObject pObject);
 
 	public RpgMap getMap() {

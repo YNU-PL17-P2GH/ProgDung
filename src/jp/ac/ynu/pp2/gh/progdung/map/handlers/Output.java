@@ -5,10 +5,10 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
 import jp.ac.ynu.pp2.gh.progdung.gui.DungeonPlay;
 
-public class Lastmap extends MapHandlerBase {
+public class Output extends MapHandlerBase{
 
-	public Lastmap(int player_x, int player_y, DIRECTION player_d, DungeonPlay play) {
-		super("lastmap", player_x, player_y, player_d, play);
+	public Output(int player_x, int player_y, DIRECTION player_d, DungeonPlay play) {
+		super("output", player_x, player_y, player_d, play);
 	}
 
 	@Override
@@ -25,14 +25,14 @@ public class Lastmap extends MapHandlerBase {
 
 	@Override
 	public void onPlayerInteract(MapObject pObject) {
-		// TODO Auto-generated method stub
+		// TODO 自動生成されたメソッド・スタブ
 
 	}
 
 	@Override
 	public void onMapLoad() {
-		// TODO Auto-generated method stub
-		
+		// TODO 自動生成されたメソッド・スタブ
+
 	}
 
 }
