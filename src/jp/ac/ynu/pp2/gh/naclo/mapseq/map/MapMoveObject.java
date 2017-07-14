@@ -23,11 +23,8 @@ public class MapMoveObject extends MapObject{
 
 
 	public MapMoveObject(MapHandlerBase pHandler,int bx, int by, String objName, MAP_CONST.DIRECTION direct, RpgMap map){
-		super(pHandler, objName);
+		super(pHandler, bx, by, objName, map);
 
-		myMap = map;
-		box_x = bx;
-		box_y = by;
 		animeCount = 0;
 		//objNameに従ってロード
 		BufferedReader ibr = null;

@@ -3,11 +3,14 @@ package jp.ac.ynu.pp2.gh.naclo.mapseq.map;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
+import jp.ac.ynu.pp2.gh.progdung.map.progobj.MapSortObject;
 
 public class RpgMap {
 	MapBox boxs[][];
@@ -23,6 +26,7 @@ public class RpgMap {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	final void loadMap(String mapName){	//マップロード
 		//myMapChip = new MapChip(mapName);
 		BufferedReader ibr = null;
@@ -88,11 +92,23 @@ public class RpgMap {
 					handler.theObj.add(new MapFixedObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), datas[1], this));
 				}else if(line.indexOf("doorObj") >= 0){	//ドア設置
 					datas = line.split(",", 0);
-					handler.theObj.add(new MapDoorObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]),Integer.parseInt(datas[4]), Integer.parseInt(datas[5]), datas[1], this));
+					handler.theObj.add(new MapDoorObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]),Integer.parseInt(datas[4]),
+							Integer.parseInt(datas[5]), datas[1], this));
 				}else if(line.indexOf("progObj") >= 0){
 					datas = line.split(",", 0);
-					//datas[1]にロードするプログラム
-					handler.theObj.add(new MapSortObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), "sort", this));	//今はソートしかないので
+					// datas[1]にロードするプログラム
+					// 該当のクラスはprogdung.map.progobjパッケージにある.
+					String className = "jp.ac.ynu.pp2.gh.progdung.map.progobj.".concat(datas[1]);
+					Constructor<MapProgObject> constructor;
+					try {
+						constructor = (Constructor<MapProgObject>) Class.forName(className).getConstructor(MapHandlerBase.class, int.class, int.class, String.class, RpgMap.class);
+						handler.theObj.add(constructor.newInstance(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), datas[1], this));
+					} catch (NoSuchMethodException | SecurityException | ClassNotFoundException
+							| InstantiationException | IllegalAccessException
+							| IllegalArgumentException | InvocationTargetException e) {
+						e.printStackTrace();
+					}
+//					handler.theObj.add(new MapSortObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), "sort", this));
 				}
 				line = ibr.readLine();
 			}

@@ -14,11 +14,8 @@ public class MapDoorObject extends MapObject{
 	private int imgNumNow;					//現在の表示画像
 
 	public MapDoorObject(MapHandlerBase pHandler, int bx, int by, int w, int h, String objName, RpgMap map) {
-		super(pHandler, objName);
+		super(pHandler, bx, by, objName, map);
 
-		myMap = map;
-		box_x = bx;
-		box_y = by;
 		width = w;
 		height = h;
 

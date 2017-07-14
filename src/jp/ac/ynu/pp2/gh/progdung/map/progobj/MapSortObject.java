@@ -1,4 +1,4 @@
-package jp.ac.ynu.pp2.gh.naclo.mapseq.map;
+package jp.ac.ynu.pp2.gh.progdung.map.progobj;
 
 import java.awt.Point;
 import java.awt.image.BufferedImage;
@@ -10,6 +10,12 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST;
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapProgObject;
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.RpgMap;
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.STATE;
 
 import org.jruby.Ruby;
 import org.jruby.embed.ScriptingContainer;
@@ -21,11 +27,8 @@ public class MapSortObject extends MapProgObject{
 	private BufferedImage objImg;
 
 	public MapSortObject(MapHandlerBase pHandler, int bx, int by, String objName, RpgMap map){
-		super(pHandler, objName);
+		super(pHandler, bx, by, objName, map);
 
-		myMap = map;
-		box_x = bx;
-		box_y = by;
 		//objNameに従ってロード
 		try {
 			objImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/sort1/sort.png"));
@@ -201,8 +204,8 @@ public class MapSortObject extends MapProgObject{
 	public boolean hitCheck(MapObject obj) {
 		//足元で判定
 		//一つ増えたときの判定が必要である
-		if(this.box_x - showArray[hitIndex] - 1  < (obj.box_x + 1) && (this.box_x) > obj.box_x){
-			if((this.box_y + hitIndex * 2) < (obj.box_y + 2) && (this.box_y + 2 + hitIndex * 2) > (obj.box_y + 1)){
+		if(this.box_x - showArray[hitIndex] - 1  < (obj.getBox_x() + 1) && (this.box_x) > obj.getBox_x()){
+			if((this.box_y + hitIndex * 2) < (obj.getBox_y() + 2) && (this.box_y + 2 + hitIndex * 2) > (obj.getBox_y() + 1)){
 				return !obj.getCanPass();
 			}
 		}
