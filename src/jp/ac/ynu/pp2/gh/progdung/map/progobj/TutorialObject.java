@@ -23,7 +23,7 @@ public class TutorialObject extends MapProgObject {
 		super(pHandler, bx, by, pObjName, pMap);
 		
 		try {
-			objImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/obj/tori.png"));
+			objImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/obj/" + pObjName + ".png"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -31,6 +31,10 @@ public class TutorialObject extends MapProgObject {
 		theOperator = new TutorialOperator();
 		width = 2;
 		height = 4;
+		
+		sourceRuby = "def run(" + pObjName + ")\n"
+				+ "\t# この下にソースを入力\n"
+				+ "end";
 	}
 
 	@Override
@@ -53,7 +57,7 @@ public class TutorialObject extends MapProgObject {
 		if (updateTick == -1) {
 			runRuby(Ruby.newInstance());
 		}
-		if (updateTick++ >= 300) {
+		if (updateTick++ >= 100) {
 			updateTick = 0;
 		} else {
 			return;

@@ -2,24 +2,19 @@ package jp.ac.ynu.pp2.gh.naclo.mapseq.map;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 
 public class MapFixedObject extends MapObject{
-	private BufferedImage objImg;
+
 	public MapFixedObject(MapHandlerBase pHandler, int bx, int by, String objName, RpgMap map){
 		super(pHandler, bx, by, objName, map);
 
 		//objNameに従ってロード
-		try {
-			objImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/obj/" + objName + ".png"));
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "エラー");
-			System.exit(0);
-		}
+		objImg = getImage();
 		width = objImg.getWidth() / MAP_CONST.MAP_CHIP_SIZE;
 		height = objImg.getHeight() / MAP_CONST.MAP_CHIP_SIZE;
 		for(int i = 0; i < height; i++){
@@ -28,6 +23,18 @@ public class MapFixedObject extends MapObject{
 			}
 		}
 		canPass = false;
+	}
+	
+	public final BufferedImage getImage() {
+		try {
+			return ImageIO.read(getImagePath());
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public URL getImagePath() {
+		return getClass().getClassLoader().getResource("media/map/obj/" + getObjName() + ".png");
 	}
 
 	@Override

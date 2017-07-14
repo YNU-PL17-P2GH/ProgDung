@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
 
@@ -30,6 +33,7 @@ public class RpgMap {
 	final void loadMap(String mapName){	//マップロード
 		//myMapChip = new MapChip(mapName);
 		BufferedReader ibr = null;
+		String tSeparator = "[ |\t]*,[ |\t]*";
 		try {
 			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/" + mapName + "/map.txt").openStream()));
 			String line = ibr.readLine();
@@ -70,11 +74,12 @@ public class RpgMap {
 				}
 			}
 			ibr.close();
+			
 			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/" + mapName + "/mapObj.txt").openStream()));
 			line = ibr.readLine();
 
 			while(line != null){
-				if(line.indexOf("nextMap") >= 0){	//マップ移動マスのデータをセット
+				if(line.startsWith("nextMap")){	//マップ移動マスのデータをセット
 					datas = line.split(",", 0);
 					int boxNum = Integer.parseInt(datas[4]);
 					int x = Integer.parseInt(datas[2]);
@@ -87,17 +92,21 @@ public class RpgMap {
 					for(int i = 0; i < boxNum; i++){
 						((NextMapBox)boxs[Integer.parseInt(datas[6 + i * 2])][Integer.parseInt(datas[5 + i * 2])]).setNextMap(datas[1], x, y, d);
 					}
-				}else if(line.indexOf("fixObj") >= 0){	//固定設置物
+				}else if(line.startsWith("fixObj")){	//固定設置物
 					datas = line.split(",", 0);
 					handler.theObj.add(new MapFixedObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), datas[1], this));
-				}else if(line.indexOf("doorObj") >= 0){	//ドア設置
+				}else if(line.startsWith("doorObj")){	//ドア設置
 					datas = line.split(",", 0);
 					handler.theObj.add(new MapDoorObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]),Integer.parseInt(datas[4]), Integer.parseInt(datas[5]), datas[1], datas[6], this));
-				}else if(line.indexOf("progObj") >= 0){
-					datas = line.split(",", 0);
+				}else if (line.startsWith("pcObj")) {
+					// PC
+					datas = line.split(tSeparator);
+					handler.theObj.add(new MapPcObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), datas[1], this, datas[4]));
+				}else if(line.startsWith("progObj")){
+					datas = line.split(tSeparator, 0);
 					// datas[1]にロードするプログラム
 					// 該当のクラスはprogdung.map.progobjパッケージにある.
-					String className = "jp.ac.ynu.pp2.gh.progdung.map.progobj.".concat(datas[1]);
+					String className = "jp.ac.ynu.pp2.gh.progdung.map.progobj.".concat(datas[4]);
 					Constructor<MapProgObject> constructor;
 					try {
 						constructor = (Constructor<MapProgObject>) Class.forName(className).getConstructor(MapHandlerBase.class, int.class, int.class, String.class, RpgMap.class);
@@ -113,11 +122,32 @@ public class RpgMap {
 			}
 
 			ibr.close();
+			
+			connectPcToProg();
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "エラー");
 			System.exit(0);
 		}
 
+	}
+
+
+	private void connectPcToProg() {
+		// PCに対応するProgObjectのリスト.
+		Map<String, MapPcObject> tRel = new HashMap<>();
+		for (MapObject tObject : handler.theObj) {
+			if (tObject instanceof MapPcObject) {
+				tRel.put(((MapPcObject) tObject).getAllocObjName(), (MapPcObject) tObject);
+			}
+		}
+		
+		for (MapObject tObject : handler.theObj) {
+			if (tObject instanceof MapProgObject &&
+					tRel.containsKey(tObject.getObjName())) {
+				System.err.println("Connected " + tObject.getObjName() + " to " + tRel.get(tObject.getObjName()));
+				tRel.get(tObject.getObjName()).allocObj = (MapProgObject) tObject;
+			}
+		}
 	}
 
 

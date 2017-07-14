@@ -1,9 +1,9 @@
 doorObj,silver,7,4,4,4,null
 nextMap,Lobby,13,34,8,7,6,8,6,9,6,10,6,7,7,8,7,9,7,10,7,2
-progObj,TutorialObject,15,38
-fixObj,robe,35,17
-fixObj,pc/mini,11,30
-fixObj,pc/mini,43,21
+progObj,tori,15,38,TutorialObject
+progObj,robe,35,17,TutorialObject
+pcObj,mini,11,30,tori
+pcObj,mini,43,21,robe
 fixObj,hondana,5,19
 fixObj,hondana,5,30
 fixObj,hondana,15,8
