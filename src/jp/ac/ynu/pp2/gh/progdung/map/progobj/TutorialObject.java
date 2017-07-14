@@ -6,7 +6,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import org.jruby.Ruby;
-import org.jruby.embed.ScriptingContainer;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
@@ -17,7 +16,6 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.map.RpgMap;
 public class TutorialObject extends MapProgObject {
 	
 	private int currentState = -1;
-	private TutorialOperator operator;
 	private BufferedImage objImg;
 	private int updateTick = -1;
 	
@@ -30,16 +28,14 @@ public class TutorialObject extends MapProgObject {
 			throw new RuntimeException(e);
 		}
 		
-		operator = new TutorialOperator();
+		theOperator = new TutorialOperator();
 		width = 2;
 		height = 4;
 	}
 
 	@Override
 	public void runRuby(Ruby ruby) {
-		ScriptingContainer container = new ScriptingContainer();
-		container.runScriptlet(handler.sourceRuby);
-		container.callMethod(ruby.getCurrentContext(), "tutorial", operator);
+		super.runRuby(ruby);
 	}
 
 	@Override
