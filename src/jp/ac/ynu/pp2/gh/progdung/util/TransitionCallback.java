@@ -2,6 +2,8 @@ package jp.ac.ynu.pp2.gh.progdung.util;
 
 import javax.swing.JFrame;
 
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapPcObject;
+
 public interface TransitionCallback {
 	
 	boolean login(String pUsername, char[] pWord);

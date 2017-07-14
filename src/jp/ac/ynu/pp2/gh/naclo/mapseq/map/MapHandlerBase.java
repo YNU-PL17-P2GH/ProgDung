@@ -20,14 +20,13 @@ public abstract class MapHandlerBase {
 
 	private RpgMap theMap;
 
-	public String sourceRuby;
-
 	protected MapPlayer thePlayer;
 
 	protected ArrayList<MapObject> theObj;
 
-
 	protected DungeonPlay callback;
+	
+	private MapPcObject currentFocusedPc;
 
 
 	/**
@@ -79,8 +78,13 @@ public abstract class MapHandlerBase {
 	}
 
 
-	protected void showCoder() {
+	protected void showCoder(MapPcObject pObject) {
+		currentFocusedPc = pObject;
 		callback.showCoder();
+	}
+	
+	public MapPcObject getCurrentFocusedPc() {
+		return currentFocusedPc;
 	}
 
 	public abstract void onMapLoad();

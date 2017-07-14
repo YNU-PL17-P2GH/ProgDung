@@ -21,5 +21,9 @@ public class MapPcObject extends MapFixedObject {
 	public String getAllocObjName() {
 		return allocObjName;
 	}
+	
+	public MapProgObject getAllocObj() {
+		return allocObj;
+	}
 
 }

@@ -11,6 +11,8 @@ import org.jruby.util.KCode;
 public abstract class MapProgObject extends MapObject{	//プログラムで動作させる設置物クラス
 	protected Object theOperator;
 
+	public String sourceRuby;
+
 	public MapProgObject(MapHandlerBase pHandler, int bx, int by, String pObjName, RpgMap pMap) {
 		super(pHandler, bx, by, pObjName, pMap);
 	}
@@ -21,9 +23,9 @@ public abstract class MapProgObject extends MapObject{	//プログラムで動�
 		container.setKCode(KCode.UTF8);
 		
 		// Issue #2
-		InputStream lStream = new ReaderInputStream(new StringReader(handler.sourceRuby), "UTF-8");
+		InputStream lStream = new ReaderInputStream(new StringReader(sourceRuby), "UTF-8");
 //		EmbedEvalUnit lUnit = container.parse(lStream, "temp.rb");
 		container.runScriptlet(lStream, "template.rb");
-		container.callMethod(ruby.getCurrentContext(), getObjName(), theOperator);
+		container.callMethod(ruby.getCurrentContext(), "run", theOperator);
 	}
 }

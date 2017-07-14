@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapPcObject;
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 
 public class DungeonPanel extends JLayeredPane {
@@ -139,13 +140,14 @@ public class DungeonPanel extends JLayeredPane {
 	}
 
 	void showCoder() {
+		sourceArea.setText(lDungeonPlay.handler.getCurrentFocusedPc().getAllocObj().sourceRuby);
 		sourcePane.setVisible(true);
 		revalidate();
 	}
 
 	void hideCoder() {
 		sourcePane.setVisible(false);
-		lDungeonPlay.handler.sourceRuby = sourceArea.getText();
+		lDungeonPlay.handler.getCurrentFocusedPc().getAllocObj().sourceRuby = sourceArea.getText();
 		revalidate();
 	}
 

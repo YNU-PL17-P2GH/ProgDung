@@ -2,6 +2,7 @@ package jp.ac.ynu.pp2.gh.progdung.gui;
 
 import javax.swing.JFrame;
 
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapPcObject;
 import jp.ac.ynu.pp2.gh.progdung.util.SaveData;
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 
