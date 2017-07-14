@@ -51,7 +51,7 @@ public class MapSortObject extends MapProgObject{
 		}
 
 		//仮で実行
-		runRuby(Ruby.newInstance());
+//		runRuby(Ruby.newInstance());
 	}
 	@Override
 	public void draw(ShareInfo sinfo, int map_x, int map_y) {

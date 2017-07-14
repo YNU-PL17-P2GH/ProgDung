@@ -54,9 +54,11 @@ public class TutorialObject extends MapProgObject {
 		drawFlag = false;
 		
 		// Move
+		/*
 		if (updateTick == -1) {
 			runRuby(Ruby.newInstance());
 		}
+		*/
 		if (updateTick++ >= 100) {
 			updateTick = 0;
 		} else {
