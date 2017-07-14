@@ -19,6 +19,7 @@ public class TutorialObject extends MapProgObject {
 	private int currentState = -1;
 	private TutorialOperator operator;
 	private BufferedImage objImg;
+	private int updateTick = -1;
 	
 	public TutorialObject(MapHandlerBase pHandler, int bx, int by, String pObjName, RpgMap pMap) {
 		super(pHandler, bx, by, pObjName, pMap);
@@ -29,6 +30,7 @@ public class TutorialObject extends MapProgObject {
 			throw new RuntimeException(e);
 		}
 		
+		operator = new TutorialOperator();
 		width = 2;
 		height = 4;
 	}
@@ -48,6 +50,19 @@ public class TutorialObject extends MapProgObject {
 
 	@Override
 	public void update(ShareInfo sinfo) {
+		handler.getMap().setObj(box_x, box_y, this);
+		drawFlag = false;
+		
+		// Move
+		if (updateTick == -1) {
+			runRuby(Ruby.newInstance());
+		}
+		if (updateTick++ >= 300) {
+			updateTick = 0;
+		} else {
+			return;
+		}
+		
 		switch (currentState) {
 		case 0:
 			getMap().setObj(box_x, box_y, null);
@@ -56,8 +71,6 @@ public class TutorialObject extends MapProgObject {
 		default:
 			break;
 		}
-		handler.getMap().setObj(box_x, box_y, this);
-		drawFlag = false;
 	}
 	
 	@Override

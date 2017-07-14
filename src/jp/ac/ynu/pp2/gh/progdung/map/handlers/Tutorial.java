@@ -11,7 +11,7 @@ public class Tutorial extends MapHandlerBase {
 		super("tutorial", player_x, player_y, player_d, play);
 		
 		sourceRuby = "def tutorial(tori)\n"
-				+ "\t/*ここにソースを入力*/\n"
+				+ "\ttori.moveRight();\n"
 				+ "end";
 		callback.setSource(sourceRuby);
 	}
