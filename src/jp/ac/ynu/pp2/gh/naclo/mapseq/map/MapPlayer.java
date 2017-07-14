@@ -294,8 +294,16 @@ public class MapPlayer extends MapMoveObject{
 		if (!isStartMoving() && sinfo.getKeyRelease(KEY_STATE.Z)) {
 			for (MapObject tObject: handler.theObj) {
 				int bx = next_x; int by = next_y;
-				next_x += -direction.getVal() + 1;
-				next_y += direction.getVal() - 2;
+				if(direction ==MAP_CONST.DIRECTION.UP){
+					next_y -= 1;
+				}else if(direction ==MAP_CONST.DIRECTION.RIGHT){
+					next_x += 1;
+				}else if(direction ==MAP_CONST.DIRECTION.DOWN){
+					next_y += 1;
+				}else if(direction ==MAP_CONST.DIRECTION.LEFT){
+					next_x -= 1;
+				}
+				
 				if (handler.hitChecktoObj(tObject)) {
 					handler.onPlayerInteract(tObject);
 				}

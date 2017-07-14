@@ -12,8 +12,9 @@ public class MapDoorObject extends MapObject{
 	private BufferedImage objImg;
 	private int imgNum; 					//アニメーションの枚数
 	private int imgNumNow;					//現在の表示画像
+	private String doorKey;
 
-	public MapDoorObject(MapHandlerBase pHandler, int bx, int by, int w, int h, String objName, RpgMap map) {
+	public MapDoorObject(MapHandlerBase pHandler, int bx, int by, int w, int h, String objName, String key, RpgMap map) {
 		super(pHandler, bx, by, objName, map);
 
 		width = w;
@@ -36,6 +37,12 @@ public class MapDoorObject extends MapObject{
 		//画像は縦方向にしか連結していないのが前提
 		//また一番下の画像が開いている扉
 		imgNum = objImg.getHeight() / (height * MAP_CONST.MAP_CHIP_SIZE);
+		
+		if(key.equals("null")){
+			doorKey = null;
+		}else{
+			doorKey = key;
+		}
 	}
 
 	@Override
@@ -77,6 +84,11 @@ public class MapDoorObject extends MapObject{
 
 	@Override
 	public boolean hitCheck(MapObject obj) {
+		if(doorKey != null){
+			if(!handler.callback.getSaveData().getBoolean(doorKey)){	//扉が開けるかチェック
+				return false;
+			}
+		}
 		//近づいたときなので判定エリアを拡大
 		if(this.box_x - 1 < (obj.box_x + obj.width) && (this.box_x + 1 + this.width) > obj.box_x){
 			if(this.box_y - 1 < (obj.box_y + obj.height) && (this.box_y + 1 + this.height) > obj.box_y){

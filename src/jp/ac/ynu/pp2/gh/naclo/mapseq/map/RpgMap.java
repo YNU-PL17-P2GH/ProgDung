@@ -92,8 +92,7 @@ public class RpgMap {
 					handler.theObj.add(new MapFixedObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), datas[1], this));
 				}else if(line.indexOf("doorObj") >= 0){	//ドア設置
 					datas = line.split(",", 0);
-					handler.theObj.add(new MapDoorObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]),Integer.parseInt(datas[4]),
-							Integer.parseInt(datas[5]), datas[1], this));
+					handler.theObj.add(new MapDoorObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]),Integer.parseInt(datas[4]), Integer.parseInt(datas[5]), datas[1], datas[6], this));
 				}else if(line.indexOf("progObj") >= 0){
 					datas = line.split(",", 0);
 					// datas[1]にロードするプログラム
