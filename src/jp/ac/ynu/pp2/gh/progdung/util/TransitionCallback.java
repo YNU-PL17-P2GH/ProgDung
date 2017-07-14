@@ -33,4 +33,6 @@ public interface TransitionCallback {
 
 	SaveData getSaveData();
 
+	void setSource(String pSource);
+
 }
