@@ -33,7 +33,7 @@ public class TutorialObject extends MapProgObject {
 		height = 4;
 		
 		sourceRuby = "def run(" + pObjName + ")\n"
-				+ "\t# ここにソースを入力\n"
+				+ "\t# この下にソースを入力\n"
 				+ "end";
 	}
 
