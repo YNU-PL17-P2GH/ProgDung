@@ -1,6 +1,5 @@
 package jp.ac.ynu.pp2.gh.naclo.mapseq.map;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -9,7 +8,7 @@ import javax.swing.JOptionPane;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 
 public class MapDoorObject extends MapObject{
-	private BufferedImage objImg;
+
 	private int imgNum; 					//アニメーションの枚数
 	private int imgNumNow;					//現在の表示画像
 	private String doorKey;

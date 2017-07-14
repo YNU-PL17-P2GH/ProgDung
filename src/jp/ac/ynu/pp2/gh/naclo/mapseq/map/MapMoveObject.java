@@ -1,6 +1,5 @@
 package jp.ac.ynu.pp2.gh.naclo.mapseq.map;
 
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,7 +14,7 @@ public class MapMoveObject extends MapObject{
 	protected static final int delay = 10;
 	protected int point_x, point_y;
 	protected int next_x, next_y;		//移動先マス座標
-	protected BufferedImage objImg;
+
 	protected int animeCount;
 	protected int directNum;			//向きの数
 	protected int imgNum;				//画像枚数

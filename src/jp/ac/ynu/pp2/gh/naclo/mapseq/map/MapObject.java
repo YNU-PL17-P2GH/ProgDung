@@ -1,5 +1,7 @@
 package jp.ac.ynu.pp2.gh.naclo.mapseq.map;
 
+import java.awt.image.BufferedImage;
+
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 
 public abstract class MapObject {
@@ -10,6 +12,8 @@ public abstract class MapObject {
 	protected boolean drawFlag = false;
 	protected boolean canPass = false;
 	protected String objName;
+	
+	protected BufferedImage objImg;
 
 	public MapObject(MapHandlerBase pHandler, int pX, int pY, String pObjName, RpgMap pMap) {
 		objName = pObjName;
