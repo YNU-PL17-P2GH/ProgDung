@@ -48,7 +48,6 @@ public class Tutorial extends MapHandlerBase {
 				}
 			}
 		}
-
 	}
 
 	@Override

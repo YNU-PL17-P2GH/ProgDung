@@ -289,7 +289,7 @@ public class MapPlayer extends MapMoveObject{
 	@Override
 	public void update(ShareInfo sinfo) {
 		handler.playerUpdate();
-		
+
 		// Press Z
 		if (!isStartMoving() && sinfo.getKeyRelease(KEY_STATE.Z)) {
 			for (MapObject tObject: handler.theObj) {
@@ -303,14 +303,14 @@ public class MapPlayer extends MapMoveObject{
 				}else if(direction ==MAP_CONST.DIRECTION.LEFT){
 					next_x -= 1;
 				}
-				
+
 				if (handler.hitChecktoObj(tObject)) {
 					handler.onPlayerInteract(tObject);
 				}
 				next_x = bx; next_y = by;
 			}
 		}
-		
+
 		move(sinfo);
 		if (getPlayerFoot() == STATE.NEXT) {
 			handler.moveMap(getNextBoxOnFoot());
