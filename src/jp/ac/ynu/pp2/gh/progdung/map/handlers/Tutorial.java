@@ -10,7 +10,6 @@ public class Tutorial extends MapHandlerBase {
 	public Tutorial(int player_x, int player_y, DIRECTION player_d, DungeonPlay play) {
 		super("tutorial", player_x, player_y, player_d, play);
 
-
 		sourceRuby = "def TutorialObject(tori)\n"
 				+ "\t# ここにソースを入力\n"
 				+ "end";
@@ -53,7 +52,6 @@ public class Tutorial extends MapHandlerBase {
 				}
 			}
 		}
-
 	}
 
 	@Override
