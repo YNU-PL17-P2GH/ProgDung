@@ -17,6 +17,7 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.DIRECTION;
 import jp.ac.ynu.pp2.gh.progdung.map.handlers.Lobby;
+import jp.ac.ynu.pp2.gh.progdung.util.SaveData;
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 
 public class DungeonPlay extends Canvas {
@@ -62,8 +63,24 @@ public class DungeonPlay extends Canvas {
 		handler = new Lobby(19, 40, DIRECTION.UP, this);
 	}
 	
-	public void showHint(String pString) {
-		callback.showHint(pString);
+	public void showHint(String pString, boolean force) {
+		callback.showHint(pString, force);
+	}
+	
+	public boolean isHintShown() {
+		return callback.isHintShown();
+	}
+	
+	public void showCoder() {
+		callback.showCoder();
+	}
+	
+	public void hideCoder() {
+		callback.hideCoder();
+	}
+	
+	public boolean isCorderShown() {
+		return callback.isCoderShown();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -71,15 +88,10 @@ public class DungeonPlay extends Canvas {
 		try {
 			Constructor<MapHandlerBase> cnst = (Constructor<MapHandlerBase>) Class.forName(name)
 					.getConstructor(int.class, int.class, DIRECTION.class, DungeonPlay.class);
-			try {
-				handler = cnst.newInstance(pX, pY, pD, this);
-			} catch (InstantiationException | IllegalAccessException
-					| IllegalArgumentException | InvocationTargetException e) {
-				// TODO 自動生成された catch ブロック
-				e.printStackTrace();
-			}
+			handler = cnst.newInstance(pX, pY, pD, this);
 		} catch (NoSuchMethodException | SecurityException
-				| ClassNotFoundException e) {
+				| ClassNotFoundException | InstantiationException
+				| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
@@ -158,8 +170,19 @@ public class DungeonPlay extends Canvas {
 			case KeyEvent.VK_SPACE:
 				newKeystate[KEY_STATE.SPACE] = b;
 				break;
+			case KeyEvent.VK_ESCAPE:
+				hideCoder();
+				break;
 			}
 		}
 
+	}
+	
+	public SaveData getSaveData() {
+		return callback.getSaveData();
+	}
+	
+	public void setSource(String pSource) {
+		callback.setSource(pSource);
 	}
 }

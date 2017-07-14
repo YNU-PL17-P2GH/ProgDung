@@ -14,19 +14,25 @@ public class Output extends MapHandlerBase{
 	@Override
 	public void playerUpdate() {
 		// TODO 自動生成されたメソッド・スタブ
-		
+
 	}
 
 	@Override
 	public void onPlayerHitTo(MapObject object) {
 		// TODO 自動生成されたメソッド・スタブ
-		
+
 	}
 
 	@Override
 	public void onPlayerInteract(MapObject pObject) {
 		// TODO 自動生成されたメソッド・スタブ
-		
+
+	}
+
+	@Override
+	public void onMapLoad() {
+		// TODO 自動生成されたメソッド・スタブ
+
 	}
 
 }

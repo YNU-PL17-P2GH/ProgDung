@@ -29,4 +29,10 @@ public class Lastmap extends MapHandlerBase {
 
 	}
 
+	@Override
+	public void onMapLoad() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

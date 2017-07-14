@@ -1,2 +1,2 @@
-doorObj,silver,12,12,4,4
+doorObj,silver,12,12,4,4,null
 nextMap,Lobby,41,34,8,12,14,13,14,14,14,15,14,12,15,13,15,14,15,15,15,2

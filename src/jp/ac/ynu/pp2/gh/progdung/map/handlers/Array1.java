@@ -29,4 +29,10 @@ public class Array1  extends MapHandlerBase{
 
 	}
 
+	@Override
+	public void onMapLoad() {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
 }

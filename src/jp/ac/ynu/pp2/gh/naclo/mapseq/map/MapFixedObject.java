@@ -11,11 +11,8 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 public class MapFixedObject extends MapObject{
 	private BufferedImage objImg;
 	public MapFixedObject(MapHandlerBase pHandler, int bx, int by, String objName, RpgMap map){
-		super(pHandler, objName);
+		super(pHandler, bx, by, objName, map);
 
-		myMap = map;
-		box_x = bx;
-		box_y = by;
 		//objNameに従ってロード
 		try {
 			objImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/obj/" + objName + ".png"));

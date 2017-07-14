@@ -11,9 +11,13 @@ public abstract class MapObject {
 	protected boolean canPass = false;
 	protected String objName;
 
-	public MapObject(MapHandlerBase pHandler, String pObjName) {
+	public MapObject(MapHandlerBase pHandler, int pX, int pY, String pObjName, RpgMap pMap) {
 		objName = pObjName;
 		handler = pHandler;
+		
+		box_x = pX;
+		box_y = pY;
+		myMap = pMap;
 	}
 
 	public abstract void draw(ShareInfo sinfo, int map_x, int map_y);

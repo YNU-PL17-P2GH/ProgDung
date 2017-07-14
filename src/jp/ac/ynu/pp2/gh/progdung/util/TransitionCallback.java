@@ -21,6 +21,18 @@ public interface TransitionCallback {
 	
 	JFrame getMainFrame();
 	
-	void showHint(String string);
+	void showHint(String string, boolean force);
+
+	void showCoder();
+
+	void hideCoder();
+
+	boolean isCoderShown();
+
+	boolean isHintShown();
+
+	SaveData getSaveData();
+
+	void setSource(String pSource);
 
 }
