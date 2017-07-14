@@ -18,7 +18,7 @@ public abstract class MapHandlerBase {
 
 	public Object rubyOperator;
 
-	protected RpgMap theMap;
+	private RpgMap theMap;
 	
 	public String sourceRuby;
 
@@ -38,12 +38,12 @@ public abstract class MapHandlerBase {
 		theObj = new ArrayList<MapObject>();
 
 		theMap = new RpgMap(this, pMapName, player_x, player_y, player_d);
-		thePlayer = new MapPlayer(this, player_x, player_y, "player", player_d, theMap);
+		thePlayer = new MapPlayer(this, player_x, player_y, "player", player_d, getMap());
 	}
 	
 	public void draw(ShareInfo sinfo) {
-		theMap.update(sinfo);
-		theMap.draw(sinfo);
+		getMap().update(sinfo);
+		getMap().draw(sinfo);
 	}
 
 	public final void moveMap(NextMapBox pBox) {
@@ -86,4 +86,9 @@ public abstract class MapHandlerBase {
 	public abstract void onPlayerHitTo(MapObject object);
 	
 	public abstract void onPlayerInteract(MapObject pObject);
+
+	public RpgMap getMap() {
+		return theMap;
+	}
+
 }

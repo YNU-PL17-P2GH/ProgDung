@@ -22,7 +22,7 @@ public class Tutorial extends MapHandlerBase {
 
 	@Override
 	public void onPlayerHitTo(MapObject object) {
-		if (object.getObjName().equals("tori")) {
+		if (object.getObjName().equals("TutorialObject")) {
 			if (!callback.getSaveData().getBoolean("Tutorial003")) {
 				showHint("<html>この\"tori\"という名前の石像をどかす<br>必要があるようです!<br>"
 						+ "石像を動かすために,左上のPCを調べて<br>みましょう...</html>", true);
@@ -44,7 +44,10 @@ public class Tutorial extends MapHandlerBase {
 			if (callback.getSaveData().getBoolean("Tutorial004")) {
 				showCoder();
 				if (!callback.getSaveData().getBoolean("Tutorial005")) {
-					showHint("<html>これがソース入力画面です.<br>Escキーで閉じます.</html>", true);
+					showHint("<html>これがソース入力画面です.<br>Escキーで閉じます.<br><br>"
+							+ "手始めに,指定された位置に<br>"
+							+ "tori.moveRight();<br>"
+							+ "と入力してみましょう.</html>", true);
 					callback.getSaveData().setTaken("Tutorial005");
 				}
 			}
@@ -58,5 +61,5 @@ public class Tutorial extends MapHandlerBase {
 			callback.getSaveData().setTaken("Tutorial002");
 		}
 	}
-
+	
 }
