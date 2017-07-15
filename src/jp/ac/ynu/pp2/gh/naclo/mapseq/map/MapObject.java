@@ -55,6 +55,7 @@ public abstract class MapObject {
 
 	public void setVisible(boolean b) {
 		this.visible = b;
+		this.canPass = !b;
 	}
 
 	public abstract boolean hitCheck(MapObject obj);

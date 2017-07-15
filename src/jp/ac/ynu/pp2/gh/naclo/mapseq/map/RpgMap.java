@@ -94,6 +94,9 @@ public class RpgMap {
 				}else if(line.startsWith("fixObj")){	//固定設置物
 					datas = tPattern.split(line);
 					handler.theObj.add(new MapFixedObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), datas[1], this));
+				}else if(line.startsWith("fixNamedObj")){	//固定設置物 名前あり
+					datas = tPattern.split(line);
+					handler.theObj.add(new MapFixedNamedObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), datas[1], datas[4], this));
 				}else if(line.startsWith("animeObj")){	//固定設置物 アニメーションあり
 					datas = tPattern.split(line);
 					handler.theObj.add(new MapAnimeObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), Integer.parseInt(datas[4]), Integer.parseInt(datas[5]), datas[1], this));
