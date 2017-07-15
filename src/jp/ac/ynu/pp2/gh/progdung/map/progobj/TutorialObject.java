@@ -5,38 +5,38 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import org.jruby.Ruby;
-
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.STATE;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapProgObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.RpgMap;
-import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.STATE;
+
+import org.jruby.Ruby;
 
 public class TutorialObject extends MapProgObject {
-	
+
 	private int currentState = -1;
 	private BufferedImage objImg;
 	private int updateTick = -1;
-	
+
 	public TutorialObject(MapHandlerBase pHandler, int bx, int by, String pObjName, RpgMap pMap) {
 		super(pHandler, bx, by, pObjName, pMap);
-		
+
 		try {
 			objImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/obj/" + pObjName + ".png"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		
+
 		theOperator = new TutorialOperator();
 		width = 2;
 		height = 4;
-		
+
 		sourceRuby = "def run(" + pObjName + ")\n"
 				+ "\t# この下にソースを入力\n"
 				+ "end";
-		
+
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class TutorialObject extends MapProgObject {
 			}
 		}.start();
 	}
-	
+
 	private void rrwrapper(Ruby ruby) {
 		super.runRuby(ruby);
 	}
@@ -65,7 +65,7 @@ public class TutorialObject extends MapProgObject {
 			getMap().setObj(box_x, box_y, this);
 		}
 		drawFlag = false;
-		
+
 		// Move
 		if (currentState < 0) {
 			updateTick = 0;
@@ -77,7 +77,7 @@ public class TutorialObject extends MapProgObject {
 		} else {
 			return;
 		}
-		
+
 		int bx = box_x;
 		int by = box_y;
 
@@ -124,7 +124,7 @@ public class TutorialObject extends MapProgObject {
 		getMap().setObj(bx, by, null);
 		getMap().setObj(box_x, box_y, this);
 	}
-	
+
 	@Override
 	public boolean getCanPass() {
 		return false;
@@ -135,7 +135,7 @@ public class TutorialObject extends MapProgObject {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	public class TutorialOperator {
 		public void moveRight() {
 			try {
@@ -156,7 +156,7 @@ public class TutorialObject extends MapProgObject {
 			} catch (InterruptedException e) {
 			}
 		}
-		
+
 		public void moveLeft() {
 			try {
 				while (currentState >= 0) {
@@ -166,7 +166,7 @@ public class TutorialObject extends MapProgObject {
 			} catch (InterruptedException e) {
 			}
 		}
-		
+
 		public void moveDown() {
 			try {
 				while (currentState >= 0) {
@@ -176,7 +176,7 @@ public class TutorialObject extends MapProgObject {
 			} catch (InterruptedException e) {
 			}
 		}
-		
+
 	}
-	
+
 }

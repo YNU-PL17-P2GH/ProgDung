@@ -12,13 +12,14 @@ public abstract class MapObject {
 	protected boolean drawFlag = false;
 	protected boolean canPass = false;
 	protected String objName;
-	
+
 	protected BufferedImage objImg;
+	protected boolean visible = true;
 
 	public MapObject(MapHandlerBase pHandler, int pX, int pY, String pObjName, RpgMap pMap) {
 		objName = pObjName;
 		handler = pHandler;
-		
+
 		box_x = pX;
 		box_y = pY;
 		myMap = pMap;
@@ -47,9 +48,13 @@ public abstract class MapObject {
 	public boolean getCanPass() {
 		return canPass;
 	}
-	
+
 	public String getObjName() {
 		return objName;
+	}
+
+	public void setVisible(boolean b) {
+		this.visible = b;
 	}
 
 	public abstract boolean hitCheck(MapObject obj);

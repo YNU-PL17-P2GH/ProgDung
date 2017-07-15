@@ -42,7 +42,7 @@ public class RpgMap {
 			//レイヤー数設定
 			int layer = Integer.parseInt(datas[2]);
 //			MapBox.setLayerNum(layer);
-			
+
 			//マップの初期STATE設定
 			for(int i = 0; i < boxs.length; i++){
 				line = ibr.readLine();
@@ -57,7 +57,7 @@ public class RpgMap {
 					}
 				}
 			}
-			
+
 			//マップチップ配置 レイヤーごと
 			for(int k = 0; k < layer; k++){
 				for(int i = 0; i < boxs.length; i++){
@@ -73,7 +73,7 @@ public class RpgMap {
 				}
 			}
 			ibr.close();
-			
+
 			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/" + mapName + "/mapObj.txt").openStream()));
 			line = ibr.readLine();
 
@@ -94,6 +94,12 @@ public class RpgMap {
 				}else if(line.startsWith("fixObj")){	//固定設置物
 					datas = tPattern.split(line);
 					handler.theObj.add(new MapFixedObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), datas[1], this));
+				}else if(line.startsWith("animeObj")){	//固定設置物 アニメーションあり
+					datas = tPattern.split(line);
+					handler.theObj.add(new MapAnimeObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), Integer.parseInt(datas[4]), Integer.parseInt(datas[5]), datas[1], this));
+				}else if(line.startsWith("animeNamedObj")){	//固定設置物 アニメーションあり 名前あり
+					datas = tPattern.split(line);
+					handler.theObj.add(new MapAnimeNamedObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), Integer.parseInt(datas[4]), Integer.parseInt(datas[5]),datas[1], datas[6], this));
 				}else if(line.startsWith("doorObj")){	//ドア設置
 					datas = tPattern.split(line);
 					handler.theObj.add(new MapDoorObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]),Integer.parseInt(datas[4]), Integer.parseInt(datas[5]), datas[1], datas[6], this));
@@ -121,7 +127,7 @@ public class RpgMap {
 			}
 
 			ibr.close();
-			
+
 			connectPcToProg();
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "エラー");
@@ -139,7 +145,7 @@ public class RpgMap {
 				tRel.put(((MapPcObject) tObject).getAllocObjName(), (MapPcObject) tObject);
 			}
 		}
-		
+
 		for (MapObject tObject : handler.theObj) {
 			if (tObject instanceof MapProgObject &&
 					tRel.containsKey(tObject.getObjName())) {

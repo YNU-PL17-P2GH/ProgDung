@@ -36,7 +36,7 @@ public class MapDoorObject extends MapObject{
 		//画像は縦方向にしか連結していないのが前提
 		//また一番下の画像が開いている扉
 		imgNum = objImg.getHeight() / (height * MAP_CONST.MAP_CHIP_SIZE);
-		
+
 		if(key.equals("null")){
 			doorKey = null;
 		}else{
@@ -46,6 +46,7 @@ public class MapDoorObject extends MapObject{
 
 	@Override
 	public void draw(ShareInfo sinfo, int map_x, int map_y) {
+		if(!visible) return;
 		sinfo.g.drawImage(objImg, map_x, map_y , map_x + MAP_CONST.MAP_BOX_SIZE  * width, map_y + MAP_CONST.MAP_BOX_SIZE * height,
 				0, imgNumNow * (height * MAP_CONST.MAP_CHIP_SIZE),
 				width * MAP_CONST.MAP_CHIP_SIZE, (imgNumNow + 1) * (height * MAP_CONST.MAP_CHIP_SIZE), null);
@@ -68,13 +69,13 @@ public class MapDoorObject extends MapObject{
 					imgNumNow--;
 				}
 			}
-			
+
 			if(imgNumNow == (imgNum - 1)){
 				canPass = true;
 			}else{
 				canPass = false;
 			}
-			
+
 
 			animeCount++;
 		}

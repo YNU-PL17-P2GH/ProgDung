@@ -1,5 +1,12 @@
 doorObj,silver,26,21,4,4,null
 nextMap,Lobby,7,34,8,26,23,27,23,28,23,29,23,26,24,27,24,28,24,29,24,2
-fixObj,pc/mini,20,25
-fixObj,hondana,34,25
+progObj,basiccalc,8,26,BasiccalcObject
+pcObj,mini,20,25,basiccalc
+animeNamedObj,kirakira/yellow,15,39,2,2,keyA
+animeNamedObj,kirakira/yellow,41,39,2,2,keyB
+animeNamedObj,kirakira/yellow,41,25,2,2,keyC
+fixObj,hondana/basic,34,25
+fixObj,hondana/wood,25,34
+fixObj,hondana/wood,27,34
+fixObj,hondana/wood,29,34
 fixObj,bookdesk,23,24
