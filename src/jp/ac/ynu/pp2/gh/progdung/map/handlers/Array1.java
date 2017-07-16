@@ -1,5 +1,6 @@
 package jp.ac.ynu.pp2.gh.progdung.map.handlers;
 
+import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.DIRECTION;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
@@ -16,9 +17,10 @@ public class Array1  extends MapHandlerBase{
 	public Array1(int player_x, int player_y, DIRECTION player_d, DungeonPlay play) {
 		super("array1", player_x, player_y, player_d, play);
 	}
-
+	
 	@Override
-	public void playerUpdate() {
+	public void draw(ShareInfo sinfo) {
+		super.draw(sinfo);
 		if(!callback.getSaveData().getBoolean("Array1001")){
 			if(array1.getFragSuccess()){
 				callback.getSaveData().setTaken("Array1001");
@@ -37,6 +39,11 @@ public class Array1  extends MapHandlerBase{
 				showHint("<html>道をふさぐ箱が消え去った!!!</html>", true);
 			}
 		}
+	}
+
+	@Override
+	public void playerUpdate() {
+		
 	}
 
 	@Override
