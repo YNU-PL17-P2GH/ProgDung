@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.StringReader;
 
 import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST;
@@ -185,7 +184,7 @@ public class BasiccalcObject extends MapProgObject{
 	public class BaciccalcOperator {
 		public void setResult(RubyInteger rint) {
 			result = RubyInteger.num2int(rint);
-			JOptionPane.showMessageDialog(null, "" + result);
+			//JOptionPane.showMessageDialog(null, "" + result);
 		}
 	}
 }

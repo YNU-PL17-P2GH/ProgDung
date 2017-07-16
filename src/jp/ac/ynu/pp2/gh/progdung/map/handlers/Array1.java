@@ -17,7 +17,7 @@ public class Array1  extends MapHandlerBase{
 	public Array1(int player_x, int player_y, DIRECTION player_d, DungeonPlay play) {
 		super("array1", player_x, player_y, player_d, play);
 	}
-	
+
 	@Override
 	public void draw(ShareInfo sinfo) {
 		super.draw(sinfo);
@@ -43,7 +43,7 @@ public class Array1  extends MapHandlerBase{
 
 	@Override
 	public void playerUpdate() {
-		
+
 	}
 
 	@Override
