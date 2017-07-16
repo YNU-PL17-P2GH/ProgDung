@@ -70,6 +70,9 @@ public abstract class MapHandlerBase {
 		return thePlayer.hitCheck(obj);
 	}
 
+	public DungeonPlay getCallback() {
+		return callback;
+	}
 
 	protected void showHint(String pString, boolean force) {
 		callback.showHint(pString, force);
