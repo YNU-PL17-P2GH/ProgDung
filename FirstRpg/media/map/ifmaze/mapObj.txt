@@ -1,3 +1,13 @@
 fixObj,horse/left,41,20
 doorObj,silver,9,11,4,4,null
-nextMap,roby,38,9,8,9,13,10,13,11,13,12,13,9,14,10,14,11,14,12,14,2
+nextMap,Lobby,38,9,8,9,13,10,13,11,13,12,13,9,14,10,14,11,14,12,14,2
+progObj,mizugame,30,21,IfmazeObject
+pcObj,mini,44,29,mizugame
+fixObj,hondana/wood,9,32
+fixObj,hondana/wood,11,32
+fixObj,hondana/wood,13,32
+fixObj,hondana/wood,15,32
+fixObj,hondana/wood,17,32
+fixObj,hondana/wood,19,32
+fixObj,hondana/wood,21,32
+fixObj,hondana/wood,23,32
