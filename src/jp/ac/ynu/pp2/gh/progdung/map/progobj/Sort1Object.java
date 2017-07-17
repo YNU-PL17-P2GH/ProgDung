@@ -3,6 +3,8 @@ package jp.ac.ynu.pp2.gh.progdung.map.progobj;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -16,16 +18,19 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapProgObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.RpgMap;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.STATE;
+import jp.ac.ynu.pp2.gh.progdung.map.progobj.IfmazeObject.IfmazeOperator;
 
 import org.jruby.Ruby;
 import org.jruby.embed.ScriptingContainer;
+import org.jruby.embed.io.ReaderInputStream;
+import org.jruby.util.KCode;
 
-public class MapSortObject extends MapProgObject{
+public class Sort1Object extends MapProgObject{
 	private int showArray[];
 	private volatile LinkedList<Point> exhengList = new LinkedList<Point>();
-	ArrayOperator myArrayOperator = new ArrayOperator();
+	//ArrayOperator myArrayOperator = new ArrayOperator();
 
-	public MapSortObject(MapHandlerBase pHandler, int bx, int by, String objName, RpgMap map){
+	public Sort1Object(MapHandlerBase pHandler, int bx, int by, String objName, RpgMap map){
 		super(pHandler, bx, by, objName, map);
 
 		//objNameに従ってロード
@@ -35,6 +40,8 @@ public class MapSortObject extends MapProgObject{
 			JOptionPane.showMessageDialog(null, "エラー");
 			System.exit(0);
 		}
+		
+		theOperator = new Array1Operator();
 
 		//設置されているマスにオブジェクトを登録
 		for(int i = 0; i < showArray.length * 2 ; i++){
@@ -49,7 +56,10 @@ public class MapSortObject extends MapProgObject{
 				myMap.setBoxState(box_x - j, box_y + i, MAP_CONST.STATE.BLOCK);
 			}
 		}
-
+		
+		sourceRuby = "def sort(array)\n"
+				+ "\t# この下にソースを入力\n"
+				+ "end";
 		//仮で実行
 //		runRuby(Ruby.newInstance());
 	}
@@ -132,22 +142,36 @@ public class MapSortObject extends MapProgObject{
 		}
 		System.out.println();
 		*/
+		
 		animeCount++;
 	}
 	@Override
-	public void runRuby(Ruby ruby) {
+	public void runRuby(final Ruby ruby) {
+		new Thread() {
+			@Override
+			public void run() {
+				rrwrapper(ruby);
+			}
+		}.start();	
+	}
+	
+	private void rrwrapper(Ruby ruby) {
 		ScriptingContainer container = new ScriptingContainer();
-		container.runScriptlet(org.jruby.embed.PathType.RELATIVE, "FirstRpg/media/map/sort1/sort.rb");
-		System.out.println("バブルソート");
-		container.callMethod(ruby.getCurrentContext(), "sort", myArrayOperator);
+		container.setKCode(KCode.UTF8);
+
+		// Issue #2
+		InputStream lStream = new ReaderInputStream(new StringReader(sourceRuby), "UTF-8");
+//		EmbedEvalUnit lUnit = container.parse(lStream, "temp.rb");
+		container.runScriptlet(lStream, "template.rb");
+		container.callMethod(ruby.getCurrentContext(), "sort", theOperator);
 	}
 
-	public class ArrayOperator {
+	public class Array1Operator {
 		private int array[];
 		private int initArray[];	//init用
 		private int count = 0;		//交換回数
 
-		public ArrayOperator(){
+		public Array1Operator(){
 			showArray = new int[10];
 			array = new int[10];
 			initArray = new int[10];
