@@ -103,6 +103,9 @@ public class RpgMap {
 				}else if(line.startsWith("animeNamedObj")){	//固定設置物 アニメーションあり 名前あり
 					datas = tPattern.split(line);
 					handler.theObj.add(new MapAnimeNamedObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), Integer.parseInt(datas[4]), Integer.parseInt(datas[5]),datas[1], datas[6], this));
+				}else if(line.startsWith("clearObj")){	//クリア用pc
+					datas = tPattern.split(line);
+					handler.theObj.add(new MapClearObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), datas[1], this));
 				}else if(line.startsWith("doorObj")){	//ドア設置
 					datas = tPattern.split(line);
 					handler.theObj.add(new MapDoorObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]),Integer.parseInt(datas[4]), Integer.parseInt(datas[5]), datas[1], datas[6], this));

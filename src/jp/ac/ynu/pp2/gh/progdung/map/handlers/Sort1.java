@@ -5,6 +5,7 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapPcObject;
 import jp.ac.ynu.pp2.gh.progdung.gui.DungeonPlay;
+import jp.ac.ynu.pp2.gh.progdung.map.progobj.Sort1Object;
 
 public class Sort1 extends MapHandlerBase {
 
@@ -33,8 +34,11 @@ public class Sort1 extends MapHandlerBase {
 
 	@Override
 	public void onMapLoad() {
-		// TODO Auto-generated method stub
-		
+		for (MapObject tObject : theObj) {
+			if (tObject instanceof Sort1Object) {
+				((Sort1Object)tObject).setSuccessFlag(callback.getSaveData().getBoolean("Sort1001"));
+			}
+		}
 	}
 
 }

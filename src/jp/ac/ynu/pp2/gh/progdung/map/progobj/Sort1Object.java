@@ -1,7 +1,6 @@
 package jp.ac.ynu.pp2.gh.progdung.map.progobj;
 
 import java.awt.Point;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -17,8 +16,6 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapProgObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.RpgMap;
-import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.STATE;
-import jp.ac.ynu.pp2.gh.progdung.map.progobj.IfmazeObject.IfmazeOperator;
 
 import org.jruby.Ruby;
 import org.jruby.embed.ScriptingContainer;
@@ -40,8 +37,8 @@ public class Sort1Object extends MapProgObject{
 			JOptionPane.showMessageDialog(null, "エラー");
 			System.exit(0);
 		}
-		
-		theOperator = new Array1Operator();
+
+		theOperator = new Sort1Operator();
 
 		//設置されているマスにオブジェクトを登録
 		for(int i = 0; i < showArray.length * 2 ; i++){
@@ -56,7 +53,7 @@ public class Sort1Object extends MapProgObject{
 				myMap.setBoxState(box_x - j, box_y + i, MAP_CONST.STATE.BLOCK);
 			}
 		}
-		
+
 		sourceRuby = "def sort(array)\n"
 				+ "\t# この下にソースを入力\n"
 				+ "end";
@@ -77,74 +74,89 @@ public class Sort1Object extends MapProgObject{
 	boolean swaping = false;
 	int indexA, indexB;
 	int a, b;
+	private boolean successFlag;
+
 	@Override
 	public void update(ShareInfo sinfo) {
-		drawFlag = false;
-		if(!swaping){
-			if(exhengList.size() > 0){
-				//交換する要素のそれぞれのインデックスと値を取得
-				Point p = exhengList.poll();
-				indexA = (int)p.getX();
-				indexB = (int)p.getY();
-				a = showArray[indexA];
-				b = showArray[indexB];
-				swaping = true;
-			}
-		}else{
-			if(animeCount % 30 == 0){	//動作の間隔調整
-				if(showArray[indexA] > b){
-					//穴の状態は書き換えない
-					if(myMap.getBox(box_x - showArray[indexA] + 1, box_y + indexA * 2).getState() != MAP_CONST.STATE.NEXT){
-						myMap.setBoxState(box_x - showArray[indexA] + 1, box_y + indexA * 2, MAP_CONST.STATE.EMPTY);
-						myMap.setBoxState(box_x - showArray[indexA] + 1, box_y + indexA * 2 + 1, MAP_CONST.STATE.EMPTY);
-					}
-					showArray[indexA]--;
-				}else if(showArray[indexA] < b){
-					//穴の状態は書き換えない
-					if(myMap.getBox(box_x - showArray[indexA], box_y + indexA * 2).getState() != MAP_CONST.STATE.NEXT){
-						hitIndex = indexA;
-						while(handler.hitChecktoPlayer(this)){
-							myMap.getMyPlayer().forcedMove(-1, 0);
-						}
-						myMap.setBoxState(box_x - showArray[indexA], box_y + indexA * 2, MAP_CONST.STATE.BLOCK);
-						myMap.setBoxState(box_x - showArray[indexA], box_y + indexA * 2 + 1, MAP_CONST.STATE.BLOCK);
-					}
-					showArray[indexA]++;
+		if(drawFlag){
+			if(!swaping){
+				if(exhengList.size() > 0){
+					//交換する要素のそれぞれのインデックスと値を取得
+					Point p = exhengList.poll();
+					indexA = (int)p.getX();
+					indexB = (int)p.getY();
+					a = showArray[indexA];
+					b = showArray[indexB];
+					swaping = true;
 				}
-				if(showArray[indexB] > a){
-					//穴の状態は書き換えない
-					if(myMap.getBox(box_x - showArray[indexB] + 1, box_y + indexB * 2).getState() != MAP_CONST.STATE.NEXT){
-						myMap.setBoxState(box_x - showArray[indexB] + 1, box_y + indexB * 2, MAP_CONST.STATE.EMPTY);
-						myMap.setBoxState(box_x - showArray[indexB] + 1, box_y + indexB * 2 + 1, MAP_CONST.STATE.EMPTY);
-					}
-					showArray[indexB]--;
-				}else if(showArray[indexB] < a){
-					//穴の状態は書き換えない
-					if(myMap.getBox(box_x - showArray[indexB], box_y + indexB * 2).getState() != MAP_CONST.STATE.NEXT){
-						//プレイヤーが存在するときそのマスはMAP_CONST.STATE.BLOCK
-						hitIndex = indexB;
-						while(handler.hitChecktoPlayer(this)){
-							myMap.getMyPlayer().forcedMove(-1, 0);
+			}else{
+				if(animeCount % 30 == 0){	//動作の間隔調整
+					if(showArray[indexA] > b){
+						//穴の状態は書き換えない
+						if(myMap.getBox(box_x - showArray[indexA] + 1, box_y + indexA * 2).getState() != MAP_CONST.STATE.NEXT){
+							myMap.setBoxState(box_x - showArray[indexA] + 1, box_y + indexA * 2, MAP_CONST.STATE.EMPTY);
+							myMap.setBoxState(box_x - showArray[indexA] + 1, box_y + indexA * 2 + 1, MAP_CONST.STATE.EMPTY);
 						}
-						myMap.setBoxState(box_x - showArray[indexB], box_y + indexB * 2, MAP_CONST.STATE.BLOCK);
-						myMap.setBoxState(box_x - showArray[indexB], box_y + indexB * 2 + 1, MAP_CONST.STATE.BLOCK);
+						showArray[indexA]--;
+					}else if(showArray[indexA] < b){
+						//穴の状態は書き換えない
+						if(myMap.getBox(box_x - showArray[indexA], box_y + indexA * 2).getState() != MAP_CONST.STATE.NEXT){
+							myMap.setBoxState(box_x - showArray[indexA], box_y + indexA * 2, MAP_CONST.STATE.BLOCK);
+							myMap.setBoxState(box_x - showArray[indexA], box_y + indexA * 2 + 1, MAP_CONST.STATE.BLOCK);
+						}
+						showArray[indexA]++;
 					}
-					showArray[indexB]++;
-				}
-				if(showArray[indexA] == b && showArray[indexB] == a){
-					swaping = false;
+					if(showArray[indexB] > a){
+						//穴の状態は書き換えない
+						if(myMap.getBox(box_x - showArray[indexB] + 1, box_y + indexB * 2).getState() != MAP_CONST.STATE.NEXT){
+							myMap.setBoxState(box_x - showArray[indexB] + 1, box_y + indexB * 2, MAP_CONST.STATE.EMPTY);
+							myMap.setBoxState(box_x - showArray[indexB] + 1, box_y + indexB * 2 + 1, MAP_CONST.STATE.EMPTY);
+						}
+						showArray[indexB]--;
+					}else if(showArray[indexB] < a){
+						//穴の状態は書き換えない
+						if(myMap.getBox(box_x - showArray[indexB], box_y + indexB * 2).getState() != MAP_CONST.STATE.NEXT){
+							myMap.setBoxState(box_x - showArray[indexB], box_y + indexB * 2, MAP_CONST.STATE.BLOCK);
+							myMap.setBoxState(box_x - showArray[indexB], box_y + indexB * 2 + 1, MAP_CONST.STATE.BLOCK);
+						}
+						showArray[indexB]++;
+					}
+					if(showArray[indexA] == b && showArray[indexB] == a){
+						swaping = false;
+					}
 				}
 			}
-		}
+			//あたり判定
+			while(handler.hitChecktoPlayer(this)){
+				myMap.getMyPlayer().forcedMove(-1, 0);
+			}
 		/*
 		for(int i = 0 ; i < showArray.length; i++){
 			System.out.print(showArray[i] + " ");
 		}
 		System.out.println();
 		*/
-		
+		}
+		drawFlag = false;
 		animeCount++;
 	}
+/* 正解コード
+def sort(array)
+	Integer i = 0
+	Integer j = 0
+	while i < array.length() - 1
+		j = 0
+		while j < array.length() - i - 1
+			if array.compare(j , j + 1) then
+				array.exchange(j + 1 , j)
+			end
+			j = j + 1
+		end
+		i = i + 1
+	end
+end
+ */
+
 	@Override
 	public void runRuby(final Ruby ruby) {
 		new Thread() {
@@ -152,9 +164,9 @@ public class Sort1Object extends MapProgObject{
 			public void run() {
 				rrwrapper(ruby);
 			}
-		}.start();	
+		}.start();
 	}
-	
+
 	private void rrwrapper(Ruby ruby) {
 		ScriptingContainer container = new ScriptingContainer();
 		container.setKCode(KCode.UTF8);
@@ -166,15 +178,13 @@ public class Sort1Object extends MapProgObject{
 		container.callMethod(ruby.getCurrentContext(), "sort", theOperator);
 	}
 
-	public class Array1Operator {
+	public class Sort1Operator {
 		private int array[];
-		private int initArray[];	//init用
 		private int count = 0;		//交換回数
 
-		public Array1Operator(){
+		public Sort1Operator(){
 			showArray = new int[10];
 			array = new int[10];
-			initArray = new int[10];
 			for(int i = 0; i < array.length; i++){
 				array[i] = i ;
 			}
@@ -189,15 +199,7 @@ public class Sort1Object extends MapProgObject{
 				array[y] = c;
 			}
 			for(int i = 0; i < array.length; i++){
-				initArray[i] = array[i];
 				showArray [i] = array[i];
-			}
-			count = 0;
-		}
-
-		public void initArray(){
-			for(int i = 0; i < array.length; i++){
-				array[i] = initArray[i];
 			}
 			count = 0;
 		}
@@ -221,18 +223,35 @@ public class Sort1Object extends MapProgObject{
 		public int length(){
 			return array.length;
 		}
+
+		public void cleared() {
+			for(int i = 0; i < array.length; i++){
+				array[i] = i ;
+				showArray[i] = i;
+			}
+		}
 	}
-	int hitIndex = -1;
+
 	@Override
 	public boolean hitCheck(MapObject obj) {
 		//足元で判定
-		//一つ増えたときの判定が必要である
-		if(this.box_x - showArray[hitIndex] - 1  < (obj.getBox_x() + 1) && (this.box_x) > obj.getBox_x()){
-			if((this.box_y + hitIndex * 2) < (obj.getBox_y() + 2) && (this.box_y + 2 + hitIndex * 2) > (obj.getBox_y() + 1)){
+		int pY = obj.getBox_y() + 1;
+		if(pY < box_y || pY >= box_y + showArray.length * 2){
+			return false;
+		}
+		int hitIndex = (pY - box_y) / 2;
+		if(this.box_x - showArray[hitIndex]  < (obj.getBox_x() + 1) && (this.box_x) > obj.getBox_x()){
+			//if((this.box_y + hitIndex * 2) < (obj.getBox_y() + 2) && (this.box_y + 2 + hitIndex * 2) > (obj.getBox_y() + 1)){
 				return !obj.getCanPass();
-			}
+			//}
 		}
 
 		return false;
+	}
+	public void setSuccessFlag(boolean b) {
+		successFlag = b;
+		if(successFlag){
+			((Sort1Operator)theOperator).cleared();
+		}
 	}
 }
