@@ -14,10 +14,8 @@ import java.util.TimerTask;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.KEY_STATE;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
-import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
-import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapPcObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.DIRECTION;
-import jp.ac.ynu.pp2.gh.progdung.map.handlers.Lobby;
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.progdung.map.handlers.Zentai;
 import jp.ac.ynu.pp2.gh.progdung.util.SaveData;
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
@@ -65,27 +63,27 @@ public class DungeonPlay extends Canvas {
 		//handler = new Lobby(19, 40, DIRECTION.UP, this);
 		handler = new Zentai(19, 40, DIRECTION.UP, this);
 	}
-	
+
 	public void showHint(String pString, boolean force) {
 		callback.showHint(pString, force);
 	}
-	
+
 	public boolean isHintShown() {
 		return callback.isHintShown();
 	}
-	
+
 	public void showCoder() {
 		callback.showCoder();
 	}
-	
+
 	public void hideCoder() {
 		callback.hideCoder();
 	}
-	
+
 	public boolean isCorderShown() {
 		return callback.isCoderShown();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public final void moveMap(String name, int pX, int pY, DIRECTION pD) {
 		try {
@@ -180,11 +178,11 @@ public class DungeonPlay extends Canvas {
 		}
 
 	}
-	
+
 	public SaveData getSaveData() {
 		return callback.getSaveData();
 	}
-	
+
 	public void setSource(String pSource) {
 		callback.setSource(pSource);
 	}
