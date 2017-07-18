@@ -25,6 +25,15 @@ public class Tutorial extends MapHandlerBase {
 				callback.getSaveData().setTaken("Tutorial003");
 			}
 		}
+		if (object.getObjName().equals("robe") &&
+				!callback.getSaveData().getBoolean("Tutorial010")) {
+			showHint("<html>今度は\"robe\"という石像が<br>"
+					+ "道をふさいでいます!<br>"
+					+ "なので,\"robe\"を動かす必要がありそうです...<br><br>"
+					+ "右にあるPCで,\"robe\"を動かすコードを<br>"
+					+ "入力してみましょう!最後はノーヒントです.</html>", true);
+			callback.getSaveData().setTaken("Tutorial010");
+		}
 		if (object instanceof MapPcObject) {
 			if (callback.getSaveData().getBoolean("Tutorial003") &&
 					!callback.getSaveData().getBoolean("Tutorial004")) {
@@ -37,16 +46,39 @@ public class Tutorial extends MapHandlerBase {
 	@Override
 	public void onPlayerInteract(MapObject pObject) {
 		if (pObject instanceof MapPcObject) {
+			if (!callback.getSaveData().getBoolean("Tutorial009") &&
+					callback.getSaveData().getBoolean("Tutorial007")) {
+				showHint("<html>得られた情報をもとに,さらに石像を動かす<br>"
+						+ "コードを入力してみましょう!<br><br>"
+						+ "先ほどtori.moveRight()を入力した行の<br>"
+						+ "すぐ下に,新しい行を作って入力してみてください.</html>", true);
+				callback.getSaveData().setTaken("Tutorial009");
+			}
 			if (callback.getSaveData().getBoolean("Tutorial004")) {
 				showCoder((MapPcObject) pObject);
 				if (!callback.getSaveData().getBoolean("Tutorial005")) {
 					showHint("<html>これがソース入力画面です.<br>Escキーで閉じます.<br><br>"
 							+ "手始めに,指定された位置に<br>"
-							+ "tori.moveRight();<br>"
+							+ "tori.moveRight()<br>"
 							+ "と入力してみましょう.</html>", true);
 					callback.getSaveData().setTaken("Tutorial005");
 				}
 			}
+		}
+		if (pObject.getObjName().equals("mover") &&
+				callback.getSaveData().getBoolean("Tutorial006")) {
+			showHint("<html>石像の名前.moveRight()<br>"
+					+ "　-　対象となる石像を右へ動かす.<br>"
+					+ "石像の名前.moveUp()<br>"
+					+ "　-　対象となる石像を上へ動かす.<br>"
+					+ "石像の名前.moveLeft()<br>"
+					+ "　-　対象となる石像を左へ動かす.</html>", true);
+			callback.getSaveData().setTaken("Tutorial007");
+		}
+		if (pObject.getObjName().equals("mover2") &&
+				callback.getSaveData().getBoolean("Tutorial006")) {
+			showHint("<html>石像の名前.moveDown()<br>"
+					+ "　-　対象となる石像を下へ動かす.</html>", true);
 		}
 	}
 

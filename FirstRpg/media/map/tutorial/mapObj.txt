@@ -4,7 +4,7 @@ progObj,	tori,			15,38,TutorialObject
 progObj,	robe,			35,17,TutorialObject
 pcObj,		mini,			11,30,tori
 pcObj,		mini,			43,21,robe
-fixObj,		hondana/basic, 	5,19
-fixObj,		hondana/basic, 	5,30
+fixNamedObj,hondana/basic, 	5,19, mover
+fixNamedObj,hondana/basic, 	5,30, mover2
 fixObj,		hondana/basic,	15, 8
 fixObj,		gold,			41, 9
