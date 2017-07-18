@@ -117,7 +117,7 @@ public class MapPlayer extends MapMoveObject{
 			point_y = point_y + 2;
 		}
 
-		//System.out.printf("[POS]%d / %d %d / %d\n", box_x, box_y, point_x,point_y);
+		System.out.printf("[POS]%d / %d %d / %d\n", box_x, box_y, point_x,point_y);
 
 		// 壁
 		if(!this.isStartMoving()){
