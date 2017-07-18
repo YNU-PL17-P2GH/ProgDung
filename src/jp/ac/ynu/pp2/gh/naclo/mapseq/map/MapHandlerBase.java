@@ -23,7 +23,7 @@ public abstract class MapHandlerBase {
 	protected ArrayList<MapObject> theObj;
 
 	protected DungeonPlay callback;
-	
+
 	private MapPcObject currentFocusedPc;
 
 
@@ -83,15 +83,20 @@ public abstract class MapHandlerBase {
 		currentFocusedPc = pObject;
 		callback.showCoder();
 	}
-	
+
+	protected void showHintOnCoder(MapHintObject pObject) {
+		currentFocusedPc = pObject;
+		callback.showHintOnCoder();
+	}
+
 	protected void stdoutUpdate() {
 		callback.stdoutUpdate();
 	}
-	
+
 	protected void stderrUpdate() {
 		callback.stderrUpdate();
 	}
-	
+
 	public MapPcObject getCurrentFocusedPc() {
 		return currentFocusedPc;
 	}

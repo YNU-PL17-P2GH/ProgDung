@@ -113,6 +113,10 @@ public class RpgMap {
 					// PC
 					datas = tPattern.split(line);
 					handler.theObj.add(new MapPcObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), datas[1], this, datas[4]));
+				}else if (line.startsWith("hintObj")) {
+					// ヒント用
+					datas = tPattern.split(line);
+					handler.theObj.add(new MapHintObject(handler, Integer.parseInt(datas[2]), Integer.parseInt(datas[3]), datas[1], this, mapName, datas[4]));
 				}else if(line.startsWith("progObj")){
 					datas = tPattern.split(line);
 					// datas[1]にロードするプログラム

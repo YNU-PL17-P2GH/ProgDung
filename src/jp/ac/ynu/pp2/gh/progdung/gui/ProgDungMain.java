@@ -6,9 +6,9 @@ import jp.ac.ynu.pp2.gh.progdung.util.SaveData;
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 
 public class ProgDungMain extends JFrame implements TransitionCallback {
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 3568697032148655175L;
 	private DungeonPanel lDungeonPanel;
@@ -20,7 +20,7 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 		setSize(1280, 760);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
-		
+
 		setVisible(true);
 
 		lDungeonPanel = new DungeonPanel(this);
@@ -55,19 +55,19 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 	@Override
 	public void showTitle() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void showSelect() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void showDungeon(int selectedStage) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -96,6 +96,11 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 	}
 
 	@Override
+	public void showHintOnCoder() {
+		lDungeonPanel.showHintOnCoder();
+	}
+
+	@Override
 	public void setSource(String pSource) {
 		lDungeonPanel.setSource(pSource);
 	}
@@ -114,7 +119,7 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 	public void stdoutUpdate() {
 		lDungeonPanel.stdoutUpdate();
 	}
-	
+
 	@Override
 	public void stderrUpdate() {
 		lDungeonPanel.stderrUpdate();

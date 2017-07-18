@@ -6,11 +6,9 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import javax.swing.BorderFactory;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
@@ -20,7 +18,7 @@ import javax.swing.JTextArea;
 
 import org.jruby.Ruby;
 
-import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapPcObject;
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHintObject;
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 
 public class DungeonPanel extends JLayeredPane {
@@ -43,22 +41,22 @@ public class DungeonPanel extends JLayeredPane {
 	private JScrollPane sourcePane;
 
 	private Thread hideThread;
-	
+
 	private JTextArea stdoutArea;
 
 	private JScrollPane stdoutPane;
-	
+
 	private StringWriter stdout;
-	
+
 	private StringWriter stderr;
-	
+
 	private JTextArea stderrArea;
 
 	private JScrollPane stderrPane;
 
 	public DungeonPanel(TransitionCallback pCallback) {
 		super();
-		
+
 		callback = pCallback;
 		setLayout(new BorderLayout());
 
@@ -70,7 +68,7 @@ public class DungeonPanel extends JLayeredPane {
 		hintLabel.setFont(new Font("sans", Font.BOLD, 16));
 		hintPanel.add(hintLabel);
 		add(hintPanel);
-		
+
 		//標準出力
 		stdout = new StringWriter();
 		stdoutArea = new JTextArea();
@@ -78,14 +76,14 @@ public class DungeonPanel extends JLayeredPane {
 		stdoutArea.setEditable(false);
 		stdoutArea.setBackground(Color.BLACK);
 		stdoutArea.setForeground(Color.WHITE);
-		
+
 		stdoutPane = new JScrollPane(stdoutArea,
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		add(stdoutPane);
 		setLayer(stdoutPane, 2);
 		stdoutPane.setBounds(1000, 100, 260, 200);
-		
+
 		//エラー出力
 		stderr = new StringWriter();
 		stderrArea = new JTextArea();
@@ -93,14 +91,14 @@ public class DungeonPanel extends JLayeredPane {
 		stderrArea.setEditable(false);
 		stderrArea.setBackground(Color.BLACK);
 		stderrArea.setForeground(Color.WHITE);
-		
+
 		stderrPane = new JScrollPane(stderrArea,
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		add(stderrPane);
 		setLayer(stderrPane, 2);
 		stderrPane.setBounds(1000, 500, 260, 200);
-		
+
 		// TextArea
 		sourceArea = new JTextArea();
 		sourceArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 16));
@@ -199,16 +197,27 @@ public class DungeonPanel extends JLayeredPane {
 		}
 
 		sourcePane.setVisible(false);
+		//ヒント表示なら
+		if(lDungeonPlay.handler.getCurrentFocusedPc() instanceof MapHintObject) {
+			sourceArea.setEditable(true);
+			return;
+		}
+
 		lDungeonPlay.handler.getCurrentFocusedPc().getAllocObj().sourceRuby = sourceArea.getText();
 		revalidate();
-		
+
 		// 実行?
 		if (JOptionPane.showConfirmDialog(
 				callback.getMainFrame(), "プログラムを今すぐ実行しますか?", "", JOptionPane.YES_NO_OPTION)
 				== JOptionPane.YES_OPTION) {
-			
+
 			lDungeonPlay.handler.getCurrentFocusedPc().getAllocObj().runRuby(Ruby.newInstance(), stdout, stderr);
 		}
+	}
+
+	void showHintOnCoder() {
+		sourceArea.setEditable(false);
+		showCoder();
 	}
 
 	boolean isCoderShown() {
