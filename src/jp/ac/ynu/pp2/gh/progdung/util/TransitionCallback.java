@@ -35,7 +35,7 @@ public interface TransitionCallback {
 
 	void setSource(String pSource);
 
-	void stdinUpdate();
+	void stdoutUpdate();
 	
 	void stderrUpdate();
 }

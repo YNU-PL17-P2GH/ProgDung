@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import jnr.ffi.Struct.int16_t;
 
 import org.jruby.Ruby;
+import org.jruby.embed.LocalContextScope;
 import org.jruby.embed.ScriptingContainer;
 import org.jruby.embed.io.ReaderInputStream;
 import org.jruby.util.KCode;
@@ -28,10 +29,11 @@ public abstract class MapProgObject extends MapObject{	//プログラムで動�
 	public void runRuby(Ruby ruby, StringWriter stdin, StringWriter stderr) {
 		ScriptingContainer container = new ScriptingContainer();
 		container.setKCode(KCode.UTF8);
-		PrintWriter pstdin = new PrintWriter(stdin);
-		container.setWriter(pstdin);
+		PrintWriter pstdout= new PrintWriter(stdin);
+		container.setWriter(pstdout);
 		PrintWriter pstderr = new PrintWriter(stderr);
-		container.setError(pstderr);
+		container.setErrorWriter(pstderr);
+		
 		// Issue #2
 		InputStream lStream = new ReaderInputStream(new StringReader(sourceRuby), "UTF-8");
 //		EmbedEvalUnit lUnit = container.parse(lStream, "temp.rb");
@@ -40,7 +42,7 @@ public abstract class MapProgObject extends MapObject{	//プログラムで動�
 		String rwrapper = setTimeout("run", objName, 10);
 		container.runScriptlet(rwrapper);
 		container.callMethod(ruby.getCurrentContext(), "rwrapper", theOperator);
-		handler.stdinUpdate();
+		handler.stdoutUpdate();
 		handler.stderrUpdate();
 	}
 	

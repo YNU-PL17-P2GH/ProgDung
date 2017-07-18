@@ -44,11 +44,11 @@ public class DungeonPanel extends JLayeredPane {
 
 	private Thread hideThread;
 	
-	private JTextArea stdinArea;
+	private JTextArea stdoutArea;
 
-	private JScrollPane stdinPane;
+	private JScrollPane stdoutPane;
 	
-	private StringWriter stdin;
+	private StringWriter stdout;
 	
 	private StringWriter stderr;
 	
@@ -72,19 +72,19 @@ public class DungeonPanel extends JLayeredPane {
 		add(hintPanel);
 		
 		//標準出力
-		stdin = new StringWriter();
-		stdinArea = new JTextArea();
-		stdinArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 16));
-		stdinArea.setEditable(false);
-		stdinArea.setBackground(Color.BLACK);
-		stdinArea.setForeground(Color.WHITE);
+		stdout = new StringWriter();
+		stdoutArea = new JTextArea();
+		stdoutArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 16));
+		stdoutArea.setEditable(false);
+		stdoutArea.setBackground(Color.BLACK);
+		stdoutArea.setForeground(Color.WHITE);
 		
-		stdinPane = new JScrollPane(stdinArea,
+		stdoutPane = new JScrollPane(stdoutArea,
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		add(stdinPane);
-		setLayer(stdinPane, 2);
-		stdinPane.setBounds(1000, 100, 260, 200);
+		add(stdoutPane);
+		setLayer(stdoutPane, 2);
+		stdoutPane.setBounds(1000, 100, 260, 200);
 		
 		//エラー出力
 		stderr = new StringWriter();
@@ -207,7 +207,7 @@ public class DungeonPanel extends JLayeredPane {
 				callback.getMainFrame(), "プログラムを今すぐ実行しますか?", "", JOptionPane.YES_NO_OPTION)
 				== JOptionPane.YES_OPTION) {
 			
-			lDungeonPlay.handler.getCurrentFocusedPc().getAllocObj().runRuby(Ruby.newInstance(), stdin, stderr);
+			lDungeonPlay.handler.getCurrentFocusedPc().getAllocObj().runRuby(Ruby.newInstance(), stdout, stderr);
 		}
 	}
 
@@ -223,16 +223,17 @@ public class DungeonPanel extends JLayeredPane {
 		sourceArea.setText(pSource);
 	}
 
-	void stdinUpdate(){
-		stdin.flush();
-		StringBuffer sBuffer = stdin.getBuffer();
-		stdinArea.setText(sBuffer.toString());
-		stdin = new StringWriter();	//初期化
+	void stdoutUpdate(){
+		stdout.flush();
+		StringBuffer sBuffer = stdout.getBuffer();
+		stdoutArea.setText(sBuffer.toString());
+		stdout = new StringWriter();	//初期化
 	}
 
 	void stderrUpdate() {
 		stderr.flush();
 		StringBuffer sBuffer = stderr.getBuffer();
+		String string = sBuffer.toString();
 		stderrArea.setText(sBuffer.toString());
 		stderr = new StringWriter();	//初期化
 	}

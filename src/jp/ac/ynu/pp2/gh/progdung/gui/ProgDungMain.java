@@ -111,8 +111,8 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 	}
 
 	@Override
-	public void stdinUpdate() {
-		lDungeonPanel.stdinUpdate();
+	public void stdoutUpdate() {
+		lDungeonPanel.stdoutUpdate();
 	}
 	
 	@Override

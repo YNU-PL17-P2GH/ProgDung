@@ -191,8 +191,8 @@ public class DungeonPlay extends Canvas {
 		callback.setSource(pSource);
 	}
 	
-	public void stdinUpdate(){
-		callback.stdinUpdate();
+	public void stdoutUpdate(){
+		callback.stdoutUpdate();
 	}
 
 	public void stderrUpdate() {

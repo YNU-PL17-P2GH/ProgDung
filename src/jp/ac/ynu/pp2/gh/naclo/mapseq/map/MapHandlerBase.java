@@ -84,8 +84,8 @@ public abstract class MapHandlerBase {
 		callback.showCoder();
 	}
 	
-	protected void stdinUpdate() {
-		callback.stdinUpdate();
+	protected void stdoutUpdate() {
+		callback.stdoutUpdate();
 	}
 	
 	protected void stderrUpdate() {
