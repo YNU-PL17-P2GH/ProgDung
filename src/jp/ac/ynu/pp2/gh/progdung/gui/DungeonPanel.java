@@ -164,7 +164,7 @@ public class DungeonPanel extends JLayeredPane {
 			return;
 		}
 		hintLabel.setText(string);
-		hintPanel.setBounds(640-150, 450, 300, 200);
+		hintPanel.setBounds(640-200, 450, 400, 200);
 		hintPanel.setVisible(true);
 //		setLayer(hintPanel, 2);
 		revalidate();

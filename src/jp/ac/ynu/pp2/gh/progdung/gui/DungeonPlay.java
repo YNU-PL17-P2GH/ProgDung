@@ -27,7 +27,8 @@ public class DungeonPlay extends Canvas {
 	 */
 	private static final long serialVersionUID = 6888570703399298605L;
 
-	private static final int RENDER_TIMER_RATE = 10;
+	// Render per sec
+	public static final int RENDER_TIMER_RATE = 100;
 
 	Canvas mainwindow;
 	BufferStrategy strategy;
@@ -101,7 +102,7 @@ public class DungeonPlay extends Canvas {
 
 	void start() {
 		Timer t = new Timer();
-		t.schedule(new RenderTask(), 0, RENDER_TIMER_RATE);
+		t.schedule(new RenderTask(), 0, 1000 / RENDER_TIMER_RATE);
 
 		callback.getMainFrame().addKeyListener(new MyKeyAdapter());
 	}

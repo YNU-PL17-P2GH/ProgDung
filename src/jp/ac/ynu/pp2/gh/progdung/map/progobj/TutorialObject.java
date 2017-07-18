@@ -12,6 +12,7 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapProgObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.RpgMap;
+import jp.ac.ynu.pp2.gh.progdung.gui.DungeonPlay;
 
 import org.jruby.Ruby;
 
@@ -35,7 +36,8 @@ public class TutorialObject extends MapProgObject {
 		height = 4;
 
 		sourceRuby = "def run(" + pObjName + ")\n"
-				+ "\t# この下にソースを入力\n"
+				+ "\t# この下の行にソースを入力\n"
+				+ "\t\n"
 				+ "end";
 
 	}
@@ -73,7 +75,7 @@ public class TutorialObject extends MapProgObject {
 			return;
 		}
 
-		if (updateTick++ >= 25) {
+		if (updateTick++ >= DungeonPlay.RENDER_TIMER_RATE / 4) {
 			updateTick = 0;
 		} else {
 			return;
@@ -144,6 +146,17 @@ public class TutorialObject extends MapProgObject {
 					Thread.sleep(1000);
 				}
 				currentState = 0;
+				
+				if (!handler.getCallback().getSaveData().getBoolean("Tutorial006") &&
+						handler.getCallback().getSaveData().getBoolean("Tutorial005")) {
+					handler.getCallback().showHint(
+							"<html>コードを入力したことで石像が右に動きました.<br>"
+							+ "でもこのままだと,少し困ったことになります.<br><br>"
+							+ "...さらに石像を奥へ動かす必要があるようです!<br>"
+							+ "左の本棚を探して,どのようなコードを<br>"
+							+ "入力すれば良いか調べましょう.</html>", true);
+					handler.getCallback().getSaveData().setTaken("Tutorial006");
+				}
 			} catch (InterruptedException e) {
 			}
 		}
