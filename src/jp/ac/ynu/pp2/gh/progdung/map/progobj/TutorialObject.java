@@ -11,6 +11,7 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapProgObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.RpgMap;
+import jp.ac.ynu.pp2.gh.progdung.gui.DungeonPlay;
 
 import org.jruby.Ruby;
 
@@ -72,7 +73,7 @@ public class TutorialObject extends MapProgObject {
 			return;
 		}
 
-		if (updateTick++ >= 25) {
+		if (updateTick++ >= DungeonPlay.RENDER_TIMER_RATE / 4) {
 			updateTick = 0;
 		} else {
 			return;
