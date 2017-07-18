@@ -2,6 +2,7 @@ package jp.ac.ynu.pp2.gh.progdung.map.progobj;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.StringWriter;
 
 import javax.imageio.ImageIO;
 
@@ -40,17 +41,17 @@ public class TutorialObject extends MapProgObject {
 	}
 
 	@Override
-	public void runRuby(Ruby ruby) {
+	public void runRuby(final Ruby ruby, final StringWriter stdin, final StringWriter stderr) {
 		new Thread() {
 			@Override
 			public void run() {
-				rrwrapper(ruby);
+				rrwrapper(ruby, stdin, stderr);
 			}
 		}.start();
 	}
 
-	private void rrwrapper(Ruby ruby) {
-		super.runRuby(ruby);
+	private void rrwrapper(Ruby ruby, StringWriter stdin, StringWriter stderr) {
+		super.runRuby(ruby, stdin, stderr);
 	}
 
 	@Override

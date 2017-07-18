@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.io.StringWriter;
 
 import javax.imageio.ImageIO;
 
@@ -106,7 +107,7 @@ public class BasiccalcObject extends MapProgObject{
 	}
 
 	@Override
-	public void runRuby(Ruby ruby) {
+	public void runRuby(final Ruby ruby, StringWriter stdin, StringWriter stderr) {
 		new Thread() {
 			@Override
 			public void run() {
@@ -114,17 +115,6 @@ public class BasiccalcObject extends MapProgObject{
 			}
 		}.start();
 	}
-
-	public void setKey(String oName){
-		if(oName == "tubo"){
-			tuboInFlag = true;
-		}else if(oName == "oke"){
-			okeInFlag = true;
-		}else if(oName == "hako"){
-			hakoInFlag = true;
-		}
-	}
-
 	private void rrwrapper(Ruby ruby) {
 		ScriptingContainer container = new ScriptingContainer();
 		container.setKCode(KCode.UTF8);
@@ -147,6 +137,18 @@ public class BasiccalcObject extends MapProgObject{
 		}
 		container.callMethod(ruby.getCurrentContext(), "calc", tubo, oke, hako, theOperator);
 	}
+	
+	public void setKey(String oName){
+		if(oName == "tubo"){
+			tuboInFlag = true;
+		}else if(oName == "oke"){
+			okeInFlag = true;
+		}else if(oName == "hako"){
+			hakoInFlag = true;
+		}
+	}
+
+	
 
 /*	正解コード
 	def calc(tubo, oke, hako, tubo_covered)

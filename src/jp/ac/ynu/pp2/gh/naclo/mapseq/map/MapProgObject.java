@@ -1,7 +1,14 @@
 package jp.ac.ynu.pp2.gh.naclo.mapseq.map;
 
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.io.StringReader;
+import java.io.StringWriter;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import jnr.ffi.Struct.int16_t;
 
 import org.jruby.Ruby;
 import org.jruby.embed.ScriptingContainer;
@@ -16,16 +23,40 @@ public abstract class MapProgObject extends MapObject{	//プログラムで動�
 	public MapProgObject(MapHandlerBase pHandler, int bx, int by, String pObjName, RpgMap pMap) {
 		super(pHandler, bx, by, pObjName, pMap);
 	}
-
+	
 	//プログラム実行
-	public void runRuby(Ruby ruby) {
+	public void runRuby(Ruby ruby, StringWriter stdin, StringWriter stderr) {
 		ScriptingContainer container = new ScriptingContainer();
 		container.setKCode(KCode.UTF8);
-		
+		PrintWriter pstdin = new PrintWriter(stdin);
+		container.setWriter(pstdin);
+		PrintWriter pstderr = new PrintWriter(stderr);
+		container.setError(pstderr);
 		// Issue #2
 		InputStream lStream = new ReaderInputStream(new StringReader(sourceRuby), "UTF-8");
 //		EmbedEvalUnit lUnit = container.parse(lStream, "temp.rb");
 		container.runScriptlet(lStream, "template.rb");
-		container.callMethod(ruby.getCurrentContext(), "run", theOperator);
+		
+		String rwrapper = setTimeout("run", objName, 10);
+		container.runScriptlet(rwrapper);
+		container.callMethod(ruby.getCurrentContext(), "rwrapper", theOperator);
+		handler.stdinUpdate();
+		handler.stderrUpdate();
+	}
+	
+	public String setTimeout(String methodName, String argument, int time){
+		String rwrapper = "require 'timeout'\n"
+				+ "def rwrapper(" + argument + ")\n"
+				+ 	"begin\n"
+				+ 		"Timeout.timeout(" + time + "){\n"
+				+ 			methodName +"(" + argument + ")\n"
+				+ 		"}\n"
+				+ 	"rescue => e\n"
+				+ 		"STDERR.puts e.class\n"
+				+ 		"STDERR.puts e.message\n"
+				+ 		"STDERR.puts e.backtrace\n"
+				+ 	"end\n"
+				+ "end";
+		return rwrapper;
 	}
 }

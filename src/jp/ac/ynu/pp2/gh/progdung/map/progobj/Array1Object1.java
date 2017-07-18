@@ -2,6 +2,7 @@ package jp.ac.ynu.pp2.gh.progdung.map.progobj;
 
 import java.io.InputStream;
 import java.io.StringReader;
+import java.io.StringWriter;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
@@ -36,7 +37,7 @@ def operate(array)
 end
  */
 	@Override
-	public void runRuby(Ruby ruby) {
+	public void runRuby(final Ruby ruby, StringWriter stdin, StringWriter stderr) {
 		for (int i = 0; i < array.length; i++) {
 			array[i] = initArray[i];
 		}

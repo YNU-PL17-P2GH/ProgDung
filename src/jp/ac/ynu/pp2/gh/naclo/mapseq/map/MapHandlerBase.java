@@ -84,6 +84,14 @@ public abstract class MapHandlerBase {
 		callback.showCoder();
 	}
 	
+	protected void stdinUpdate() {
+		callback.stdinUpdate();
+	}
+	
+	protected void stderrUpdate() {
+		callback.stderrUpdate();
+	}
+	
 	public MapPcObject getCurrentFocusedPc() {
 		return currentFocusedPc;
 	}

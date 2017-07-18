@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -166,7 +167,7 @@ end
  */
 
 	@Override
-	public void runRuby(final Ruby ruby) {
+	public void runRuby(final Ruby ruby, StringWriter stdin, StringWriter stderr) {
 		new Thread() {
 			@Override
 			public void run() {

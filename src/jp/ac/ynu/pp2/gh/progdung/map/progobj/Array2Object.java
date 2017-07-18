@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.io.StringWriter;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -83,8 +84,8 @@ end
  */
 
 	@Override
-	public void runRuby(Ruby ruby) {
-		ranRuby = true;
+	public void runRuby(final Ruby ruby, StringWriter stdin, StringWriter stderr) {
+		
 		new Thread() {
 			@Override
 			public void run() {
@@ -93,11 +94,7 @@ end
 					playerArray[i] = 0;
 				}
 				rrwrapper(ruby);
-				if(!fragSuccess){
-					/*if(array[0] == initArray[initArray.length - 1]){
-						fragSuccess = true;
-					}*/
-				}
+				ranRuby = true;
 			}
 		}.start();
 	}

@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.io.StringWriter;
 
 import javax.imageio.ImageIO;
 
@@ -83,7 +84,7 @@ public class IfmazeObject extends MapProgObject{
 	}
 
 	@Override
-	public void runRuby(Ruby ruby) {
+	public void runRuby(final Ruby ruby, StringWriter stdin, StringWriter stderr) {
 		new Thread() {
 			@Override
 			public void run() {
@@ -97,6 +98,8 @@ public class IfmazeObject extends MapProgObject{
 	private void rrwrapper(Ruby ruby) {
 		ScriptingContainer container = new ScriptingContainer();
 		container.setKCode(KCode.UTF8);
+		
+		
 
 		// Issue #2
 		InputStream lStream = new ReaderInputStream(new StringReader(sourceRuby), "UTF-8");

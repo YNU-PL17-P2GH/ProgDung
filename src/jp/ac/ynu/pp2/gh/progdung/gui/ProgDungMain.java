@@ -109,7 +109,14 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 	public SaveData getSaveData() {
 		return myData;
 	}
-	
-	
 
+	@Override
+	public void stdinUpdate() {
+		lDungeonPanel.stdinUpdate();
+	}
+	
+	@Override
+	public void stderrUpdate() {
+		lDungeonPanel.stderrUpdate();
+	}
 }
