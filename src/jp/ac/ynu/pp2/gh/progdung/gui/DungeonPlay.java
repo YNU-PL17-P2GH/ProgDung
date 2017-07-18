@@ -16,6 +16,7 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.KEY_STATE;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.DIRECTION;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
+import jp.ac.ynu.pp2.gh.progdung.map.handlers.Lobby;
 import jp.ac.ynu.pp2.gh.progdung.map.handlers.Zentai;
 import jp.ac.ynu.pp2.gh.progdung.util.SaveData;
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
@@ -26,7 +27,8 @@ public class DungeonPlay extends Canvas {
 	 */
 	private static final long serialVersionUID = 6888570703399298605L;
 
-	private static final int RENDER_TIMER_RATE = 10;
+	// Render per sec
+	public static final int RENDER_TIMER_RATE = 100;
 
 	Canvas mainwindow;
 	BufferStrategy strategy;
@@ -100,7 +102,7 @@ public class DungeonPlay extends Canvas {
 
 	void start() {
 		Timer t = new Timer();
-		t.schedule(new RenderTask(), 0, RENDER_TIMER_RATE);
+		t.schedule(new RenderTask(), 0, 1000 / RENDER_TIMER_RATE);
 
 		callback.getMainFrame().addKeyListener(new MyKeyAdapter());
 	}
