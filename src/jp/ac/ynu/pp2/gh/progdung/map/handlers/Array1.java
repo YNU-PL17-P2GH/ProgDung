@@ -3,6 +3,7 @@ package jp.ac.ynu.pp2.gh.progdung.map.handlers;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.DIRECTION;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHintObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapPcObject;
 import jp.ac.ynu.pp2.gh.progdung.gui.DungeonPlay;
@@ -74,6 +75,9 @@ public class Array1  extends MapHandlerBase{
 
 		if (pObject instanceof MapPcObject) {
 			showCoder((MapPcObject) pObject);
+		}
+		if(pObject instanceof MapHintObject) {
+			showHintOnCoder((MapHintObject) pObject);
 		}
 	}
 
