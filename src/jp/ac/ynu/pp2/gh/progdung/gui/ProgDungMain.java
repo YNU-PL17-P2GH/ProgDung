@@ -36,6 +36,12 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 	}
 
 	@Override
+	public boolean checkUser(String pUsername) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
 	public boolean userRegister(String pUsername, char[] pWord) {
 		// TODO Auto-generated method stub
 		return false;
@@ -60,8 +66,8 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 
 	@Override
 	public void showRegister(TransitionCallback pCallback) {
-		// TODO Auto-generated method stub
-		
+		setContentPane(new RegisterPanel(pCallback));
+		validate();
 	}
 
 	@Override

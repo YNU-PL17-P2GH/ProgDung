@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 public interface TransitionCallback {
 
 	boolean login(String pUsername, char[] pWord);
+	
+	boolean checkUser(String pUsername);
 
 	boolean userRegister(String pUsername, char[] pWord);
 
