@@ -1,3 +1,5 @@
-doorObj,silver,23,6,4,4,null
+doorObj,silver,23,6,4,4,Knight001
 nextMap,Knight1_clear,23,44,8,23,8,24,8,25,8,26,8,23,9,24,9,25,9,26,9
 nextMap,Zentai,61,32,4,25,45,24,45,26,45,27,45,2
+progObj,horse/left,18,20,Knight1Object
+pcObj,mini_ashi,18,36,horse/left

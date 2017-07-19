@@ -38,6 +38,8 @@ public class MapPlayer extends MapMoveObject{
 
 	public void move(ShareInfo sinfo){
 		//System.out.println(box_x + " " + box_y + " " + next_x + " " + next_y);
+		if(!canMove) return;
+
 		//向き変更
 		if(Math.abs((double)point_x / (double)MAP_CONST.MAP_BOX_SIZE  - (double)box_x) > 1.0
 				|| Math.abs((double)point_y/ (double)MAP_CONST.MAP_BOX_SIZE  - (double)box_y) > 1.0){	//原因不明位置ずれ補正
@@ -202,6 +204,7 @@ public class MapPlayer extends MapMoveObject{
 		}
 	}
 	private int holdBox[][] = {{0, 0}, {1, 0}, {0, 1}, {1, 1}};
+	private boolean canMove = true;
 
 	private boolean checkHold(int x,int y){
 		for(int i = 0; i < holdBox.length; i++){
@@ -364,6 +367,9 @@ public class MapPlayer extends MapMoveObject{
 	}
 	public void setDirection(MAP_CONST.DIRECTION d) {
 		direction = d;
+	}
+	public void setCanMave(boolean b) {
+		canMove = b;
 	}
 
 }
