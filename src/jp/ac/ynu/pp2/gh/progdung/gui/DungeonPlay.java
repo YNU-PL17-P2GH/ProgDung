@@ -115,6 +115,7 @@ public class DungeonPlay extends Canvas {
 		Timer t = new Timer();
 		t.schedule(new RenderTask(), 0, 1000 / RENDER_TIMER_RATE);
 
+		callback.getMainFrame().requestFocus();
 		callback.getMainFrame().addKeyListener(new MyKeyAdapter());
 	}
 
