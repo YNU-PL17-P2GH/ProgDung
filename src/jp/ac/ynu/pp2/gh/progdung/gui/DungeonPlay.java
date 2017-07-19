@@ -16,7 +16,7 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.KEY_STATE;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.DIRECTION;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
-import jp.ac.ynu.pp2.gh.progdung.map.handlers.Lobby;
+import jp.ac.ynu.pp2.gh.progdung.map.handlers.Zentai;
 import jp.ac.ynu.pp2.gh.progdung.util.SaveData;
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 
@@ -61,8 +61,8 @@ public class DungeonPlay extends Canvas {
 		for(int i = 0; i < 8; i++){
 			newKeystate[i] = false;
 		}
-		handler = new Lobby(19, 40, DIRECTION.UP, this);
-		//handler = new Zentai(19, 40, DIRECTION.UP, this);
+		//handler = new Lobby(19, 40, DIRECTION.UP, this);
+		handler = new Zentai(19, 40, DIRECTION.UP, this);
 	}
 
 	public void showHint(String pString, boolean force) {
