@@ -54,7 +54,7 @@ public class DungeonPanel extends JLayeredPane {
 
 	private JScrollPane stderrPane;
 
-	public DungeonPanel(TransitionCallback pCallback) {
+	public DungeonPanel(TransitionCallback pCallback, int selectedStage) {
 		super();
 
 		callback = pCallback;
@@ -138,7 +138,9 @@ public class DungeonPanel extends JLayeredPane {
 		lFlow1.setAlignment(FlowLayout.LEFT);
 		lPlayCoverPanel.setLayout(lFlow1);
 		lPlayCoverPanel.setBorder(BorderFactory.createEmptyBorder(10, 640-352, 10, 0));
-		lDungeonPlay = new DungeonPlay(callback);
+
+		lDungeonPlay = new DungeonPlay(callback, selectedStage);
+
 		lPlayCoverPanel.add(lDungeonPlay);
 		add(lPlayCoverPanel/*, BorderLayout.CENTER*/);
 		setLayer(lPlayCoverPanel, 0);

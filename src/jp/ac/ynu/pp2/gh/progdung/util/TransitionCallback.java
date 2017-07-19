@@ -9,15 +9,17 @@ public interface TransitionCallback {
 	boolean userRegister(String pUsername, char[] pWord);
 
 	boolean saveUserData();
+	
+	boolean isLoggedin();
 
 	// TODO 実装
 //	UserData getUserData();
 
-	void showTitle();
+	void showTitle(TransitionCallback pCallback);
 
-	void showSelect();
+	void showSelect(TransitionCallback pCallback);
 
-	void showDungeon(int selectedStage);
+	void showDungeon(TransitionCallback pCallback, int selectedStage);
 
 	JFrame getMainFrame();
 
@@ -40,4 +42,6 @@ public interface TransitionCallback {
 	void stderrUpdate();
 
 	void showHintOnCoder();
+
+	void showRegister(TransitionCallback pCallback);
 }

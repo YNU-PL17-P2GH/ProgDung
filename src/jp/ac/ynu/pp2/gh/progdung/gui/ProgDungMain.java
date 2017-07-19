@@ -23,11 +23,7 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 
 		setVisible(true);
 
-		lDungeonPanel = new DungeonPanel(this);
-		add(lDungeonPanel);
-		validate();
-		lDungeonPanel.init();
-		lDungeonPanel.start();
+		showTitle(this);
 	}
 
 	public static void main(String[] args) {
@@ -36,8 +32,7 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 
 	@Override
 	public boolean login(String pUsername, char[] pWord) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -53,21 +48,35 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 	}
 
 	@Override
-	public void showTitle() {
-		// TODO Auto-generated method stub
-
+	public boolean isLoggedin() {
+		return myData != null;
 	}
 
 	@Override
-	public void showSelect() {
-		// TODO Auto-generated method stub
-
+	public void showTitle(TransitionCallback pCallback) {
+		setContentPane(new TitlePanel(pCallback));
+		validate();
 	}
 
 	@Override
-	public void showDungeon(int selectedStage) {
+	public void showRegister(TransitionCallback pCallback) {
 		// TODO Auto-generated method stub
+		
+	}
 
+	@Override
+	public void showSelect(TransitionCallback pCallback) {
+		setContentPane(new DungeonSelectPanel(pCallback));
+		validate();
+	}
+
+	@Override
+	public void showDungeon(TransitionCallback pCallback, int selectedStage) {
+		lDungeonPanel = new DungeonPanel(pCallback, selectedStage);
+		setContentPane(lDungeonPanel);
+		validate();
+		lDungeonPanel.init();
+		lDungeonPanel.start();
 	}
 
 	@Override
