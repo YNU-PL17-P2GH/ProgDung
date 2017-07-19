@@ -50,7 +50,7 @@ public class BasiccalcObject extends MapProgObject{
 			throw new RuntimeException(e);
 		}
 
-		theOperator = new BaciccalcOperator();
+		setOperator(new BaciccalcOperator());
 
 
 		tubo_w = tuboImg.getWidth() / MAP_CONST.MAP_CHIP_SIZE;
@@ -67,10 +67,6 @@ public class BasiccalcObject extends MapProgObject{
 
 		width = tuboC_w + tubo_w + oke_w + hako_w + 3;
 		height = tuboC_h;
-
-		sourceRuby = "def calc(tubo, oke, hako, tubo_covered)\n"
-				+ "\t# この下にソースを入力\n"
-				+ "end";
 
 		for(int x = 0; x < width; x++){
 			for(int y = 0; y < height; y++){
@@ -105,17 +101,18 @@ public class BasiccalcObject extends MapProgObject{
 		// TODO 自動生成されたメソッド・スタブ
 		return false;
 	}
+	
+	@Override
+	public String getMethodName() {
+		return "calc";
+	}
 
 	@Override
-	public void runRuby(final Ruby ruby, StringWriter stdin, StringWriter stderr) {
-		new Thread() {
-			@Override
-			public void run() {
-				rrwrapper(ruby);
-			}
-		}.start();
+	public String getArgumentString() {
+		return "tubo, oke, hako, tubo_covered";
 	}
-	private void rrwrapper(Ruby ruby) {
+
+	public void runRuby(Ruby ruby, StringWriter stdin, StringWriter stderr, Object... pArguments) {
 		ScriptingContainer container = new ScriptingContainer();
 		container.setKCode(KCode.UTF8);
 
@@ -135,7 +132,7 @@ public class BasiccalcObject extends MapProgObject{
 		if(hakoInFlag){
 			hako = -13;
 		}
-		container.callMethod(ruby.getCurrentContext(), "calc", tubo, oke, hako, theOperator);
+		container.callMethod(ruby.getCurrentContext(), "calc", tubo, oke, hako, getOperator());
 	}
 	
 	public void setKey(String oName){

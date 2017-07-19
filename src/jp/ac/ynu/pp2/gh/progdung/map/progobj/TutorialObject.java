@@ -31,29 +31,19 @@ public class TutorialObject extends MapProgObject {
 			throw new RuntimeException(e);
 		}
 
-		theOperator = new TutorialOperator();
+		setOperator(new TutorialOperator());
 		width = 2;
 		height = 4;
-
-		sourceRuby = "def run(" + pObjName + ")\n"
-				+ "\t# この下の行にソースを入力\n"
-				+ "\t\n"
-				+ "end";
-
 	}
 
 	@Override
-	public void runRuby(final Ruby ruby, final StringWriter stdin, final StringWriter stderr) {
-		new Thread() {
-			@Override
-			public void run() {
-				rrwrapper(ruby, stdin, stderr);
-			}
-		}.start();
+	public String getArgumentString() {
+		return getObjName();
 	}
-
-	private void rrwrapper(Ruby ruby, StringWriter stdin, StringWriter stderr) {
-		super.runRuby(ruby, stdin, stderr);
+	
+	@Override
+	public int getTimeout() {
+		return 0;
 	}
 
 	@Override

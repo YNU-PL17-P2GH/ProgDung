@@ -211,7 +211,7 @@ public class DungeonPanel extends JLayeredPane {
 				callback.getMainFrame(), "プログラムを今すぐ実行しますか?", "", JOptionPane.YES_NO_OPTION)
 				== JOptionPane.YES_OPTION) {
 
-			lDungeonPlay.handler.getCurrentFocusedPc().getAllocObj().runRuby(Ruby.newInstance(), stdout, stderr);
+			lDungeonPlay.handler.getCurrentFocusedPc().getAllocObj().launchRubyWithThread(Ruby.newInstance(), stdout, stderr, lDungeonPlay.handler.getCurrentFocusedPc().getAllocObj().getOperator());
 		}
 	}
 

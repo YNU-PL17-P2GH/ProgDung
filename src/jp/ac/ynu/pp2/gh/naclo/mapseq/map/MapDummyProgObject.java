@@ -38,5 +38,10 @@ public class MapDummyProgObject extends MapProgObject {
 	public boolean hitCheck(MapObject obj) {
 		return false;
 	}
+	
+	@Override
+	public String getArgumentString() {
+		return getObjName();
+	}
 
 }

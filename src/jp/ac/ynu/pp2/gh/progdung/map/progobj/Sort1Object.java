@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
-import java.io.StringWriter;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -39,7 +38,7 @@ public class Sort1Object extends MapProgObject{
 			System.exit(0);
 		}
 
-		theOperator = new Sort1Operator();
+		setOperator(new Sort1Operator());
 
 		//設置されているマスにオブジェクトを登録
 		for(int i = 0; i < showArray.length * 2 ; i++){
@@ -55,9 +54,6 @@ public class Sort1Object extends MapProgObject{
 			}
 		}
 
-		sourceRuby = "def sort(array)\n"
-				+ "\t# この下にソースを入力\n"
-				+ "end";
 		//仮で実行
 //		runRuby(Ruby.newInstance());
 	}
@@ -157,17 +153,21 @@ def sort(array)
 	end
 end
  */
-
+	
 	@Override
-	public void runRuby(final Ruby ruby, StringWriter stdin, StringWriter stderr) {
-		new Thread() {
-			@Override
-			public void run() {
-				rrwrapper(ruby);
-			}
-		}.start();
+	public String getMethodName() {
+		return "sort";
+	}
+	
+	@Override
+	public int getTimeout() {
+		return -1;
 	}
 
+	@Override
+	public String getArgumentString() {
+		return "array";
+	}
 	private void rrwrapper(Ruby ruby) {
 		ScriptingContainer container = new ScriptingContainer();
 		container.setKCode(KCode.UTF8);
@@ -176,7 +176,7 @@ end
 		InputStream lStream = new ReaderInputStream(new StringReader(sourceRuby), "UTF-8");
 //		EmbedEvalUnit lUnit = container.parse(lStream, "temp.rb");
 		container.runScriptlet(lStream, "template.rb");
-		container.callMethod(ruby.getCurrentContext(), "sort", theOperator);
+		container.callMethod(ruby.getCurrentContext(), "sort", getOperator());
 	}
 
 	public class Sort1Operator {
@@ -264,7 +264,7 @@ end
 	public void setSuccessFlag(boolean b) {
 		successFlag = b;
 		if(successFlag){
-			((Sort1Operator)theOperator).cleared();
+			((Sort1Operator)getOperator()).cleared();
 		}
 	}
 }

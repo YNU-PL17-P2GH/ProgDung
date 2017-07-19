@@ -47,10 +47,6 @@ public class Array2Object  extends MapProgObject {
 			throw new RuntimeException(e);
 		}
 
-		sourceRuby = "def operate(ido)\n"
-				+ "\t# この下にソースを入力\n"
-				+ "end";
-
 		width = 2;
 		height = 2;
 		for (int i = 0; i < width; i++) {
@@ -64,7 +60,7 @@ public class Array2Object  extends MapProgObject {
 			}
 		}
 
-		theOperator = new Array2Operator();
+		setOperator(new Array2Operator());
 	}
 /*	正解コード
 def operate(ido)
@@ -84,7 +80,7 @@ end
  */
 
 	@Override
-	public void runRuby(final Ruby ruby, StringWriter stdin, StringWriter stderr) {
+	public void launchRubyWithThread(final Ruby ruby, StringWriter stdin, StringWriter stderr, Object... pArguments) {
 		
 		new Thread() {
 			@Override
@@ -93,10 +89,20 @@ end
 					showArray[i] = 0;
 					playerArray[i] = 0;
 				}
-				rrwrapper(ruby);
+				runRuby(ruby, stdin, stderr, pArguments);
 				ranRuby = true;
 			}
 		}.start();
+	}
+	
+	@Override
+	public String getMethodName() {
+		return "operate";
+	}
+
+	@Override
+	public String getArgumentString() {
+		return "array";
 	}
 
 	private void rrwrapper(Ruby ruby) {
@@ -107,7 +113,7 @@ end
 		InputStream lStream = new ReaderInputStream(new StringReader(sourceRuby), "UTF-8");
 //		EmbedEvalUnit lUnit = container.parse(lStream, "temp.rb");
 		container.runScriptlet(lStream, "template.rb");
-		container.callMethod(ruby.getCurrentContext(), "operate", theOperator);
+		container.callMethod(ruby.getCurrentContext(), "operate", getOperator());
 	}
 
 	@Override

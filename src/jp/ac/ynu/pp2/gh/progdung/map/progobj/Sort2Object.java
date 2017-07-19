@@ -39,7 +39,7 @@ public class Sort2Object extends MapProgObject{
 			System.exit(0);
 		}
 
-		theOperator = new Sort2Operator();
+		setOperator(new Sort2Operator());
 
 		//設置されているマスにオブジェクトを登録
 		for(int i = 0; i < showArray.length * 2 ; i++){
@@ -55,9 +55,6 @@ public class Sort2Object extends MapProgObject{
 			}
 		}
 
-		sourceRuby = "def sort(array)\n"
-				+ "\t# この下にソースを入力\n"
-				+ "end";
 		//仮で実行
 //		runRuby(Ruby.newInstance());
 	}
@@ -80,7 +77,7 @@ public class Sort2Object extends MapProgObject{
 	@Override
 	public void update(ShareInfo sinfo) {
 		if(drawFlag){
-			if(!(((Sort2Operator)theOperator).getFailFlag() && exhengList.size() == 0)) {
+			if(!(((Sort2Operator)getOperator()).getFailFlag() && exhengList.size() == 0)) {
 				if(!swaping){
 					if(exhengList.size() > 0){
 						//交換する要素のそれぞれのインデックスと値を取得
@@ -167,18 +164,32 @@ end
  */
 
 	@Override
-	public void runRuby(final Ruby ruby, StringWriter stdin, StringWriter stderr) {
+	public void launchRubyWithThread(final Ruby ruby, StringWriter stdin, StringWriter stderr, Object...pArguments) {
 		new Thread() {
 			@Override
 			public void run() {
-				rrwrapper(ruby);
-				if(((Sort2Operator)theOperator).getFailFlag()) {
+				runRuby(ruby, stdin, stderr, pArguments);
+				if(((Sort2Operator)getOperator()).getFailFlag()) {
 
 				}
 			}
 		}.start();
 	}
+	
+	@Override
+	public String getMethodName() {
+		return "sort";
+	}
+	
+	@Override
+	public int getTimeout() {
+		return -1;
+	}
 
+	@Override
+	public String getArgumentString() {
+		return "array";
+	}
 	private void rrwrapper(Ruby ruby) {
 		ScriptingContainer container = new ScriptingContainer();
 		container.setKCode(KCode.UTF8);
@@ -187,7 +198,7 @@ end
 		InputStream lStream = new ReaderInputStream(new StringReader(sourceRuby), "UTF-8");
 //		EmbedEvalUnit lUnit = container.parse(lStream, "temp.rb");
 		container.runScriptlet(lStream, "template.rb");
-		container.callMethod(ruby.getCurrentContext(), "sort", theOperator);
+		container.callMethod(ruby.getCurrentContext(), "sort", getOperator());
 	}
 
 	public class Sort2Operator {
@@ -287,7 +298,7 @@ end
 	public void setSuccessFlag(boolean b) {
 		successFlag = b;
 		if(successFlag){
-			((Sort2Operator)theOperator).cleared();
+			((Sort2Operator)getOperator()).cleared();
 		}
 	}
 }

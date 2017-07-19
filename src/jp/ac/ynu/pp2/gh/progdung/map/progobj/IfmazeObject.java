@@ -14,6 +14,7 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapProgObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.RpgMap;
+import jp.ac.ynu.pp2.gh.progdung.map.progobj.IfmazeObject.IfmazeOperator;
 
 import org.jruby.Ruby;
 import org.jruby.embed.ScriptingContainer;
@@ -34,7 +35,7 @@ public class IfmazeObject extends MapProgObject{
 			throw new RuntimeException(e);
 		}
 
-		theOperator = new IfmazeOperator();
+		setOperator(new IfmazeOperator());
 
 
 		width = 4;
@@ -84,15 +85,25 @@ public class IfmazeObject extends MapProgObject{
 	}
 
 	@Override
-	public void runRuby(final Ruby ruby, StringWriter stdin, StringWriter stderr) {
+	public void launchRubyWithThread(final Ruby ruby, StringWriter stdin, StringWriter stderr, Object...pArguments) {
 		new Thread() {
 			@Override
 			public void run() {
-				((IfmazeOperator)theOperator).init();
-				rrwrapper(ruby);
-				successFlag = ((IfmazeOperator)theOperator).checkResult();
+				((IfmazeOperator)getOperator()).init();
+				runRuby(ruby, stdin, stderr, pArguments);
+				successFlag = ((IfmazeOperator)getOperator()).checkResult();
 			}
 		}.start();
+	}
+	
+	@Override
+	public String getMethodName() {
+		return "care";
+	}
+
+	@Override
+	public String getArgumentString() {
+		return "horse";
 	}
 
 	private void rrwrapper(Ruby ruby) {
@@ -105,7 +116,7 @@ public class IfmazeObject extends MapProgObject{
 		InputStream lStream = new ReaderInputStream(new StringReader(sourceRuby), "UTF-8");
 //		EmbedEvalUnit lUnit = container.parse(lStream, "temp.rb");
 		container.runScriptlet(lStream, "template.rb");
-		container.callMethod(ruby.getCurrentContext(), "care", theOperator);
+		container.callMethod(ruby.getCurrentContext(), "care", getOperator());
 	}
 
 /*	正解コード
@@ -135,7 +146,7 @@ end
 	}
 
 	public void setInitflag(boolean b) {
-		((IfmazeOperator)theOperator).setInitflag(b);
+		((IfmazeOperator)getOperator()).setInitflag(b);
 	}
 
 	public class IfmazeOperator {

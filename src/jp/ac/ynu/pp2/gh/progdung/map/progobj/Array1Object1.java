@@ -26,9 +26,6 @@ public class Array1Object1 extends MapProgObject {
 	public Array1Object1(MapHandlerBase pHandler, int bx, int by, String pObjName, RpgMap pMap) {
 		super(pHandler, bx, by, pObjName, pMap);
 
-		sourceRuby = "def operate(array)\n"
-				+ "\t# この下にソースを入力\n"
-				+ "end";
 	}
 /*	正解コード
 def operate(array)
@@ -37,14 +34,14 @@ def operate(array)
 end
  */
 	@Override
-	public void runRuby(final Ruby ruby, StringWriter stdin, StringWriter stderr) {
+	public void launchRubyWithThread(final Ruby ruby, StringWriter stdin, StringWriter stderr, Object... pArguments) {
 		for (int i = 0; i < array.length; i++) {
 			array[i] = initArray[i];
 		}
 		new Thread() {
 			@Override
 			public void run() {
-				rrwrapper(ruby);
+				runRuby(ruby, stdin, stderr, pArguments);
 				if(!fragSuccess){
 					if(array[0] == initArray[initArray.length - 1]){
 						fragSuccess = true;
@@ -53,8 +50,18 @@ end
 			}
 		}.start();
 	}
+	
+	@Override
+	public String getMethodName() {
+		return "operate";
+	}
 
-	private void rrwrapper(Ruby ruby) {
+	@Override
+	public String getArgumentString() {
+		return "array";
+	}
+
+	private void rrwrapper(final Ruby ruby, StringWriter stdin, StringWriter stderr) {
 		ScriptingContainer container = new ScriptingContainer();
 		container.setKCode(KCode.UTF8);
 

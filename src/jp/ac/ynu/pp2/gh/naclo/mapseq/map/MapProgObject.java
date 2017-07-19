@@ -11,16 +11,39 @@ import org.jruby.embed.io.ReaderInputStream;
 import org.jruby.util.KCode;
 
 public abstract class MapProgObject extends MapObject{	//プログラムで動作させる設置物クラス
-	protected Object theOperator;
+	private Object theOperator;
 
 	public String sourceRuby;
 
 	public MapProgObject(MapHandlerBase pHandler, int bx, int by, String pObjName, RpgMap pMap) {
 		super(pHandler, bx, by, pObjName, pMap);
+		sourceRuby = "def " + getMethodName() + "(" + getArgumentString() + ")\n"
+				+ "\t#この下の行にソースを入力\n"
+				+ "\t\n"
+				+ "end";
 	}
 
 	//プログラム実行
-	public void runRuby(Ruby ruby, StringWriter stdin, StringWriter stderr) {
+	public void launchRubyWithThread(Ruby ruby, StringWriter stdin, StringWriter stderr, Object... pArguments) {
+		new Thread() {
+			@Override
+			public void run() {
+				preRunRuby(ruby, pArguments);
+				runRuby(ruby, stdin, stderr, pArguments);
+				postRunRuby(ruby, pArguments);
+			}
+		}.start();
+	}
+	
+	public void preRunRuby(Ruby ruby, Object[] pArguments) {
+		
+	}
+
+	public void postRunRuby(Ruby ruby, Object[] pArguments) {
+		
+	}
+
+	public void runRuby(final Ruby ruby, StringWriter stdin, StringWriter stderr, Object... pArguments) {
 		ScriptingContainer container = new ScriptingContainer();
 		container.setKCode(KCode.UTF8);
 		PrintWriter pstdout= new PrintWriter(stdin);
@@ -33,19 +56,37 @@ public abstract class MapProgObject extends MapObject{	//プログラムで動�
 //		EmbedEvalUnit lUnit = container.parse(lStream, "temp.rb");
 		container.runScriptlet(lStream, "template.rb");
 
-		String rwrapper = setTimeout("run", objName, 10);
+		String rwrapper = setTimeout();
 		container.runScriptlet(rwrapper);
-		container.callMethod(ruby.getCurrentContext(), "rwrapper", theOperator);
+		container.callMethod(ruby.getCurrentContext(), "rwrapper", pArguments);
 		handler.stdoutUpdate();
 		handler.stderrUpdate();
 	}
+	
+	public Object getOperator() {
+		return theOperator;
+	}
 
-	public String setTimeout(String methodName, String argument, int time){
+	protected void setOperator(Object theOperator) {
+		this.theOperator = theOperator;
+	}
+
+	public int getTimeout() {
+		return 10;
+	}
+	
+	public Object[] getArgumentObjects() {
+		return new Object[] {theOperator};
+	}
+
+	public abstract String getArgumentString();
+
+	public String setTimeout(){
 		String rwrapper = "require 'timeout'\n"
-				+ "def rwrapper(" + argument + ")\n"
+				+ "def rwrapper(" + getArgumentString() + ")\n"
 				+ 	"begin\n"
-				+ 		"Timeout.timeout(" + time + "){\n"
-				+ 			methodName +"(" + argument + ")\n"
+				+ 		"Timeout.timeout(" + getTimeout() + "){\n"
+				+ 			getMethodName() +"(" + getArgumentString() + ")\n"
 				+ 		"}\n"
 				+ 	"rescue => e\n"
 				+ 		"STDERR.puts e.class\n"
@@ -54,5 +95,9 @@ public abstract class MapProgObject extends MapObject{	//プログラムで動�
 				+ 	"end\n"
 				+ "end";
 		return rwrapper;
+	}
+
+	public String getMethodName() {
+		return "run";
 	}
 }
