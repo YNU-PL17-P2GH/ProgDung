@@ -66,11 +66,12 @@ public class RegisterPanel extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if (!lPassField.getPassword().equals(lPassRField.getPassword())) {
+				if (!new String(lPassField.getPassword()).equals(new String(lPassRField.getPassword()))) {
 					JOptionPane.showMessageDialog(RegisterPanel.this, "確認用のパスワードが一致しません", "", JOptionPane.ERROR_MESSAGE);
+					return;
 				}
 				if (pCallback.userRegister(lUserField.getText(), lPassField.getPassword())) {
-					// TODO Input name
+					pCallback.showStory(pCallback);
 					return;
 				}
 				JOptionPane.showMessageDialog(RegisterPanel.this, "登録できませんでした", "", JOptionPane.ERROR_MESSAGE);

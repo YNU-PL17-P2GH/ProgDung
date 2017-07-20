@@ -19,6 +19,8 @@ public interface TransitionCallback {
 
 	void showTitle(TransitionCallback pCallback);
 
+	void showStory(TransitionCallback pCallback);
+
 	void showSelect(TransitionCallback pCallback);
 
 	void showDungeon(TransitionCallback pCallback, int selectedStage);
