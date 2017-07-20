@@ -5,19 +5,27 @@ import javax.swing.JFrame;
 public interface TransitionCallback {
 
 	boolean login(String pUsername, char[] pWord);
+	
+	boolean checkUser(String pUsername);
 
 	boolean userRegister(String pUsername, char[] pWord);
 
 	boolean saveUserData();
+	
+	boolean isLoggedin();
 
 	// TODO 実装
 //	UserData getUserData();
 
-	void showTitle();
+	void showTitle(TransitionCallback pCallback);
 
-	void showSelect();
+	void showStory(TransitionCallback pCallback);
 
-	void showDungeon(int selectedStage);
+	void showSelect(TransitionCallback pCallback);
+
+	void showDungeon(TransitionCallback pCallback, int selectedStage);
+	
+	void showGameClear(TransitionCallback pCallback);
 
 	JFrame getMainFrame();
 
@@ -40,4 +48,6 @@ public interface TransitionCallback {
 	void stderrUpdate();
 
 	void showHintOnCoder();
+
+	void showRegister(TransitionCallback pCallback);
 }

@@ -16,6 +16,7 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.KEY_STATE;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.DIRECTION;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
+import jp.ac.ynu.pp2.gh.progdung.map.handlers.Lobby;
 import jp.ac.ynu.pp2.gh.progdung.map.handlers.Zentai;
 import jp.ac.ynu.pp2.gh.progdung.util.SaveData;
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
@@ -36,11 +37,14 @@ public class DungeonPlay extends Canvas {
 
 	TransitionCallback callback;
 
+	private int selectedStage;
+
 	//コンストラクタ
-	DungeonPlay(TransitionCallback pCallback){
+	DungeonPlay(TransitionCallback pCallback, int selectedStage){
 		super();
 		setFocusable(false);
 
+		this.selectedStage = selectedStage;
 		callback = pCallback;
 	}
 
@@ -62,7 +66,11 @@ public class DungeonPlay extends Canvas {
 			newKeystate[i] = false;
 		}
 		//handler = new Lobby(19, 40, DIRECTION.UP, this);
-		handler = new Zentai(19, 40, DIRECTION.UP, this);
+		if (selectedStage == 0) {
+			handler = new Lobby(19, 40, DIRECTION.UP, this);
+		} else {
+			handler = new Zentai(19, 40, DIRECTION.UP, this);
+		}
 	}
 
 	public void showHint(String pString, boolean force) {
@@ -107,6 +115,7 @@ public class DungeonPlay extends Canvas {
 		Timer t = new Timer();
 		t.schedule(new RenderTask(), 0, 1000 / RENDER_TIMER_RATE);
 
+		callback.getMainFrame().requestFocus();
 		callback.getMainFrame().addKeyListener(new MyKeyAdapter());
 	}
 
