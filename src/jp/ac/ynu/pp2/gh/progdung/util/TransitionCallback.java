@@ -24,6 +24,8 @@ public interface TransitionCallback {
 	void showSelect(TransitionCallback pCallback);
 
 	void showDungeon(TransitionCallback pCallback, int selectedStage);
+	
+	void showGameClear(TransitionCallback pCallback);
 
 	JFrame getMainFrame();
 
