@@ -313,6 +313,10 @@ public class MapPlayer extends MapMoveObject{
 				next_x = bx; next_y = by;
 			}
 		}
+		// Press Y
+		if (sinfo.getKeyRelease(KEY_STATE.X)) {
+			handler.toggleMenu();
+		}
 
 		move(sinfo);
 		if (getPlayerFoot() == STATE.NEXT) {

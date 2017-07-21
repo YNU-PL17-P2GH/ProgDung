@@ -50,4 +50,6 @@ public interface TransitionCallback {
 	void showHintOnCoder();
 
 	void showRegister(TransitionCallback pCallback);
+
+	void toggleMenu();
 }

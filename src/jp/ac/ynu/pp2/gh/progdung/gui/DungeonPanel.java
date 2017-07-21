@@ -2,13 +2,17 @@ package jp.ac.ynu.pp2.gh.progdung.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.StringWriter;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
@@ -54,6 +58,8 @@ public class DungeonPanel extends JLayeredPane {
 
 	private JScrollPane stderrPane;
 
+	private JPanel menuPanel;
+
 	public DungeonPanel(TransitionCallback pCallback, int selectedStage) {
 		super();
 
@@ -65,7 +71,8 @@ public class DungeonPanel extends JLayeredPane {
 		hintPanel.setBackground(Color.blue);
 		hintLabel = new JLabel();
 		hintLabel.setForeground(Color.white);
-		hintLabel.setFont(new Font("sans", Font.BOLD, 16));
+		Font lFont = new Font(Font.SANS_SERIF, Font.BOLD, 16);
+		hintLabel.setFont(lFont);
 		hintPanel.add(hintLabel);
 		add(hintPanel);
 
@@ -131,6 +138,50 @@ public class DungeonPanel extends JLayeredPane {
 		});
 		add(sourcePane);
 		setLayer(sourcePane, 1);
+		
+		// menu
+		menuPanel = new JPanel();
+		menuPanel.setBounds(100, 300, 1080, 160);
+		menuPanel.setBackground(Color.black);
+		menuPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		
+		FlowLayout lFlow2 = new FlowLayout();
+		lFlow2.setHgap(25);
+		lFlow2.setAlignment(FlowLayout.CENTER);
+		menuPanel.setLayout(lFlow2);
+		
+		JLabel lMenuLabel = new JLabel("MENU");
+		lMenuLabel.setFont(lFont);
+		lMenuLabel.setForeground(Color.white);
+		
+		JButton lResumeButton = new JButton("再開");
+		lResumeButton.setFont(lFont);
+		lResumeButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				callback.getMainFrame().requestFocus();
+				toggleMenu();
+			}
+		});
+		JButton lBackButton = new JButton("難易度選択に戻る");
+		lBackButton.setFont(lFont);
+		lBackButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				callback.showSelect(callback);
+			}
+		});
+		
+		menuPanel.add(lMenuLabel);
+		menuPanel.add(new Separator());
+		menuPanel.add(lResumeButton);
+		menuPanel.add(new Separator());
+		menuPanel.add(lBackButton);
+		add(menuPanel);
+		menuPanel.setVisible(false);
+		setLayer(menuPanel, 3);
 
 		JPanel lPlayCoverPanel = new JPanel();
 		lPlayCoverPanel.setOpaque(false);
@@ -149,6 +200,9 @@ public class DungeonPanel extends JLayeredPane {
 //		hintPanel.setBounds(800, 450, 0, 0);
 		setLayer(hintPanel, 2);
 		revalidate();
+		
+		
+		revalidate();
 	}
 
 	public void init() {
@@ -157,6 +211,14 @@ public class DungeonPanel extends JLayeredPane {
 
 	public void start() {
 		lDungeonPlay.start();
+	}
+
+	void toggleMenu() {
+		if (menuPanel.isVisible()) {
+			menuPanel.setVisible(false);
+		} else {
+			menuPanel.setVisible(true);
+		}
 	}
 
 	void showHint(String string, boolean force) {

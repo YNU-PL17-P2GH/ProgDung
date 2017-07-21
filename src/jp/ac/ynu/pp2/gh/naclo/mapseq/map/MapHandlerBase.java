@@ -113,4 +113,8 @@ public abstract class MapHandlerBase {
 		return theMap;
 	}
 
+	public void toggleMenu() {
+		callback.toggleMenu();
+	}
+
 }

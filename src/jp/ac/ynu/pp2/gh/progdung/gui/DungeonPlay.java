@@ -199,6 +199,10 @@ public class DungeonPlay extends Canvas {
 		return callback.getSaveData();
 	}
 
+	public void toggleMenu() {
+		callback.toggleMenu();
+	}
+
 	public void setSource(String pSource) {
 		callback.setSource(pSource);
 	}

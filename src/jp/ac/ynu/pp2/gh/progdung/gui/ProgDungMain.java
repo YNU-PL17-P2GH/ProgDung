@@ -103,6 +103,11 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 	}
 
 	@Override
+	public void toggleMenu() {
+		lDungeonPanel.toggleMenu();
+	}
+
+	@Override
 	public void showHint(String string, boolean force) {
 		lDungeonPanel.showHint(string, force);
 	}
