@@ -4,16 +4,16 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 
+import org.jruby.Ruby;
+import org.jruby.embed.ScriptingContainer;
+import org.jruby.embed.io.ReaderInputStream;
+import org.jruby.util.KCode;
+
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapProgObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.RpgMap;
-
-import org.jruby.Ruby;
-import org.jruby.embed.ScriptingContainer;
-import org.jruby.embed.io.ReaderInputStream;
-import org.jruby.util.KCode;
 
 public class Array1Object1 extends MapProgObject {
 
@@ -25,7 +25,7 @@ public class Array1Object1 extends MapProgObject {
 
 	public Array1Object1(MapHandlerBase pHandler, int bx, int by, String pObjName, RpgMap pMap) {
 		super(pHandler, bx, by, pObjName, pMap);
-
+		setOperator(array);
 	}
 /*	正解コード
 def operate(array)
@@ -50,7 +50,7 @@ end
 			}
 		}.start();
 	}
-	
+
 	@Override
 	public String getMethodName() {
 		return "operate";

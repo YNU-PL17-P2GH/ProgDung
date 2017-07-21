@@ -1,6 +1,8 @@
 doorObj,silver,38,5,4,4,null
 nextMap,Lobby,32,34,8,38,7,39,7,40,7,41,7,38,8,39,8,40,8,41,8,2
-pcO bj,mini,38,15,array1
+progObj,output,40,11,OutputObject
+pcObj,mini,38,15,output
+animeObj,kirakira/yellow,40,9,2,2
 fixObj,hondana/wood,36,7
 fixObj,hondana/wood,38,26
 fixObj,hondana/wood,16,11

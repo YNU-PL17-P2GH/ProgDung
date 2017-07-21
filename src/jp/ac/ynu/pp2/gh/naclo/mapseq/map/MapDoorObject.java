@@ -98,4 +98,9 @@ public class MapDoorObject extends MapObject{
 		return false;
 	}
 
+	public void setOpend() {
+		imgNumNow =imgNum - 1;
+		canPass = true;
+	}
+
 }

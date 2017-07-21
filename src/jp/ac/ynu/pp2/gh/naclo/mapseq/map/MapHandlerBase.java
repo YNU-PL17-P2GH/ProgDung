@@ -38,6 +38,13 @@ public abstract class MapHandlerBase {
 
 		theMap = new RpgMap(this, pMapName, player_x, player_y, player_d);
 		thePlayer = new MapPlayer(this, player_x, player_y, "player", player_d, getMap());
+		for (MapObject tObject : theObj) {
+			if (tObject instanceof MapDoorObject) {
+				if(hitChecktoPlayer(tObject)) {
+					((MapDoorObject)tObject).setOpend();
+				}
+			}
+		}
 	}
 
 	public void draw(ShareInfo sinfo) {
