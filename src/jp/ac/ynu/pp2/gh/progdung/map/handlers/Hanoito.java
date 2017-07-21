@@ -5,6 +5,7 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapPcObject;
 import jp.ac.ynu.pp2.gh.progdung.gui.DungeonPlay;
+import jp.ac.ynu.pp2.gh.progdung.map.progobj.HanoitoObject;
 
 public class Hanoito extends MapHandlerBase{
 	public Hanoito(int player_x, int player_y, DIRECTION player_d, DungeonPlay play) {
@@ -30,6 +31,10 @@ public class Hanoito extends MapHandlerBase{
 
 	@Override
 	public void onMapLoad() {
+		if(callback.getSaveData().getBoolean("Hanoito001")) {
+			for(MapObject tObject: theObj) {
+				((HanoitoObject)tObject).cleared();
+			}
+		}
 	}
-
 }

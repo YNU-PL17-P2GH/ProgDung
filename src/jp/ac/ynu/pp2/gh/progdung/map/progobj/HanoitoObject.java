@@ -131,6 +131,14 @@ end
 		return "hanoi";
 	}
 
+	public void cleared() {
+		for(int i = 0; i < showTower[0].length ;i++){
+			showTower[0][i] = showTower[0].length - i;
+			showTower[1][i] = 0;
+			showTower[2][i] = 0;
+		}
+	}
+
 
 	/*private void rrwrapper(Ruby ruby) {
 		ScriptingContainer container = new ScriptingContainer();

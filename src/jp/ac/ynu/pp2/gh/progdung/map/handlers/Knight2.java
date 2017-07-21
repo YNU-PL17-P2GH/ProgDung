@@ -1,6 +1,5 @@
 package jp.ac.ynu.pp2.gh.progdung.map.handlers;
 
-import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.DIRECTION;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
@@ -14,22 +13,6 @@ public class Knight2 extends MapHandlerBase {
 
 	public Knight2(int player_x, int player_y, DIRECTION player_d, DungeonPlay play) {
 		super("knight2", player_x, player_y, player_d, play);
-	}
-
-	@Override
-	public void draw(ShareInfo sinfo) {
-		super.draw(sinfo);
-		if(!callback.getSaveData().getBoolean("Knight2001")){
-			if(knight.isFinish()) {
-				knight.setFinishUpdate(false);
-				if(knight.getSuccessFlag()) {
-					showHint("<html>扉の開く音がした!!</html>", true);
-					callback.getSaveData().setTaken("Knight2001");
-				}else {
-					showHint("<html>何も起こらなかった...</html>", true);
-				}
-			}
-		}
 	}
 
 	@Override

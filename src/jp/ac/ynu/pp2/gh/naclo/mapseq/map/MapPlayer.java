@@ -5,12 +5,12 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.STATE;
 
 public class MapPlayer extends MapMoveObject{
-
 	public MapPlayer(MapHandlerBase pHandler,int bx, int by, String objName, MAP_CONST.DIRECTION direct, RpgMap map){
 		super(pHandler, bx, by, objName, direct, map);
 		width = 2;
 		height = 2;
 	}
+
 	@Override
 	public void draw(ShareInfo sinfo, int player_x, int player_y) {
 		//System.out.println(box_x + " "+box_y);
@@ -32,13 +32,11 @@ public class MapPlayer extends MapMoveObject{
 		}
 		sinfo.g.drawImage(objImg, x + 12,y + 12 , x + MAP_CONST.MAP_BOX_SIZE * 2 - 12, y + MAP_CONST.MAP_BOX_SIZE * 2 - 12,
 				(animeCount / delay % imgNum) * 32, (direction.getVal() % directNum) * MAP_CONST.MAP_BOX_SIZE, (animeCount / delay % imgNum + 1) * MAP_CONST.MAP_BOX_SIZE, (direction.getVal() % directNum+ 1) * MAP_CONST.MAP_BOX_SIZE, null);
-
 		animeCount++;
 	}
 
 
 	private void floatMove() {
-
 		//進もうとしている方向に進み続ける
 		if(next_x - box_x == -1){
 			point_x = point_x - 2;
@@ -50,7 +48,7 @@ public class MapPlayer extends MapMoveObject{
 			point_y = point_y + 2;
 		}
 
-		System.out.printf("[POS]%d / %d %d / %d\n", box_x, box_y, point_x,point_y);
+		//System.out.printf("[POS]%d / %d %d / %d\n", box_x, box_y, point_x,point_y);
 
 		// 壁
 		if(!this.isStartMoving()){
@@ -293,7 +291,7 @@ public class MapPlayer extends MapMoveObject{
 				box_y = next_y;
 				next_x = box_x;
 				next_y = box_y;
-				
+
 				if(getPlayerFoot() == STATE.FLOAT) {
 					floating = true;
 				}
@@ -476,6 +474,4 @@ public class MapPlayer extends MapMoveObject{
 	public void setCanMave(boolean b) {
 		canMove = b;
 	}
-
 }
-

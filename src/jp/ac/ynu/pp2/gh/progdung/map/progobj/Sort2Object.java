@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
-import java.io.StringWriter;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -150,40 +149,30 @@ public class Sort2Object extends MapProgObject{
 def sort(array)
 	Integer i = 0
 	Integer j = 0
-	while i < array.length() - 1
-		j = 0
-		while j < array.length() - i - 1
-			if array.compare(j , j + 1) then
-				array.exchange(j + 1 , j)
+	Integer min = 0
+	while i < array.length()
+		j = i
+		min = i
+		while j < array.length()
+			if array.compare(min , j) then
+				min = j
 			end
 			j = j + 1
 		end
+		array.exchange(i ,min)
 		i = i + 1
 	end
 end
  */
 
 	@Override
-	public void launchRubyWithThread(final Ruby ruby, StringWriter stdin, StringWriter stderr, Object...pArguments) {
-		new Thread() {
-			@Override
-			public void run() {
-				runRuby(ruby, stdin, stderr, pArguments);
-				if(((Sort2Operator)getOperator()).getFailFlag()) {
-
-				}
-			}
-		}.start();
-	}
-	
-	@Override
 	public String getMethodName() {
 		return "sort";
 	}
-	
+
 	@Override
 	public int getTimeout() {
-		return -1;
+		return 10;
 	}
 
 	@Override

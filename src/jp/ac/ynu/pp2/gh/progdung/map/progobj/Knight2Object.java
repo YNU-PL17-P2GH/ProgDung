@@ -108,8 +108,6 @@ public class Knight2Object extends MapProgObject {
 	private boolean updateFlag = false;
 	private boolean checkFlag = false;
 	private int chechDirect;
-	private boolean successFlag;
-	private boolean finishUpdate;
 
 	@Override
 	public void update(ShareInfo sinfo) {
@@ -143,8 +141,15 @@ public class Knight2Object extends MapProgObject {
 					runRuby = false;
 					getMap().getMyPlayer().setCanMave(true);
 					getMap().getMyPlayer().setPosition(25, 12);
-					finishUpdate = true;
-					successFlag = checkSucsess();
+					if(!handler.getCallback().getSaveData().getBoolean("Knight2001")){
+						if(checkSucsess()) {
+							handler.getCallback().showHint("<html>扉の開く音がした!!</html>", true);
+							handler.getCallback().getSaveData().setTaken("Knight2001");
+						}else {
+							handler.getCallback().showHint("<html>何も起こらなかった...</html>", true);
+						}
+					}
+
 				}
 			}
 			animeCount++;
@@ -246,10 +251,6 @@ end
 	@Override
 	public boolean getCanPass() {
 		return false;
-	}
-
-	public boolean getSuccessFlag() {
-		return successFlag;
 	}
 
 	@Override
@@ -363,13 +364,6 @@ end
 			//printBoard();
 			answerProcess.add(lastd + 8);
 		}
-	}
-
-	public boolean isFinish() {
-		return finishUpdate;
-	}
-	public void setFinishUpdate(boolean b) {
-		this.finishUpdate = b;
 	}
 }
 

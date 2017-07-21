@@ -153,15 +153,15 @@ def sort(array)
 	end
 end
  */
-	
+
 	@Override
 	public String getMethodName() {
 		return "sort";
 	}
-	
+
 	@Override
 	public int getTimeout() {
-		return -1;
+		return 10;
 	}
 
 	@Override
