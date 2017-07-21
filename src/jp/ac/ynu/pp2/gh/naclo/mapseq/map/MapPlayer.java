@@ -36,6 +36,99 @@ public class MapPlayer extends MapMoveObject{
 		animeCount++;
 	}
 
+
+	private void floatMove() {
+
+		//進もうとしている方向に進み続ける
+		if(next_x - box_x == -1){
+			point_x = point_x - 2;
+		}else if(next_x - box_x == 1){
+			point_x = point_x + 2;
+		}else if(next_y - box_y == -1){
+			point_y = point_y - 2;
+		}else if(next_y - box_y == 1){
+			point_y = point_y + 2;
+		}
+
+		System.out.printf("[POS]%d / %d %d / %d\n", box_x, box_y, point_x,point_y);
+
+		// 壁
+		if(!this.isStartMoving()){
+			if(direction == MAP_CONST.DIRECTION.RIGHT){
+				if(myMap.getBox(box_x + 2, box_y + 1).getState() == MAP_CONST.STATE.BLOCK){
+					System.err.println("RIGHT BLOCK");
+					floating = false;
+					return;
+				}
+			}else if(direction == MAP_CONST.DIRECTION.UP){
+				if(myMap.getBox(box_x, box_y).getState() == MAP_CONST.STATE.BLOCK
+						|| myMap.getBox(box_x + 1, box_y).getState() == MAP_CONST.STATE.BLOCK){
+					System.err.println("UP BLOCK");
+					floating = false;
+					return;
+				}
+			}else if(direction == MAP_CONST.DIRECTION.DOWN){
+				if(myMap.getBox(box_x, box_y + 2).getState() == MAP_CONST.STATE.BLOCK
+						|| myMap.getBox(box_x + 1, box_y + 2).getState() == MAP_CONST.STATE.BLOCK){
+					System.err.println("DOWN BLOCK");
+					floating = false;
+					return;
+				}
+			}else if(direction == MAP_CONST.DIRECTION.LEFT){
+				if(myMap.getBox(box_x - 1, box_y + 1).getState() == MAP_CONST.STATE.BLOCK){
+					System.err.println("LEFT BLOCK");
+					floating = false;
+					return;
+				}
+			}
+		}
+		//theObjとの当たり判定
+		for(MapObject tObj : handler.theObj){
+			if(tObj.getdrawFlag()){				//前のフレームで描画されていれば、つまり描画領域内にあれば
+				if(handler.hitChecktoObj(tObj)){
+					handler.onPlayerHitTo(tObj);
+					moveCancel();
+					floating = false;
+					return;
+				}
+			}
+		}
+
+		//マスの境に達したときにマスの位置更新
+		if(!this.isStartMoving()){
+			if(direction == MAP_CONST.DIRECTION.RIGHT){
+				next_x = box_x + 1;
+				next_y = box_y;
+				point_x = point_x + 2;
+			}else if(direction == MAP_CONST.DIRECTION.UP){
+				next_x = box_x;
+				next_y = box_y - 1;
+				point_y = point_y - 2;
+			}else if(direction == MAP_CONST.DIRECTION.DOWN){
+				next_x = box_x;
+				next_y = box_y + 1;
+				point_y = point_y + 2;
+			}else if(direction == MAP_CONST.DIRECTION.LEFT){
+				next_x = box_x - 1;
+				next_y = box_y;
+				point_x = point_x - 2;
+			}
+		}
+
+		if(point_x % MAP_CONST.MAP_BOX_SIZE == 0 && point_y % MAP_CONST.MAP_BOX_SIZE == 0){
+			if(isStartMoving()){
+				box_x = next_x;
+				box_y = next_y;
+				next_x = box_x;
+				next_y = box_y;
+				if(getPlayerFoot() == STATE.EMPTY) {
+					floating = false;
+					return;
+				}
+			}
+		}
+	}
+
 	public void move(ShareInfo sinfo){
 		//System.out.println(box_x + " " + box_y + " " + next_x + " " + next_y);
 		if(!canMove) return;
@@ -200,11 +293,16 @@ public class MapPlayer extends MapMoveObject{
 				box_y = next_y;
 				next_x = box_x;
 				next_y = box_y;
+				
+				if(getPlayerFoot() == STATE.FLOAT) {
+					floating = true;
+				}
 			}
 		}
 	}
 	private int holdBox[][] = {{0, 0}, {1, 0}, {0, 1}, {1, 1}};
 	private boolean canMove = true;
+	private boolean floating;
 
 	private boolean checkHold(int x,int y){
 		for(int i = 0; i < holdBox.length; i++){
@@ -317,8 +415,11 @@ public class MapPlayer extends MapMoveObject{
 		if (sinfo.getKeyRelease(KEY_STATE.X)) {
 			handler.toggleMenu();
 		}
-
-		move(sinfo);
+		if(!floating) {
+			move(sinfo);
+		}else {
+			floatMove();
+		}
 		if (getPlayerFoot() == STATE.NEXT) {
 			handler.moveMap(getNextBoxOnFoot());
 		}
