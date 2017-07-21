@@ -50,7 +50,7 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 	@Override
 	public boolean saveUserData() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override

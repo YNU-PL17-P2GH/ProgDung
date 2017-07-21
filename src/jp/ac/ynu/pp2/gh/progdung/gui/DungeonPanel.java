@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.StringWriter;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -59,6 +60,8 @@ public class DungeonPanel extends JLayeredPane {
 	private JScrollPane stderrPane;
 
 	private JPanel menuPanel;
+
+	private JButton saveButton;
 
 	public DungeonPanel(TransitionCallback pCallback, int selectedStage) {
 		super();
@@ -141,7 +144,7 @@ public class DungeonPanel extends JLayeredPane {
 		
 		// menu
 		menuPanel = new JPanel();
-		menuPanel.setBounds(100, 300, 1080, 160);
+		menuPanel.setBounds(100, 240, 1080, 280);
 		menuPanel.setBackground(Color.black);
 		menuPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		
@@ -150,12 +153,16 @@ public class DungeonPanel extends JLayeredPane {
 		lFlow2.setAlignment(FlowLayout.CENTER);
 		menuPanel.setLayout(lFlow2);
 		
+		Font lFont2 = new Font(Font.MONOSPACED, Font.BOLD, 20);
 		JLabel lMenuLabel = new JLabel("MENU");
-		lMenuLabel.setFont(lFont);
+		lMenuLabel.setFont(lFont2);
 		lMenuLabel.setForeground(Color.white);
 		
 		JButton lResumeButton = new JButton("再開");
-		lResumeButton.setFont(lFont);
+		lResumeButton.setBorderPainted(false);
+		lResumeButton.setContentAreaFilled(false);
+		lResumeButton.setForeground(Color.white);
+		lResumeButton.setFont(lFont2);
 		lResumeButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -164,8 +171,30 @@ public class DungeonPanel extends JLayeredPane {
 				toggleMenu();
 			}
 		});
-		JButton lBackButton = new JButton("難易度選択に戻る");
-		lBackButton.setFont(lFont);
+		
+		saveButton = new JButton("保存");
+		saveButton.setBorderPainted(false);
+		saveButton.setContentAreaFilled(false);
+		saveButton.setForeground(Color.white);
+		saveButton.setFont(lFont2);
+		saveButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if (callback.saveUserData()) {
+					((AbstractButton) arg0.getSource()).setText("保存しました");
+				} else {
+					JOptionPane.showMessageDialog(DungeonPanel.this, "保存できませんでした", "", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		
+		JButton lBackButton = new JButton("ステージ変更(難易度選択へ戻る)");
+		lBackButton.setForeground(Color.white);
+		lBackButton.setBorderPainted(false);
+		lBackButton.setContentAreaFilled(false);
+		lBackButton.setForeground(Color.white);
+		lBackButton.setFont(lFont2);
 		lBackButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -177,6 +206,8 @@ public class DungeonPanel extends JLayeredPane {
 		menuPanel.add(lMenuLabel);
 		menuPanel.add(new Separator());
 		menuPanel.add(lResumeButton);
+		menuPanel.add(new Separator());
+		menuPanel.add(saveButton);
 		menuPanel.add(new Separator());
 		menuPanel.add(lBackButton);
 		add(menuPanel);
@@ -217,6 +248,7 @@ public class DungeonPanel extends JLayeredPane {
 		if (menuPanel.isVisible()) {
 			menuPanel.setVisible(false);
 		} else {
+			saveButton.setText("保存");
 			menuPanel.setVisible(true);
 		}
 	}
