@@ -31,7 +31,7 @@ public class DungeonSelectPanel extends BackgroundedPanel {
 		}
 		
 		FlowLayout layout1 = new FlowLayout();
-		layout1.setVgap(50);
+		layout1.setVgap(30);
 		layout1.setHgap(120);
 		layout1.setAlignment(FlowLayout.CENTER);
 		setLayout(layout1);
@@ -64,10 +64,22 @@ public class DungeonSelectPanel extends BackgroundedPanel {
 		});
 		lAlgo.setPreferredSize(new Dimension(360, 360));
 		
+		JButton lBack = new JButton("タイトルへ戻る");
+		lBack.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 16));
+		lBack.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent paramActionEvent) {
+				pCallback.showTitle(pCallback);
+			}
+		});
+		
 		add(lSelectLabel);
 		add(new Separator());
 		add(lBeginner);
 		add(lAlgo);
+		add(new Separator());
+		add(lBack);
 	}
 
 }
