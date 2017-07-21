@@ -7,4 +7,4 @@ pcObj,		mini,			43,21,robe
 fixNamedObj,hondana/basic, 	5,19, mover
 fixNamedObj,hondana/basic, 	5,30, mover2
 fixObj,		hondana/basic,	15, 8
-fixObj,		gold,			41, 9
+animeObj,	kirakira/yellow,41,9,2,2

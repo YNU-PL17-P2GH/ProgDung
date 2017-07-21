@@ -1,19 +1,13 @@
 package jp.ac.ynu.pp2.gh.progdung.map.progobj;
 
-import java.io.InputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
-
 import org.jruby.Ruby;
-import org.jruby.embed.ScriptingContainer;
-import org.jruby.embed.io.ReaderInputStream;
-import org.jruby.util.KCode;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapProgObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.RpgMap;
+import jp.ac.ynu.pp2.gh.progdung.map.handlers.Array1;
 
 public class Array1Object1 extends MapProgObject {
 
@@ -33,23 +27,6 @@ def operate(array)
 	array[0] = array[length-1]
 end
  */
-	@Override
-	public void launchRubyWithThread(final Ruby ruby, StringWriter stdin, StringWriter stderr, Object... pArguments) {
-		for (int i = 0; i < array.length; i++) {
-			array[i] = initArray[i];
-		}
-		new Thread() {
-			@Override
-			public void run() {
-				runRuby(ruby, stdin, stderr, pArguments);
-				if(!fragSuccess){
-					if(array[0] == initArray[initArray.length - 1]){
-						fragSuccess = true;
-					}
-				}
-			}
-		}.start();
-	}
 
 	@Override
 	public String getMethodName() {
@@ -61,15 +38,21 @@ end
 		return "array";
 	}
 
-	private void rrwrapper(final Ruby ruby, StringWriter stdin, StringWriter stderr) {
-		ScriptingContainer container = new ScriptingContainer();
-		container.setKCode(KCode.UTF8);
-
-		// Issue #2
-		InputStream lStream = new ReaderInputStream(new StringReader(sourceRuby), "UTF-8");
-//		EmbedEvalUnit lUnit = container.parse(lStream, "temp.rb");
-		container.runScriptlet(lStream, "template.rb");
-		container.callMethod(ruby.getCurrentContext(), "operate", array);
+	@Override
+	public void preRunRuby(Ruby ruby, Object[] pArguments) {
+		for (int i = 0; i < array.length; i++) {
+			array[i] = initArray[i];
+		}
+	}
+	@Override
+	public void postRunRuby(Ruby ruby, Object[] pArguments) {
+		if(!handler.getCallback().getSaveData().getBoolean("Array1001")){
+			if(array[0] == initArray[initArray.length - 1]){
+				handler.getCallback().getSaveData().setTaken("Array1001");
+				handler.getCallback().showHint("<html>何かが光っている！！</html>", true);
+				((Array1)handler).getOrb().setVisible(true);
+			}
+		}
 	}
 
 	@Override
@@ -91,10 +74,4 @@ end
 		return false;
 	}
 
-	public void setFragSuccess(boolean b) {
-		this.fragSuccess = b;
-	}
-	public boolean getFragSuccess() {
-		return fragSuccess;
-	}
 }

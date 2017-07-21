@@ -80,6 +80,13 @@ public class Tutorial extends MapHandlerBase {
 			showHint("<html>石像の名前.moveDown()<br>"
 					+ "　-　対象となる石像を下へ動かす.</html>", true);
 		}
+		if (pObject.getObjName().equals("kirakira/yellow")) {
+			if(!callback.getSaveData().getBoolean("Tutorial011")) {
+				showHint("<html>なんと鍵をみつけた!!!</html>", true);
+				pObject.setVisible(false);
+				callback.getSaveData().setTaken("Tutorial011");					//クリアフラグ
+			}
+		}
 	}
 
 	@Override
@@ -87,6 +94,13 @@ public class Tutorial extends MapHandlerBase {
 		if (!callback.getSaveData().getBoolean("Tutorial002")) {
 			showHint("<html>まずはマップを探索してみましょう.<br>下に道が続いているようですね.</html>", true);
 			callback.getSaveData().setTaken("Tutorial002");
+		}
+		if(callback.getSaveData().getBoolean("Tutorial011")) {
+			for(MapObject tObject: theObj) {
+				if(tObject.getObjName().equals("kirakira/yellow")) {
+					tObject.setVisible(false);
+				}
+			}
 		}
 	}
 

@@ -2,12 +2,12 @@ package jp.ac.ynu.pp2.gh.progdung.map.progobj;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
 
 import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
+
+import org.jruby.Ruby;
+import org.jruby.RubyArray;
+import org.jruby.RubyFixnum;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST;
@@ -15,13 +15,6 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapProgObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.RpgMap;
-
-import org.jruby.Ruby;
-import org.jruby.RubyArray;
-import org.jruby.RubyFixnum;
-import org.jruby.embed.ScriptingContainer;
-import org.jruby.embed.io.ReaderInputStream;
-import org.jruby.util.KCode;
 
 public class Array2Object  extends MapProgObject {
 	private int[] showArray	= {0, 0, 0, 0, 0, 0, 0, 0};
@@ -80,21 +73,18 @@ end
  */
 
 	@Override
-	public void launchRubyWithThread(final Ruby ruby, StringWriter stdin, StringWriter stderr, Object... pArguments) {
-		
-		new Thread() {
-			@Override
-			public void run() {
-				for (int i = 0; i < showArray.length; i++) {
-					showArray[i] = 0;
-					playerArray[i] = 0;
-				}
-				runRuby(ruby, stdin, stderr, pArguments);
-				ranRuby = true;
-			}
-		}.start();
+	public void preRunRuby(Ruby ruby, Object[] pArguments) {
+		for (int i = 0; i < showArray.length; i++) {
+			showArray[i] = 0;
+			playerArray[i] = 0;
+		}
 	}
-	
+
+	@Override
+	public void postRunRuby(Ruby ruby, Object[] pArguments) {
+		ranRuby = true;
+	}
+
 	@Override
 	public String getMethodName() {
 		return "operate";
@@ -103,17 +93,6 @@ end
 	@Override
 	public String getArgumentString() {
 		return "array";
-	}
-
-	private void rrwrapper(Ruby ruby) {
-		ScriptingContainer container = new ScriptingContainer();
-		container.setKCode(KCode.UTF8);
-
-		// Issue #2
-		InputStream lStream = new ReaderInputStream(new StringReader(sourceRuby), "UTF-8");
-//		EmbedEvalUnit lUnit = container.parse(lStream, "temp.rb");
-		container.runScriptlet(lStream, "template.rb");
-		container.callMethod(ruby.getCurrentContext(), "operate", getOperator());
 	}
 
 	@Override
@@ -195,8 +174,6 @@ end
 					return;
 				}
 				for (int i = 0; i < length; i++) {
-					JOptionPane.showMessageDialog(null, ((RubyArray) array).get(i).getClass().getName());
-
 					if(((RubyArray) array).get(i).equals("on")){
 						playerArray[i] = 1;
 					}else if(((RubyArray) array).get(i).equals("off")){

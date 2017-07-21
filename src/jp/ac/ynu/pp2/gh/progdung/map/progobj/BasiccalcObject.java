@@ -8,18 +8,18 @@ import java.io.StringWriter;
 
 import javax.imageio.ImageIO;
 
+import org.jruby.Ruby;
+import org.jruby.RubyInteger;
+import org.jruby.embed.ScriptingContainer;
+import org.jruby.embed.io.ReaderInputStream;
+import org.jruby.util.KCode;
+
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapProgObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.RpgMap;
-
-import org.jruby.Ruby;
-import org.jruby.RubyInteger;
-import org.jruby.embed.ScriptingContainer;
-import org.jruby.embed.io.ReaderInputStream;
-import org.jruby.util.KCode;
 
 public class BasiccalcObject extends MapProgObject{
 	private BufferedImage tuboImg;
@@ -101,7 +101,7 @@ public class BasiccalcObject extends MapProgObject{
 		// TODO 自動生成されたメソッド・スタブ
 		return false;
 	}
-	
+
 	@Override
 	public String getMethodName() {
 		return "calc";
@@ -133,8 +133,9 @@ public class BasiccalcObject extends MapProgObject{
 			hako = -13;
 		}
 		container.callMethod(ruby.getCurrentContext(), "calc", tubo, oke, hako, getOperator());
+		handler.getCallback().showHint("<html>ふたのついたツボから何か聞こえたような...?</html>", true);
 	}
-	
+
 	public void setKey(String oName){
 		if(oName == "tubo"){
 			tuboInFlag = true;
@@ -145,7 +146,7 @@ public class BasiccalcObject extends MapProgObject{
 		}
 	}
 
-	
+
 
 /*	正解コード
 	def calc(tubo, oke, hako, tubo_covered)

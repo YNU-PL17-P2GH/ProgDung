@@ -4,9 +4,13 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
-import java.io.StringWriter;
 
 import javax.imageio.ImageIO;
+
+import org.jruby.Ruby;
+import org.jruby.embed.ScriptingContainer;
+import org.jruby.embed.io.ReaderInputStream;
+import org.jruby.util.KCode;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST;
@@ -14,12 +18,6 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapProgObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.RpgMap;
-import jp.ac.ynu.pp2.gh.progdung.map.progobj.IfmazeObject.IfmazeOperator;
-
-import org.jruby.Ruby;
-import org.jruby.embed.ScriptingContainer;
-import org.jruby.embed.io.ReaderInputStream;
-import org.jruby.util.KCode;
 
 public class IfmazeObject extends MapProgObject{
 	private boolean successFlag = false;
@@ -85,17 +83,15 @@ public class IfmazeObject extends MapProgObject{
 	}
 
 	@Override
-	public void launchRubyWithThread(final Ruby ruby, StringWriter stdin, StringWriter stderr, Object...pArguments) {
-		new Thread() {
-			@Override
-			public void run() {
-				((IfmazeOperator)getOperator()).init();
-				runRuby(ruby, stdin, stderr, pArguments);
-				successFlag = ((IfmazeOperator)getOperator()).checkResult();
-			}
-		}.start();
+	public void preRunRuby(Ruby ruby, Object[] pArguments) {
+		((IfmazeOperator)getOperator()).init();
 	}
-	
+
+	@Override
+	public void postRunRuby(Ruby ruby, Object[] pArguments) {
+		successFlag = ((IfmazeOperator)getOperator()).checkResult();
+	}
+
 	@Override
 	public String getMethodName() {
 		return "care";
@@ -109,8 +105,7 @@ public class IfmazeObject extends MapProgObject{
 	private void rrwrapper(Ruby ruby) {
 		ScriptingContainer container = new ScriptingContainer();
 		container.setKCode(KCode.UTF8);
-		
-		
+
 
 		// Issue #2
 		InputStream lStream = new ReaderInputStream(new StringReader(sourceRuby), "UTF-8");

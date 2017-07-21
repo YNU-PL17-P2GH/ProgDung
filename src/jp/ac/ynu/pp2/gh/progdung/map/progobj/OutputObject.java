@@ -9,16 +9,10 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapProgObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.RpgMap;
+import jp.ac.ynu.pp2.gh.progdung.map.handlers.Output;
 
 public class OutputObject  extends MapProgObject {
-
-	private int[] array	= new int[6];
-	private int[] initArray	= {0, 100, 200, 300, 400, 500};
-
 	private volatile boolean fragSuccess;
-	private boolean runRuby = false;
-
-
 
 	public OutputObject(MapHandlerBase pHandler, int bx, int by, String pObjName, RpgMap pMap) {
 		super(pHandler, bx, by, pObjName, pMap);
@@ -44,9 +38,21 @@ end
 	@Override
 	public void runRuby(Ruby ruby, StringWriter stdin, StringWriter stderr, Object... pArguments) {
 		super.runRuby(ruby, stdin, stderr, pArguments);
-		runRuby = true;
 		if(stdin.getBuffer().toString().equals("Hello, Algeon!!\nこのステージには、"+ 15 + "個の鍵が隠されています\n")) {
 			fragSuccess = true;
+		}
+	}
+	@Override
+	public void postRunRuby(Ruby ruby, Object[] pArguments) {
+		if(!handler.getCallback().getSaveData().getBoolean("Output001")) {
+			if(fragSuccess){
+				handler.getCallback().showHint("<html>扉の前に光る何かが現れた!!!</html>", true);
+				((Output)handler).getKey().setVisible(true);
+				handler.getCallback().getSaveData().setTaken("Output001");
+			}else{
+				handler.getCallback().showHint("<html>何も起こらない...</html>", true);
+			}
+
 		}
 	}
 
@@ -68,15 +74,6 @@ end
 	public boolean hitCheck(MapObject obj) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	public boolean checkFragSuccess() {
-		runRuby = false;
-		return fragSuccess;
-	}
-
-	public boolean getRunRuby() {
-		return runRuby ;
 	}
 }
 
