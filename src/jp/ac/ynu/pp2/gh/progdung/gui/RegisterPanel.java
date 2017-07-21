@@ -5,7 +5,9 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,7 +17,7 @@ import javax.swing.JTextField;
 
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 
-public class RegisterPanel extends JPanel {
+public class RegisterPanel extends BackgroundedPanel {
 
 	/**
 	 * 
@@ -23,13 +25,19 @@ public class RegisterPanel extends JPanel {
 	private static final long serialVersionUID = -2515425115370666083L;
 	
 	public RegisterPanel(TransitionCallback pCallback) {
+		try {
+			setBackground(ImageIO.read(getClass().getClassLoader().getResourceAsStream("media/gui/title_back.png")));
+		} catch (IOException e1) {
+			throw new RuntimeException(e1);
+		}
+		
 		FlowLayout layout1 = new FlowLayout();
 		layout1.setVgap(10);
 		layout1.setAlignment(FlowLayout.CENTER);
 		setLayout(layout1);
 		
 		JLabel lTitleLabel = new JLabel("新規登録");
-		lTitleLabel.setFont(new Font(Font.SERIF, Font.BOLD, 121));
+		lTitleLabel.setFont(new Font(Font.SERIF, Font.BOLD, 81));
 		
 		Font lFont = new Font(Font.MONOSPACED, Font.PLAIN, 28);
 		JLabel lUserLabel = new JLabel("ユーザーネーム");

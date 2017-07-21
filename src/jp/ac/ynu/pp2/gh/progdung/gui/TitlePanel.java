@@ -5,16 +5,18 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 
-public class TitlePanel extends JPanel {
+public class TitlePanel extends BackgroundedPanel {
 
 	/**
 	 * 
@@ -22,6 +24,12 @@ public class TitlePanel extends JPanel {
 	private static final long	serialVersionUID	= 3675595981556096954L;
 	
 	public TitlePanel(final TransitionCallback pCallback) {
+		try {
+			setBackground(ImageIO.read(getClass().getClassLoader().getResourceAsStream("media/gui/title_back.png")));
+		} catch (IOException e1) {
+			throw new RuntimeException(e1);
+		}
+		
 		setPreferredSize(new Dimension(1260, 700));
 
 		FlowLayout layout1 = new FlowLayout();
@@ -29,8 +37,13 @@ public class TitlePanel extends JPanel {
 		layout1.setAlignment(FlowLayout.CENTER);
 		setLayout(layout1);
 		
-		JLabel lTitleLabel = new JLabel("ALGEON");
-		lTitleLabel.setFont(new Font(Font.MONOSPACED, Font.BOLD, 144));
+		JLabel lTitleLabel;
+		try {
+			lTitleLabel = new JLabel(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("media/gui/titlelogo.png"))));
+		} catch (IOException e1) {
+			throw new RuntimeException(e1);
+		}
+//		lTitleLabel.setFont(new Font(Font.MONOSPACED, Font.BOLD, 144));
 		
 		Font lFont = new Font(Font.MONOSPACED, Font.PLAIN, 28);
 		JLabel lUserLabel = new JLabel("ユーザーネーム");
