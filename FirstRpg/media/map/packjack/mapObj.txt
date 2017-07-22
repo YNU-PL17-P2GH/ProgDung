@@ -1,7 +1,8 @@
-doorObj,silver,18,6,4,4,null
+doorObj,silver,18,6,4,4,Packjack001
 nextMap,Packjack_clear,23,44,8,18,8,19,8,20,8,21,8,18,9,19,9,20,9,21,9
 nextMap,Zentai,89,5,4,18,35,19,35,20,35,21,35,2
-pcObj,mini_ashi,13,20,basiccalc
+progObj,packjack,11,13,PackjackObject
+pcObj,mini_ashi,13,20,packjack
 fixObj,hana,18,17
 fixObj,bin,20,17
 fixObj,senrigan,22,17
