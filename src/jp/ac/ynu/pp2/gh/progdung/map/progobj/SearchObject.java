@@ -1,10 +1,16 @@
 package jp.ac.ynu.pp2.gh.progdung.map.progobj;
 
 import java.awt.Color;
-import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
+import org.jruby.Ruby;
+import org.jruby.embed.ScriptingContainer;
+import org.jruby.embed.io.ReaderInputStream;
+import org.jruby.util.KCode;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST;
@@ -15,25 +21,23 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapProgObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.RpgMap;
 
 public class SearchObject extends MapProgObject {
+	private SearchSubObject boxs[] = new SearchSubObject[100];
 
+	private int clearCount = 3;
 
 	public SearchObject(MapHandlerBase pHandler, int bx, int by, String pObjName, RpgMap pMap) {
 		super(pHandler, bx, by, pObjName, pMap);
-		sourceRuby = "def search(boxs)\n"
-				+ "\t# この下にソースを入力\n"
-				+ "end";
 		width = 0;
 		height = 0;
 		setOperator(new SearchOparator());
-		try {
-			objImg = ImageIO.read(getClass().getClassLoader().getResource("FirstRpg/media/map/obj/sort.png"));
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
 		for(int i = 0; i < 38; i++) {
 			for(int j = 0; j < 38; j++) {
 				getMap().setObj(bx + i, by + j, this);
 			}
+		}
+
+		for(int i = 0; i < boxs.length; i++) {
+			boxs[i] = new SearchSubObject(pHandler, bx + i % 10 * 4, by +i / 10 * 4, "box", pMap, i);
 		}
 	}
 
@@ -62,29 +66,97 @@ public class SearchObject extends MapProgObject {
 
 	@Override
 	public String getArgumentString() {
-		return "boxs";
+		return "boxs,target";
+	}
+	@Override
+	public int getTimeout() {
+		return 20;
+	}
+/*
+def search(boxs, target)
+  Integer left = 0
+  Integer mid = -1
+  Integer right = boxs.length()
+  while left <= right
+    mid  = (left + right) / 2
+    if boxs.checkElement(mid, target) == 0 then
+      boxs.setResult(mid)
+      break
+    elsif boxs.checkElement(mid, target) == -1 then
+      right = mid - 1
+    elsif boxs.checkElement(mid, target) == 1 then
+      left = mid + 1
+    end
+  end
+end
+ */
+	@Override
+	public void preRunRuby(Ruby ruby, Object[] pArguments) {
+		initFlag();
 	}
 
-
-	/*private void rrwrapper(Ruby ruby) {
+	public void runRuby(final Ruby ruby, StringWriter stdin, StringWriter stderr, Object... pArguments) {
 		ScriptingContainer container = new ScriptingContainer();
 		container.setKCode(KCode.UTF8);
+		PrintWriter pstdout= new PrintWriter(stdin);
+		container.setWriter(pstdout);
+		PrintWriter pstderr = new PrintWriter(stderr);
+		container.setErrorWriter(pstderr);
 
 		// Issue #2
 		InputStream lStream = new ReaderInputStream(new StringReader(sourceRuby), "UTF-8");
 //		EmbedEvalUnit lUnit = container.parse(lStream, "temp.rb");
 		container.runScriptlet(lStream, "template.rb");
-		container.callMethod(ruby.getCurrentContext(), "operate", theOperator);
-	}*/
+
+		String rwrapper = setTimeout();
+		container.runScriptlet(rwrapper);
+		container.callMethod(ruby.getCurrentContext(), "rwrapper", getOperator(), ((SearchOparator)getOperator()).getTarget());
+		handler.getCallback().stdoutUpdate();
+		handler.getCallback().stderrUpdate();
+	}
+
+	public SearchSubObject[] getBoxs(){
+		return boxs;
+	}
+
+
+	public boolean selectBox(SearchSubObject box) {
+		initFlag();
+		if(((SearchOparator)getOperator()).checkAnswer(box.getNumber())) {
+			((SearchOparator)getOperator()).init();
+			clearCount--;
+			if(clearCount > 0) {
+				handler.getCallback().showHint("あと" + clearCount+"回!!", true);
+				return false;
+			}else{
+				return true;
+			}
+		}else {
+			((SearchOparator)getOperator()).init();
+			clearCount = 3;
+			handler.getCallback().showHint("不正解....", true);
+			return false;
+		}
+	}
+
+
+	public void initFlag() {
+		for(int i = 1; i < boxs.length; i++){
+			boxs[i].setCheck(false);
+			boxs[i].setSelected(false);
+		}
+	}
 
 	public class SearchOparator {
 		private int[] array;
 		private int targetID;		//探す数値の添え字
-		private int count;
-		private int result;		//プレイヤーの答え
 		public SearchOparator(){
 			array = new int[100];
 			init();
+		}
+
+		public boolean checkAnswer(int number) {
+			return number == targetID;
 		}
 
 		public void init(){
@@ -95,16 +167,16 @@ public class SearchObject extends MapProgObject {
 			}
 
 			targetID = r.nextInt(array.length);
-			initResult();
-		}
-
-		public void initResult(){
-			result = -1;
-			count = 0;
 		}
 
 		public int checkElement(int i, int target){	//ターゲットを探す
-			count++;
+			boxs[i].setCheck(true);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			boxs[i].setCheck(false);
 			if(array[i] == target){		//範囲外だと例外吐いてくれるはず
 				return 0;
 			}else if(array[i] > target){
@@ -114,12 +186,14 @@ public class SearchObject extends MapProgObject {
 			}
 		}
 
+
+
 		public int length(){
 			return array.length;
 		}
 
 		public void setResult(int r){
-			result = r;
+			boxs[r].setSelected(true);
 		}
 
 		public int getTarget() {
@@ -127,21 +201,31 @@ public class SearchObject extends MapProgObject {
 		}
 	}
 
-	public class SearchSubObjct extends MapFixedObject{
+	public class SearchSubObject extends MapFixedObject{
 		private int number;
 		private boolean selected;
+		private boolean check;
 
-		public SearchSubObjct(MapHandlerBase pHandler, int bx, int by, String objName, RpgMap map, int num) {
+		public SearchSubObject(MapHandlerBase pHandler, int bx, int by, String objName, RpgMap map, int num) {
 			super(pHandler, bx, by, objName, map);
 			number = num;
 			selected = false;
 		}
 
+		public void setCheck(boolean b) {
+			check = b;
+		}
+
 		@Override
 		public void draw(ShareInfo sinfo, int map_x, int map_y) {
 			super.draw(sinfo, map_x, map_y);
-			sinfo.g.setColor(Color.YELLOW);
+
+			if(check) {
+				sinfo.g.setColor(Color.YELLOW);
+				sinfo.g.fillRect(map_x, map_y, width * MAP_CONST.MAP_BOX_SIZE, height * MAP_CONST.MAP_BOX_SIZE);
+			}
 			if(selected) {
+				sinfo.g.setColor(Color.RED);
 				sinfo.g.fillRect(map_x, map_y, width * MAP_CONST.MAP_BOX_SIZE, height * MAP_CONST.MAP_BOX_SIZE);
 			}
 		}

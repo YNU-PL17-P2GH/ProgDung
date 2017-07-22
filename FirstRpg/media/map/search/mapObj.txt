@@ -1,4 +1,5 @@
-doorObj,silver,28,6,4,4,null
+doorObj,silver,28,6,4,4,Search001
+progObj,search,11,13,SearchObject
 pcObj,mini_ashi,5,31,search
 nextMap,Search_clear,23,44,8,28,8,29,8,30,8,31,8,28,9,29,9,30,9,31,9
 nextMap,Zentai,24,74,4,55,30,55,29,55,28,55,27,0
