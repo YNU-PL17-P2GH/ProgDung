@@ -18,7 +18,7 @@ public class MapChip {
 		//ファイルからロードに
 		BufferedReader ibr = null;
 		try {
-			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/chips/chip.txt").openStream()));
+			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("FirstRpg/media/map/chips/chip.txt").openStream()));
 			String line = ibr.readLine();
 
 			if(line.indexOf("chipData") >= 0){
@@ -33,7 +33,7 @@ public class MapChip {
 			String data[];
 			for (int i = 0; i < mapChipImags.length; i++) {
 				data = ibr.readLine().split(" ", 0);
-				mapChipImags[i] = ImageIO.read(getClass().getClassLoader().getResource("media/map//chips/"+ data[0] + ".png"));
+				mapChipImags[i] = ImageIO.read(getClass().getClassLoader().getResource("FirstRpg/media/map/chips/"+ data[0] + ".png"));
 				chipX[i] = Integer.parseInt(data[1]);
 				chipY[i] = Integer.parseInt(data[2]);
 			}

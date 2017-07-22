@@ -32,10 +32,10 @@ public class Array2Object  extends MapProgObject {
 		super(pHandler, bx, by, pObjName, pMap);
 
 		try {
-			objImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/obj/" + pObjName + ".png"));
-			tate_onImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/obj/tate_on.png"));
-			tate_offImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/obj/tate_off.png"));
-			mahouzinImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/obj/mahouzin.png"));
+			objImg = ImageIO.read(getClass().getClassLoader().getResource("FirstRpg/media/map/obj/" + pObjName + ".png"));
+			tate_onImg = ImageIO.read(getClass().getClassLoader().getResource("FirstRpg/media/map/obj/tate_on.png"));
+			tate_offImg = ImageIO.read(getClass().getClassLoader().getResource("FirstRpg/media/map/obj/tate_off.png"));
+			mahouzinImg = ImageIO.read(getClass().getClassLoader().getResource("FirstRpg/media/map/obj/mahouzin.png"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

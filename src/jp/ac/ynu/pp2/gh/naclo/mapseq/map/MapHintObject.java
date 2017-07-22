@@ -12,6 +12,6 @@ public class MapHintObject extends MapPcObject {
 
 	@Override
 	public URL getImagePath() {
-		return getClass().getClassLoader().getResource("media/map/obj/" + getObjName() + ".png");
+		return getClass().getClassLoader().getResource("FirstRpg/media/map/obj/" + getObjName() + ".png");
 	}
 }

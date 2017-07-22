@@ -33,8 +33,8 @@ public class HanoitoObject extends MapProgObject {
 		towerImgs = new BufferedImage[((HanoitoOperator)getOperator()).getTowerNum()];
 		try {
 			for (int i = 0; i < towerImgs.length; i++) {
-				String s = "media/map/hanoi/hanoi" + i +".png";
-				towerImgs[i] = ImageIO.read(getClass().getClassLoader().getResource("media/map/hanoi/hanoi" + (towerImgs.length - i - 1) + ".png"));
+				String s = "FirstRpg/media/map/hanoi/hanoi" + i +".png";
+				towerImgs[i] = ImageIO.read(getClass().getClassLoader().getResource("FirstRpg/media/map/hanoi/hanoi" + (towerImgs.length - i - 1) + ".png"));
 			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);

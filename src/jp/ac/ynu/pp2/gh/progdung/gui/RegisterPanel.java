@@ -26,7 +26,7 @@ public class RegisterPanel extends BackgroundedPanel {
 	
 	public RegisterPanel(TransitionCallback pCallback) {
 		try {
-			setBackground(ImageIO.read(getClass().getClassLoader().getResourceAsStream("media/gui/title_back.png")));
+			setBackground(ImageIO.read(getClass().getClassLoader().getResourceAsStream("FirstRpg/media/gui/title_back.png")));
 		} catch (IOException e1) {
 			throw new RuntimeException(e1);
 		}

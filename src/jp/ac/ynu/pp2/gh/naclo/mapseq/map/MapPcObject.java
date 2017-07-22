@@ -15,7 +15,7 @@ public class MapPcObject extends MapFixedObject {
 	
 	@Override
 	public URL getImagePath() {
-		return getClass().getClassLoader().getResource("media/map/obj/pc/" + getObjName() + ".png");
+		return getClass().getClassLoader().getResource("FirstRpg/media/map/obj/pc/" + getObjName() + ".png");
 	}
 	
 	public String getAllocObjName() {

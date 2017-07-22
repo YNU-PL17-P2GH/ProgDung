@@ -13,7 +13,7 @@ public class MapDummyProgObject extends MapProgObject {
 		BufferedReader ibr;
 		StringBuffer sb = new StringBuffer();
 		try {
-			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/" + mapName + "/hint/"+ hintName +".txt").openStream()));
+			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("FirstRpg/media/map/" + mapName + "/hint/"+ hintName +".txt").openStream()));
 			String line = ibr.readLine();
 			while (line != null) {
 				sb.append(line);

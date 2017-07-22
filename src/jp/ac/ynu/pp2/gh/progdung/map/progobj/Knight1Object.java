@@ -28,7 +28,7 @@ public class Knight1Object extends MapProgObject {
 		super(pHandler, bx, by, pObjName, pMap);
 
 		try {
-			objImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/obj/" + pObjName + ".png"));
+			objImg = ImageIO.read(getClass().getClassLoader().getResource("FirstRpg/media/map/obj/" + pObjName + ".png"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

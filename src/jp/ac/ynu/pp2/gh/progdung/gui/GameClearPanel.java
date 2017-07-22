@@ -21,7 +21,7 @@ public class GameClearPanel extends BackgroundedPanel {
 	public GameClearPanel(TransitionCallback pCallback) {
 		super();
 		try {
-			setBackground(ImageIO.read(getClass().getClassLoader().getResourceAsStream("media/gui/clear.png")));
+			setBackground(ImageIO.read(getClass().getClassLoader().getResourceAsStream("FirstRpg/media/gui/clear.png")));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

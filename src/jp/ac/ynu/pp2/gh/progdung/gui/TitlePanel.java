@@ -19,32 +19,33 @@ import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 public class TitlePanel extends BackgroundedPanel {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long	serialVersionUID	= 3675595981556096954L;
-	
+
 	public TitlePanel(final TransitionCallback pCallback) {
 		try {
-			setBackground(ImageIO.read(getClass().getClassLoader().getResourceAsStream("media/gui/title_back.png")));
+			setBackground(ImageIO.read(getClass().getClassLoader().getResourceAsStream("FirstRpg/media/gui/title_back.png")));
 		} catch (IOException e1) {
+
 			throw new RuntimeException(e1);
 		}
-		
+
 		setPreferredSize(new Dimension(1260, 700));
 
 		FlowLayout layout1 = new FlowLayout();
 		layout1.setVgap(10);
 		layout1.setAlignment(FlowLayout.CENTER);
 		setLayout(layout1);
-		
+
 		JLabel lTitleLabel;
 		try {
-			lTitleLabel = new JLabel(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("media/gui/titlelogo.png"))));
+			lTitleLabel = new JLabel(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("FirstRpg/media/gui/titlelogo.png"))));
 		} catch (IOException e1) {
 			throw new RuntimeException(e1);
 		}
 //		lTitleLabel.setFont(new Font(Font.MONOSPACED, Font.BOLD, 144));
-		
+
 		Font lFont = new Font(Font.MONOSPACED, Font.PLAIN, 28);
 		JLabel lUserLabel = new JLabel("ユーザーネーム");
 		lUserLabel.setFont(lFont);
@@ -54,10 +55,10 @@ public class TitlePanel extends BackgroundedPanel {
 		lPassLabel.setFont(lFont);
 		JPasswordField lPassField = new JPasswordField(32);
 		lPassField.setFont(lFont);
-		
+
 		JButton lLoginButton = new JButton("ログイン");
 		lLoginButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (pCallback.login(lUserField.getText(), lPassField.getPassword())) {
@@ -69,14 +70,14 @@ public class TitlePanel extends BackgroundedPanel {
 		lLoginButton.setFont(lFont);
 		JButton lRegisterButton = new JButton("新規登録");
 		lRegisterButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				pCallback.showRegister(pCallback);
 			}
 		});
 		lRegisterButton.setFont(lFont);
-		
+
 		add(lTitleLabel);
 		add(new Separator());
 		add(lUserLabel);
@@ -87,7 +88,7 @@ public class TitlePanel extends BackgroundedPanel {
 		add(new Separator());
 		add(lPassField);
 		add(new Separator());
-		
+
 		add(lLoginButton);
 		add(new Separator());
 		add(lRegisterButton);

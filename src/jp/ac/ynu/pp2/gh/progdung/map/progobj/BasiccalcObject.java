@@ -42,10 +42,10 @@ public class BasiccalcObject extends MapProgObject{
 		super(pHandler, bx, by, pObjName, pMap);
 
 		try {
-			objImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/obj/tubo_covered.png"));
-			tuboImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/obj/tubo.png"));;
-			okeImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/obj/oke.png"));;
-			hakoImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/obj/hako.png"));
+			objImg = ImageIO.read(getClass().getClassLoader().getResource("FirstRpg/media/map/obj/tubo_covered.png"));
+			tuboImg = ImageIO.read(getClass().getClassLoader().getResource("FirstRpg/media/map/obj/tubo.png"));;
+			okeImg = ImageIO.read(getClass().getClassLoader().getResource("FirstRpg/media/map/obj/oke.png"));;
+			hakoImg = ImageIO.read(getClass().getClassLoader().getResource("FirstRpg/media/map/obj/hako.png"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
