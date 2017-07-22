@@ -82,6 +82,7 @@ public class DungeonPanel extends JLayeredPane {
 		//標準出力
 		stdout = new StringWriter();
 		stdoutArea = new JTextArea();
+		stdoutArea.setFocusable(false);
 		stdoutArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 16));
 		stdoutArea.setEditable(false);
 		stdoutArea.setBackground(Color.BLACK);
@@ -97,6 +98,7 @@ public class DungeonPanel extends JLayeredPane {
 		//エラー出力
 		stderr = new StringWriter();
 		stderrArea = new JTextArea();
+		stderrArea.setFocusable(false);
 		stderrArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 16));
 		stderrArea.setEditable(false);
 		stderrArea.setBackground(Color.BLACK);
