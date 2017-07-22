@@ -92,7 +92,7 @@ public class DungeonPanel extends JLayeredPane {
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		add(stdoutPane);
-		setLayer(stdoutPane, 2);
+		setLayer(stdoutPane, 1);
 		stdoutPane.setBounds(1000, 100, 260, 200);
 
 		//エラー出力
@@ -108,7 +108,7 @@ public class DungeonPanel extends JLayeredPane {
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		add(stderrPane);
-		setLayer(stderrPane, 2);
+		setLayer(stderrPane, 1);
 		stderrPane.setBounds(1000, 500, 260, 200);
 
 		// TextArea
@@ -142,7 +142,7 @@ public class DungeonPanel extends JLayeredPane {
 			}
 		});
 		add(sourcePane);
-		setLayer(sourcePane, 1);
+		setLayer(sourcePane, 2);
 		
 		// menu
 		menuPanel = new JPanel();
@@ -214,7 +214,7 @@ public class DungeonPanel extends JLayeredPane {
 		menuPanel.add(lBackButton);
 		add(menuPanel);
 		menuPanel.setVisible(false);
-		setLayer(menuPanel, 3);
+		setLayer(menuPanel, 4);
 
 		JPanel lPlayCoverPanel = new JPanel();
 		lPlayCoverPanel.setOpaque(false);
@@ -231,7 +231,7 @@ public class DungeonPanel extends JLayeredPane {
 
 		hintPanel.setVisible(false);
 //		hintPanel.setBounds(800, 450, 0, 0);
-		setLayer(hintPanel, 2);
+		setLayer(hintPanel, 3);
 		revalidate();
 		
 		
