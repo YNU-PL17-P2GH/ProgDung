@@ -20,7 +20,7 @@ public class StoryPanel extends BackgroundedPanel {
 	public StoryPanel(TransitionCallback pCallback) {
 		super();
 		try {
-			setBackground(ImageIO.read(getClass().getClassLoader().getResourceAsStream("FirstRpg/media/gui/story_back.png")));
+			setBackground(ImageIO.read(getClass().getClassLoader().getResourceAsStream("media/gui/story_back.png")));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

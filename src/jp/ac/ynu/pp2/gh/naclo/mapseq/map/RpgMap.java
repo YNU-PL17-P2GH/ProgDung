@@ -34,7 +34,7 @@ public class RpgMap {
 		String tSeparator = "[ |\t]*,[ |\t]*";
 		Pattern tPattern = Pattern.compile(tSeparator);
 		try {
-			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("FirstRpg/media/map/" + mapName + "/map.txt").openStream()));
+			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/" + mapName + "/map.txt").openStream()));
 			String line = ibr.readLine();
 
 			String datas[] = line.split(",", 3);
@@ -74,7 +74,7 @@ public class RpgMap {
 			}
 			ibr.close();
 
-			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("FirstRpg/media/map/" + mapName + "/mapObj.txt").openStream()));
+			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/" + mapName + "/mapObj.txt").openStream()));
 			line = ibr.readLine();
 
 			while(line != null){

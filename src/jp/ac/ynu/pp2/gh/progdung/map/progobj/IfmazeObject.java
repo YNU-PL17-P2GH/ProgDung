@@ -27,8 +27,8 @@ public class IfmazeObject extends MapProgObject{
 		super(pHandler, bx, by, pObjName, pMap);
 
 		try {
-			objImg = ImageIO.read(getClass().getClassLoader().getResource("FirstRpg/media/map/obj/" + objName + ".png"));
-			kirakira = ImageIO.read(getClass().getClassLoader().getResource("FirstRpg/media/map/obj/kirakira/yellow.png"));
+			objImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/obj/" + objName + ".png"));
+			kirakira = ImageIO.read(getClass().getClassLoader().getResource("media/map/obj/kirakira/yellow.png"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

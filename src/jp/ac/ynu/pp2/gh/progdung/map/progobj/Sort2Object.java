@@ -32,7 +32,7 @@ public class Sort2Object extends MapProgObject{
 
 		//objNameに従ってロード
 		try {
-			objImg = ImageIO.read(getClass().getClassLoader().getResource("FirstRpg/media/map/obj/sort.png"));
+			objImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/obj/sort.png"));
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "エラー");
 			System.exit(0);

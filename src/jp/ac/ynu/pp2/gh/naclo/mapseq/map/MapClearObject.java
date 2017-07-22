@@ -17,7 +17,7 @@ public class MapClearObject extends MapFixedObject{
 		super(pHandler, bx, by, objName, map);
 
 		try {
-			mahouzinImg = ImageIO.read(getClass().getClassLoader().getResource("FirstRpg/media/map/obj/mahouzin.png"));
+			mahouzinImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/obj/mahouzin.png"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -30,7 +30,7 @@ public class MapClearObject extends MapFixedObject{
 
 	@Override
 	public URL getImagePath() {
-		return getClass().getClassLoader().getResource("FirstRpg/media/map/obj/pc/mini_ashi.png");
+		return getClass().getClassLoader().getResource("media/map/obj/pc/mini_ashi.png");
 	}
 
 	@Override

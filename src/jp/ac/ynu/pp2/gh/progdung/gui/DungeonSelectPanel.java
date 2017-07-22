@@ -25,7 +25,7 @@ public class DungeonSelectPanel extends BackgroundedPanel {
 		super();
 
 		try {
-			setBackground(ImageIO.read(getClass().getClassLoader().getResourceAsStream("FirstRpg/media/gui/select_back.bmp")));
+			setBackground(ImageIO.read(getClass().getClassLoader().getResourceAsStream("media/gui/select_back.bmp")));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

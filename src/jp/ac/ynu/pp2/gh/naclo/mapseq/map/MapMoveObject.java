@@ -28,7 +28,7 @@ public class MapMoveObject extends MapObject{
 		//objNameに従ってロード
 		BufferedReader ibr = null;
 		try {
-			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("FirstRpg/media/map/obj/" + objName + "/obj.txt").openStream()));
+			ibr = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResource("media/map/obj/" + objName + "/obj.txt").openStream()));
 			String line = ibr.readLine();
 
 			if(line.indexOf("moveObjData") >= 0){
@@ -39,7 +39,7 @@ public class MapMoveObject extends MapObject{
 				System.exit(0);
 			}
 
-			objImg = ImageIO.read(getClass().getClassLoader().getResource("FirstRpg/media/map/obj/" + objName +"/obj.png"));
+			objImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/obj/" + objName +"/obj.png"));
 
 			ibr.close();
 		} catch (IOException e) {

@@ -15,6 +15,6 @@ public class MapAnimeNamedObject extends MapAnimeObject {
 	}
 
 	public URL getImagePath() {
-		return getClass().getClassLoader().getResource("FirstRpg/media/map/obj/" + super.getObjName() + ".png");
+		return getClass().getClassLoader().getResource("media/map/obj/" + super.getObjName() + ".png");
 	}
 }

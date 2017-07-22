@@ -20,7 +20,7 @@ public class MapDoorObject extends MapObject{
 		height = h;
 
 		try {
-			objImg = ImageIO.read(getClass().getClassLoader().getResource("FirstRpg/media/map/obj/door/" + objName + ".png"));
+			objImg = ImageIO.read(getClass().getClassLoader().getResource("media/map/obj/door/" + objName + ".png"));
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "エラー");
 			System.exit(0);

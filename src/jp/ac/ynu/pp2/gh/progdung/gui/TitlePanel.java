@@ -25,9 +25,8 @@ public class TitlePanel extends BackgroundedPanel {
 
 	public TitlePanel(final TransitionCallback pCallback) {
 		try {
-			setBackground(ImageIO.read(getClass().getClassLoader().getResourceAsStream("FirstRpg/media/gui/title_back.png")));
+			setBackground(ImageIO.read(getClass().getClassLoader().getResourceAsStream("media/gui/title_back.png")));
 		} catch (IOException e1) {
-
 			throw new RuntimeException(e1);
 		}
 
@@ -40,7 +39,7 @@ public class TitlePanel extends BackgroundedPanel {
 
 		JLabel lTitleLabel;
 		try {
-			lTitleLabel = new JLabel(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("FirstRpg/media/gui/titlelogo.png"))));
+			lTitleLabel = new JLabel(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("media/gui/titlelogo.png"))));
 		} catch (IOException e1) {
 			throw new RuntimeException(e1);
 		}
