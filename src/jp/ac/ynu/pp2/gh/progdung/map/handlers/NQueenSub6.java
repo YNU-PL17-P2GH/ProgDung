@@ -2,14 +2,13 @@ package jp.ac.ynu.pp2.gh.progdung.map.handlers;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.DIRECTION;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHintObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
-import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapPcObject;
 import jp.ac.ynu.pp2.gh.progdung.gui.DungeonPlay;
 
-public class NQueens extends MapHandlerBase {
-
-	public NQueens(int player_x, int player_y, DIRECTION player_d, DungeonPlay play) {
-		super("nqueens", player_x, player_y, player_d, play);
+public class NQueenSub6 extends MapHandlerBase {
+	public NQueenSub6(int player_x, int player_y, DIRECTION player_d, DungeonPlay play) {
+		super("nqueensub6", player_x, player_y, player_d, play);
 	}
 
 	@Override
@@ -24,14 +23,12 @@ public class NQueens extends MapHandlerBase {
 
 	@Override
 	public void onPlayerInteract(MapObject pObject) {
-		if (pObject instanceof MapPcObject) {
-			showCoder((MapPcObject) pObject);
+		if(pObject instanceof MapHintObject) {
+			showHintOnCoder((MapHintObject) pObject);
 		}
 	}
 
 	@Override
 	public void onMapLoad() {
 	}
-
 }
-
