@@ -1,5 +1,7 @@
 package jp.ac.ynu.pp2.gh.progdung.map.progobj;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -49,6 +51,10 @@ public class TutorialObject extends MapProgObject {
 	@Override
 	public void draw(ShareInfo sinfo, int map_x, int map_y) {
 		sinfo.g.drawImage(objImg, map_x, map_y, 64, 128, null);
+		sinfo.g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 18));
+		sinfo.g.setColor(Color.white);
+		int pw = sinfo.g.getFontMetrics().stringWidth(getObjName());
+		sinfo.g.drawString(getObjName(), map_x + 32 - pw / 2, map_y);
 		drawFlag = true;
 	}
 
