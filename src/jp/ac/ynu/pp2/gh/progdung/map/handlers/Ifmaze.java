@@ -40,11 +40,10 @@ public class Ifmaze  extends MapHandlerBase {
 		}else {
 			showHint("<html>水がめの中には何も入っていない...</html>", true);
 		}
-		if (pObject instanceof MapPcObject) {
-			showCoder((MapPcObject) pObject);
-		}
 		if(pObject instanceof MapHintObject) {
 			showHintOnCoder((MapHintObject) pObject);
+		}else if (pObject instanceof MapPcObject) {
+			showCoder((MapPcObject) pObject);
 		}
 	}
 

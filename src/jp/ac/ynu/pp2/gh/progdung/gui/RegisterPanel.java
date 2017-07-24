@@ -11,11 +11,9 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import jp.ac.ynu.pp2.gh.progdung.util.Connection;
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 
 public class RegisterPanel extends BackgroundedPanel {

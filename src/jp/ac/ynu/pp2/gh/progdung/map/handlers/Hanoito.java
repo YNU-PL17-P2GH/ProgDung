@@ -25,9 +25,7 @@ public class Hanoito extends MapHandlerBase{
 
 	@Override
 	public void onPlayerInteract(MapObject pObject) {
-		System.out.println(pObject);
 		if(pObject instanceof MapHintObject){
-			System.out.println("pppppppppp");
 			showHintOnCoder((MapHintObject) pObject);
 		}else if (pObject instanceof MapPcObject) {
 			showCoder((MapPcObject) pObject);
