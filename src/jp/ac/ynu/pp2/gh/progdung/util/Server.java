@@ -1,18 +1,29 @@
 package jp.ac.ynu.pp2.gh.progdung.util;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server{
-	private static int port=9999; // サーバの待ち受けポート
+	private static int port=10500; // サーバの待ち受けポート
 	
 	public Server(int port){
 		Server.port = port; //待ち受けポートを渡す
 	}
 	
 	public static void main(String[] args){
+		File userDir = new File("user");
+		if (!userDir.exists()) {
+			userDir.mkdirs();
+		}
+		
+		File dataDir = new File("savedata");
+		if (!dataDir.exists()) {
+			dataDir.mkdirs();
+		}
+		
 		ServerSocket serverSocket = null;
 		try{
 			serverSocket = new ServerSocket(port);

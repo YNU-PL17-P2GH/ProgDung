@@ -48,6 +48,10 @@ public class ServerData {
 
 	}
 	
+	public boolean checkUser(String userName) {
+		return new File("./user/"+userName+".txt").exists();
+	}
+	
 	public boolean queryUser(String usrname,String pass){	//ユーザ名とパスワードを照合する
 		try{
 			File file= new File("./user/"+usrname+".txt");

@@ -11,33 +11,33 @@ public class Connection {
 	
 	public static Socket mySocket;
 	public static final String SERVER_ADDR = "localhost";
-	public static final int SERVER_PORT = 9999;
+	public static final int SERVER_PORT = 10500;
+	private static ObjectOutputStream oos;
+	private static ObjectInputStream ois;
 	
-	public void init() {
+	public static void init() {
 		try {
 			mySocket = new Socket(SERVER_ADDR, SERVER_PORT);
+			oos = new ObjectOutputStream(mySocket.getOutputStream());
+			ois = new ObjectInputStream(mySocket.getInputStream());
 			System.out.println("socket was created");
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
-	public void sendObject(Object pObject) {
-		ObjectOutputStream oos;
+	public static void sendObject(Object pObject) {
 		try {
-			oos = new ObjectOutputStream(mySocket.getOutputStream());
 			oos.writeObject(pObject);
-				} catch (IOException e) {
+		} catch (IOException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 		
 	}
 	
-	public Object receiveObject() {
-		ObjectInputStream ois;
+	public static Object receiveObject() {
 		try {
-			ois = new ObjectInputStream(mySocket.getInputStream());
 			return ois.readObject();
 		} catch (IOException | ClassNotFoundException e) {
 			// TODO 自動生成された catch ブロック

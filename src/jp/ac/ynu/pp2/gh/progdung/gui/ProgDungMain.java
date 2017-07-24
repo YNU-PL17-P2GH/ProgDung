@@ -2,6 +2,7 @@ package jp.ac.ynu.pp2.gh.progdung.gui;
 
 import javax.swing.JFrame;
 
+import jp.ac.ynu.pp2.gh.progdung.util.Connection;
 import jp.ac.ynu.pp2.gh.progdung.util.SaveData;
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 
@@ -13,9 +14,12 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 	private static final long serialVersionUID = 3568697032148655175L;
 	private DungeonPanel lDungeonPanel;
 	private SaveData myData;
+	private boolean loggedIn;
 
 	public ProgDungMain() {
 		super("Programme Dungeona");
+		Connection.init();
+
 		myData = new SaveData();
 		setSize(1280, 760);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -32,30 +36,58 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 
 	@Override
 	public boolean login(String pUsername, char[] pWord) {
-		return true;
+		getSaveData().setFlag("userName", pUsername);
+		getSaveData().setFlag("passWord", new String(pWord));
+		getSaveData().setFlag("operation", "b");
+		Connection.sendObject(getSaveData());
+		try {
+			return loggedIn = (myData = (SaveData) Connection.receiveObject()).getFlag("signin").equals("accept");
+		} catch (ClassCastException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	@Override
 	public boolean checkUser(String pUsername) {
-		// TODO Auto-generated method stub
-		return true;
+		getSaveData().setFlag("operation", "f");
+		Connection.sendObject(getSaveData());
+		try {
+			return ((SaveData) Connection.receiveObject()).getFlag("check").equals("accept");
+		} catch (ClassCastException exception) {
+			exception.printStackTrace();
+		}
+		return false;
 	}
 
 	@Override
 	public boolean userRegister(String pUsername, char[] pWord) {
-		// TODO Auto-generated method stub
-		return true;
+		getSaveData().setFlag("operation", "a");
+		Connection.sendObject(getSaveData());
+		try {
+			if ((myData = (SaveData) Connection.receiveObject()).getFlag("signup").equals("accept")) {
+				return loggedIn = true;
+			}
+		} catch (ClassCastException e) {
+			throw new RuntimeException(e);
+		}
+		return false;
 	}
 
 	@Override
 	public boolean saveUserData() {
-		// TODO Auto-generated method stub
-		return true;
+		getSaveData().setFlag("opeartion", "c");
+		Connection.sendObject(getSaveData());
+		try {
+			return ((SaveData) Connection.receiveObject()).getFlag("savedata").equals("accept");
+		} catch (ClassCastException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public boolean isLoggedin() {
-		return myData != null;
+		return loggedIn;
 	}
 
 	@Override
