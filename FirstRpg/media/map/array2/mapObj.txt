@@ -5,4 +5,5 @@ pcObj,mini_ashi,38,25,ido
 fixObj,hondana/basic,4,23
 fixObj,hondana/wood,17,28
 fixObj,hondana/wood,19,28
-fixObj,hondana/wood,21,28
+hintObj,hondana/wood,21,28,hint
+hintObj,hondana/verybig,5,29,mondai

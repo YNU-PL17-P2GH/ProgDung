@@ -17,3 +17,5 @@ fixObj,hondana/basic,45,35
 fixObj,hondana/wood,31,35
 fixObj,hondana/wood,33,35
 fixObj,hondana/wood,35,35
+hintObj,tubo,8,39,mondai
+hintObj,hondana/wood,8,20,hint
