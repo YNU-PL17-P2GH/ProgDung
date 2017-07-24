@@ -67,7 +67,7 @@ public class DungeonPlay extends Canvas {
 		}
 		//handler = new Lobby(19, 40, DIRECTION.UP, this);
 		if (selectedStage == 0) {
-			handler = new Lobby(19, 40, DIRECTION.UP, this);
+			handler = new Lobby(26, 41, DIRECTION.UP, this);
 		} else {
 			handler = new Zentai(19, 40, DIRECTION.UP, this);
 		}
@@ -213,5 +213,13 @@ public class DungeonPlay extends Canvas {
 
 	public void stderrUpdate() {
 		callback.stderrUpdate();
+	}
+
+	public void showSelect() {
+		callback.showSelect(callback);
+	}
+
+	public void showGameClear(int stage) {
+		callback.showGameClear(callback, stage);
 	}
 }

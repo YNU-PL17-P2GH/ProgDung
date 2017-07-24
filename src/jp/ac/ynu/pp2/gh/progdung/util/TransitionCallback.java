@@ -5,13 +5,13 @@ import javax.swing.JFrame;
 public interface TransitionCallback {
 
 	boolean login(String pUsername, char[] pWord);
-	
+
 	boolean checkUser(String pUsername);
 
 	boolean userRegister(String pUsername, char[] pWord);
 
 	boolean saveUserData();
-	
+
 	boolean isLoggedin();
 
 	// TODO 実装
@@ -24,8 +24,8 @@ public interface TransitionCallback {
 	void showSelect(TransitionCallback pCallback);
 
 	void showDungeon(TransitionCallback pCallback, int selectedStage);
-	
-	void showGameClear(TransitionCallback pCallback);
+
+	void showGameClear(TransitionCallback pCallback, int clearStage);
 
 	JFrame getMainFrame();
 

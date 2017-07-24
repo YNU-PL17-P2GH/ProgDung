@@ -124,4 +124,11 @@ public abstract class MapHandlerBase {
 		callback.toggleMenu();
 	}
 
+	public void showSelect() {
+		callback.showSelect();
+	}
+
+	public void showGameClear(int stage) {
+		callback.showGameClear(stage);
+	}
 }

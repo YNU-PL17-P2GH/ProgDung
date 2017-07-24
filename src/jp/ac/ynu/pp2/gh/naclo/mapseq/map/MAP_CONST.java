@@ -36,7 +36,8 @@ public class MAP_CONST {
 		EMPTY(0),
 		BLOCK(1),
 		NEXT(2),
-		FLOAT(3);
+		FLOAT(3),
+		SELECT(4);
 
 		private int val;
 
@@ -54,6 +55,8 @@ public class MAP_CONST {
 				return NEXT;
 			case 3:
 				return FLOAT;
+			case 4:
+				return SELECT;
 			}
 			throw new IndexOutOfBoundsException(""+pA);
 		}

@@ -101,13 +101,13 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 		setContentPane(new StoryPanel(pCallback));
 		validate();
 	}
-	
+
 	@Override
-	public void showGameClear(TransitionCallback pCallback) {
-		setContentPane(new GameClearPanel(pCallback));
+	public void showGameClear(TransitionCallback pCallback,int clearStage) {
+		setContentPane(new GameClearPanel(pCallback, clearStage));
 		validate();
 	}
-	
+
 	@Override
 	public void showRegister(TransitionCallback pCallback) {
 		setContentPane(new RegisterPanel(pCallback));

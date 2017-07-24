@@ -2,7 +2,6 @@ package jp.ac.ynu.pp2.gh.progdung.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -102,7 +101,7 @@ public class DungeonPanel extends JLayeredPane {
 		stderrArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 16));
 		stderrArea.setEditable(false);
 		stderrArea.setBackground(Color.BLACK);
-		stderrArea.setForeground(Color.WHITE);
+		stderrArea.setForeground(Color.RED);
 
 		stderrPane = new JScrollPane(stderrArea,
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -143,44 +142,44 @@ public class DungeonPanel extends JLayeredPane {
 		});
 		add(sourcePane);
 		setLayer(sourcePane, 2);
-		
+
 		// menu
 		menuPanel = new JPanel();
 		menuPanel.setBounds(100, 240, 1080, 280);
 		menuPanel.setBackground(Color.black);
 		menuPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-		
+
 		FlowLayout lFlow2 = new FlowLayout();
 		lFlow2.setHgap(25);
 		lFlow2.setAlignment(FlowLayout.CENTER);
 		menuPanel.setLayout(lFlow2);
-		
+
 		Font lFont2 = new Font(Font.MONOSPACED, Font.BOLD, 20);
 		JLabel lMenuLabel = new JLabel("MENU");
 		lMenuLabel.setFont(lFont2);
 		lMenuLabel.setForeground(Color.white);
-		
+
 		JButton lResumeButton = new JButton("再開");
 		lResumeButton.setBorderPainted(false);
 		lResumeButton.setContentAreaFilled(false);
 		lResumeButton.setForeground(Color.white);
 		lResumeButton.setFont(lFont2);
 		lResumeButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				callback.getMainFrame().requestFocus();
 				toggleMenu();
 			}
 		});
-		
+
 		saveButton = new JButton("保存");
 		saveButton.setBorderPainted(false);
 		saveButton.setContentAreaFilled(false);
 		saveButton.setForeground(Color.white);
 		saveButton.setFont(lFont2);
 		saveButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (callback.saveUserData()) {
@@ -190,7 +189,7 @@ public class DungeonPanel extends JLayeredPane {
 				}
 			}
 		});
-		
+
 		JButton lBackButton = new JButton("ステージ変更(難易度選択へ戻る)");
 		lBackButton.setForeground(Color.white);
 		lBackButton.setBorderPainted(false);
@@ -198,13 +197,13 @@ public class DungeonPanel extends JLayeredPane {
 		lBackButton.setForeground(Color.white);
 		lBackButton.setFont(lFont2);
 		lBackButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				callback.showSelect(callback);
 			}
 		});
-		
+
 		menuPanel.add(lMenuLabel);
 		menuPanel.add(new Separator());
 		menuPanel.add(lResumeButton);
@@ -233,8 +232,8 @@ public class DungeonPanel extends JLayeredPane {
 //		hintPanel.setBounds(800, 450, 0, 0);
 		setLayer(hintPanel, 3);
 		revalidate();
-		
-		
+
+
 		revalidate();
 	}
 

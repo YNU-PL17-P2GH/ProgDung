@@ -212,7 +212,7 @@ public class MapPlayer extends MapMoveObject{
 			point_y = point_y + speed;
 		}
 
-//		System.out.printf("[POS]%d / %d %d / %d\n", box_x, box_y, point_x,point_y);
+		//System.out.printf("[POS]%d / %d %d / %d\n", box_x, box_y, point_x,point_y);
 
 
 		// 壁
@@ -429,6 +429,9 @@ public class MapPlayer extends MapMoveObject{
 		}
 		if (getPlayerFoot() == STATE.NEXT) {
 			handler.moveMap(getNextBoxOnFoot());
+		}
+		if (getPlayerFoot() == STATE.SELECT) {
+			handler.showSelect();
 		}
 	}
 
