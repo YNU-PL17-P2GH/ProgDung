@@ -3,6 +3,7 @@ package jp.ac.ynu.pp2.gh.progdung.map.handlers;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.DIRECTION;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
+import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapPcObject;
 import jp.ac.ynu.pp2.gh.progdung.gui.DungeonPlay;
 
 public class NQueens extends MapHandlerBase {
@@ -23,6 +24,9 @@ public class NQueens extends MapHandlerBase {
 
 	@Override
 	public void onPlayerInteract(MapObject pObject) {
+		if (pObject instanceof MapPcObject) {
+			showCoder((MapPcObject) pObject);
+		}
 	}
 
 	@Override

@@ -30,7 +30,7 @@ public class Lastmap extends MapHandlerBase {
 	public void onPlayerInteract(MapObject pObject) {
 		if(pObject instanceof MapClearObject){
 			if(!callback.getSaveData().getBoolean("Lastmap001")){
-				showHint("<html>魔法陣が起動した...</html>", true);
+				showHint("<html>魔法陣が起動した...<br>Congratulations!<br>初心者ステージをクリアできました。<br>アルゴリズムステージを挑戦したらどうでしょうか。</html>", true);
 				pc.setMahouzinOnFlag(true);
 				callback.getSaveData().setTaken("Lastmap001");
 			}

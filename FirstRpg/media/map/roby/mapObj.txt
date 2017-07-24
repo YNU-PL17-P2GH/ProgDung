@@ -16,4 +16,4 @@ fixObj,kanban,4,37
 fixObj,kanban,43,37
 fixObj,kanban,43,10
 fixObj,kanban,4,11
-hintObj,pc/mini,24,38,hintTest
+hintObj,pc/mini_ashi,24,38,hintTest
