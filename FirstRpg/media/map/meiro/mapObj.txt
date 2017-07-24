@@ -1,4 +1,6 @@
 doorObj,silver,28,6,4,4,null
 nextMap,Zentai,98,40,4,28,70,29,70,30,70,31,70
 nextMap,Meiro_clear,23,44,8,28,8,29,8,30,8,31,8,28,9,29,9,30,9,31,9
+progObj,meiro,6,13,MeiroObject
+pcObj,mini_ashi,26,64,meiro
 hintObj,hondana/small,5,65,mondai
