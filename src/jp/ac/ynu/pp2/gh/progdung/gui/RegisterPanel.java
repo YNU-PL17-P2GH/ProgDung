@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import jp.ac.ynu.pp2.gh.progdung.util.Connection;
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 
 public class RegisterPanel extends BackgroundedPanel {
@@ -64,8 +65,11 @@ public class RegisterPanel extends BackgroundedPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO User Check
-				
+				if (!pCallback.checkUser(lUserField.getText())) {
+					JOptionPane.showMessageDialog(RegisterPanel.this, "このユーザ名は使用できません", "", JOptionPane.ERROR_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(RegisterPanel.this, "このユーザ名は使用可能です", "", JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
 		});
 		

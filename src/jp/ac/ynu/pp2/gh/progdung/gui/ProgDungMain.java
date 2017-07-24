@@ -50,6 +50,7 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 
 	@Override
 	public boolean checkUser(String pUsername) {
+		getSaveData().setFlag("userName", pUsername);
 		getSaveData().setFlag("operation", "f");
 		Connection.sendObject(getSaveData());
 		try {
@@ -62,16 +63,15 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 
 	@Override
 	public boolean userRegister(String pUsername, char[] pWord) {
+		getSaveData().setFlag("userName", pUsername);
+		getSaveData().setFlag("passWord", new String(pWord));
 		getSaveData().setFlag("operation", "a");
 		Connection.sendObject(getSaveData());
 		try {
-			if ((myData = (SaveData) Connection.receiveObject()).getFlag("signup").equals("accept")) {
-				return loggedIn = true;
-			}
+			return loggedIn = (myData = (SaveData) Connection.receiveObject()).getFlag("signup").equals("accept");
 		} catch (ClassCastException e) {
 			throw new RuntimeException(e);
 		}
-		return false;
 	}
 
 	@Override

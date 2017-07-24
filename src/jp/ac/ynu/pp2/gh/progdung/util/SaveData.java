@@ -11,9 +11,6 @@ public class SaveData implements Serializable {
 	 */
 	private static final long	serialVersionUID	= 8023480072967308681L;
 	
-	private String userName;
-	private String nickName;
-	
 	private Map<String, String> flags;
 	
 	public SaveData() {
