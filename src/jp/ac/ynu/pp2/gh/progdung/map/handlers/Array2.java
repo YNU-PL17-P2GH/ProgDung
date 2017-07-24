@@ -39,11 +39,10 @@ public class Array2 extends MapHandlerBase{
 				}
 			}
 		}
-		if (pObject instanceof MapPcObject) {
-			showCoder((MapPcObject) pObject);
-		}
 		if(pObject instanceof MapHintObject) {
 			showHintOnCoder((MapHintObject) pObject);
+		}else if (pObject instanceof MapPcObject) {
+			showCoder((MapPcObject) pObject);
 		}
 	}
 

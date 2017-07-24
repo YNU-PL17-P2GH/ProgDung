@@ -39,11 +39,10 @@ public class Output extends MapHandlerBase{
 				callback.getSaveData().setTaken("Output002");
 			}
 		}
-		if (pObject instanceof MapPcObject) {
-			showCoder((MapPcObject)pObject);
-		}
 		if(pObject instanceof MapHintObject) {
 			showHintOnCoder((MapHintObject) pObject);
+		}else if (pObject instanceof MapPcObject) {
+			showCoder((MapPcObject) pObject);
 		}
 	}
 

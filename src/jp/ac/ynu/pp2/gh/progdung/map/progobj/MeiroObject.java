@@ -2,10 +2,8 @@ package jp.ac.ynu.pp2.gh.progdung.map.progobj;
 
 import java.awt.Color;
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.Vector;
 
-import jnr.ffi.Struct.int16_t;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapHandlerBase;
@@ -17,7 +15,7 @@ public class MeiroObject extends MapProgObject{
 	public MeiroObject(MapHandlerBase pHandler, int bx, int by,String pObjName, RpgMap pMap) {
 		super(pHandler, bx, by, pObjName, pMap);
 		setOperator(new MeiroOperator());
-		
+
 		for(int i = 0 ;i < 52; i++) {
 			for(int j = 0; j < 48; j++) {
 				getMap().setObj(bx + j, by + i, this);
@@ -26,7 +24,7 @@ public class MeiroObject extends MapProgObject{
 	}
 	private Vector<Point> result = new Vector<Point>();
 	private int showMap[][];
-	
+
 	public class MeiroOperator{
 		private int map[][] = {{1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 				{1,0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,1},
@@ -56,12 +54,12 @@ public class MeiroObject extends MapProgObject{
 				{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1}
 				};
 		private int returnMap[][];		//mapが書き換えられないため
-		private int start[] = {1, 0};
+		private int start[] = {22, 25};
 		private int returnStart[];
-		private int goal[] = {22, 25};
-		private int returnGoal[] = {22, 25};
+		private int goal[] = {1, 0};
+		private int returnGoal[];
 		private boolean failFlag = false;
-		
+
 
 		public int[] getStartPos(){
 			returnStart = new int[2];
@@ -107,17 +105,29 @@ public class MeiroObject extends MapProgObject{
 	public String getArgumentString() {
 		return "labyrinth";
 	}
-
+	int animeCount = 0;
+	int delay = 50;
+	int length = 10;
+	int tail = -10;
 	@Override
 	public void draw(ShareInfo sinfo, int map_x, int map_y) {
-		sinfo.g.fillRect(map_x,map_y, 
+		sinfo.g.fillRect(map_x,map_y,
 				MAP_CONST.MAP_BOX_SIZE *  48, MAP_CONST.MAP_BOX_SIZE * 52);
-		for(Point point : result){
+		for(int i = tail; i < result.size() && (i - tail) < length; i++){
+			if(i < 0) continue;
 			sinfo.g.setColor(Color.yellow);
-			sinfo.g.fillRect(map_x + (int)point.getX() * MAP_CONST.MAP_BOX_SIZE*2,
-					map_y + (int)point.getY() * MAP_CONST.MAP_BOX_SIZE*2, 
+			sinfo.g.fillRect(map_x + (int)result.get(i).getX() * MAP_CONST.MAP_BOX_SIZE * 2,
+					map_y + (int)result.get(i).getY() * MAP_CONST.MAP_BOX_SIZE * 2,
 					MAP_CONST.MAP_BOX_SIZE * 2, MAP_CONST.MAP_BOX_SIZE * 2);
 		}
+		if(animeCount % delay == 0) {
+			tail++;
+			if(tail >= result.size()) {
+				tail = -10;
+			}
+		}
+
+		animeCount++;
 		drawFlag = true;
 	}
 

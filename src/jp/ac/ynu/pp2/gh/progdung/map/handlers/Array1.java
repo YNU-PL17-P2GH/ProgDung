@@ -48,12 +48,12 @@ public class Array1  extends MapHandlerBase{
 			callback.getSaveData().setTaken("Array1004");			//クリアーフラグ
 		}
 
-		if (pObject instanceof MapPcObject) {
-			showCoder((MapPcObject) pObject);
-		}
 		if(pObject instanceof MapHintObject) {
 			showHintOnCoder((MapHintObject) pObject);
+		}else if (pObject instanceof MapPcObject) {
+			showCoder((MapPcObject) pObject);
 		}
+
 	}
 
 	@Override

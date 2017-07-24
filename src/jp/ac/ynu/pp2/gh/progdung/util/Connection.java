@@ -8,13 +8,13 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class Connection {
-	
+
 	public static Socket mySocket;
 	public static final String SERVER_ADDR = "localhost";
 	public static final int SERVER_PORT = 10500;
 	private static ObjectOutputStream oos;
 	private static ObjectInputStream ois;
-	
+
 	public static void init() {
 		try {
 			mySocket = new Socket(SERVER_ADDR, SERVER_PORT);
@@ -25,7 +25,7 @@ public class Connection {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	public static void sendObject(Object pObject) {
 		try {
 			oos.writeObject(pObject);
@@ -33,9 +33,9 @@ public class Connection {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public static Object receiveObject() {
 		try {
 			return ois.readObject();
@@ -44,7 +44,7 @@ public class Connection {
 			e.printStackTrace();
 		}
 		return null;
-		
+
 	}
-	
+
 }

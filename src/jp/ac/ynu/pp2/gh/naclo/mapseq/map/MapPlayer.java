@@ -1,13 +1,12 @@
 package jp.ac.ynu.pp2.gh.naclo.mapseq.map;
 
-import jnr.ffi.Struct.int16_t;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.KEY_STATE;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.STATE;
 
 public class MapPlayer extends MapMoveObject{
 	private int speed = 2;
-	
+
 	public MapPlayer(MapHandlerBase pHandler,int bx, int by, String objName, MAP_CONST.DIRECTION direct, RpgMap map){
 		super(pHandler, bx, by, objName, direct, map);
 		width = 2;
@@ -38,7 +37,7 @@ public class MapPlayer extends MapMoveObject{
 		animeCount++;
 	}
 
-	
+
 	private void floatMove() {
 		//進もうとしている方向に進み続ける
 		if(next_x - box_x == -1){
@@ -213,7 +212,7 @@ public class MapPlayer extends MapMoveObject{
 			point_y = point_y + speed;
 		}
 
-		//System.out.printf("[POS]%d / %d %d / %d\n", box_x, box_y, point_x,point_y);
+//		System.out.printf("[POS]%d / %d %d / %d\n", box_x, box_y, point_x,point_y);
 
 
 		// 壁
