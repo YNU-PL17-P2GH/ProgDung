@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -62,6 +63,8 @@ public class TitlePanel extends BackgroundedPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (pCallback.login(lUserField.getText(), lPassField.getPassword())) {
 					pCallback.showSelect(pCallback);
+				} else {
+					JOptionPane.showMessageDialog(TitlePanel.this, "ログインできません", "", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
