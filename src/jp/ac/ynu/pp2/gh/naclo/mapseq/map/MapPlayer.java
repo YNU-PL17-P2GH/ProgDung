@@ -1,10 +1,13 @@
 package jp.ac.ynu.pp2.gh.naclo.mapseq.map;
 
+import jnr.ffi.Struct.int16_t;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.KEY_STATE;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST.STATE;
 
 public class MapPlayer extends MapMoveObject{
+	private int speed = 2;
+	
 	public MapPlayer(MapHandlerBase pHandler,int bx, int by, String objName, MAP_CONST.DIRECTION direct, RpgMap map){
 		super(pHandler, bx, by, objName, direct, map);
 		width = 2;
@@ -35,7 +38,7 @@ public class MapPlayer extends MapMoveObject{
 		animeCount++;
 	}
 
-
+	
 	private void floatMove() {
 		//進もうとしている方向に進み続ける
 		if(next_x - box_x == -1){
@@ -201,13 +204,13 @@ public class MapPlayer extends MapMoveObject{
 
 		//進もうとしている方向に進み続ける
 		if(next_x - box_x == -1){
-			point_x = point_x - 2;
+			point_x = point_x - speed;
 		}else if(next_x - box_x == 1){
-			point_x = point_x + 2;
+			point_x = point_x + speed;
 		}else if(next_y - box_y == -1){
-			point_y = point_y - 2;
+			point_y = point_y - speed;
 		}else if(next_y - box_y == 1){
-			point_y = point_y + 2;
+			point_y = point_y + speed;
 		}
 
 		//System.out.printf("[POS]%d / %d %d / %d\n", box_x, box_y, point_x,point_y);
@@ -256,25 +259,25 @@ public class MapPlayer extends MapMoveObject{
 				if(sinfo.getKeyRepeat(KEY_STATE.RIGHT)){
 					next_x = box_x + 1;
 					next_y = box_y;
-					point_x = point_x + 2;
+					point_x = point_x + speed;
 				}
 			}else if(direction == MAP_CONST.DIRECTION.UP){
 				if(sinfo.getKeyRepeat(KEY_STATE.UP)){
 					next_x = box_x;
 					next_y = box_y - 1;
-					point_y = point_y - 2;
+					point_y = point_y - speed;
 				}
 			}else if(direction == MAP_CONST.DIRECTION.DOWN){
 				if(sinfo.getKeyRepeat(KEY_STATE.DOWN)){
 					next_x = box_x;
 					next_y = box_y + 1;
-					point_y = point_y + 2;
+					point_y = point_y + speed;
 				}
 			}else if(direction == MAP_CONST.DIRECTION.LEFT){
 				if(sinfo.getKeyRepeat(KEY_STATE.LEFT)){
 					next_x = box_x - 1;
 					next_y = box_y;
-					point_x = point_x - 2;
+					point_x = point_x - speed;
 				}
 			}
 		}
@@ -410,9 +413,15 @@ public class MapPlayer extends MapMoveObject{
 				next_x = bx; next_y = by;
 			}
 		}
-		// Press Y
+		// Press X
 		if (sinfo.getKeyRelease(KEY_STATE.X)) {
 			handler.toggleMenu();
+		}
+		// Press C
+		if (sinfo.getKeyRepeat(KEY_STATE.C)) {
+			speed = 4;
+		}else{
+			speed = 2;
 		}
 		if(!floating) {
 			move(sinfo);

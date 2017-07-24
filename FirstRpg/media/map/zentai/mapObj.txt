@@ -7,8 +7,7 @@ nextMap,Tansaku,5,24,4,51,73,51,74,51,75,51,76,0
 nextMap,Knight1,25,43,8,60,30,61,30,62,30,63,30,60,31,61,31,62,31,63,31
 nextMap,Sort2,33,31,4,75,67,75,68,75,69,75,70
 nextMap,Knight2,5,14,4,83,52,83,53,83,54,83,55,0
-nextMap,Meiro,29,67,4,97,42,98,42,99,42,100,42
-nextMap,Shortest,45,67,4,108,9,109,9,108,10,109,10
+nextMap,Meiro,29,67,4,108,9,109,9,108,10,109,10
 doorObj,silver,26,28,4,4,null
 doorObj,silver,60,28,4,4,null
 doorObj,silver,88,1,4,4,null
@@ -18,5 +17,4 @@ doorObj,silverR,75,67,1,4,null
 doorObj,silverL,51,73,1,4,null
 doorObj,silverR,23,73,1,4,null
 doorObj,silverB,65,11,4,1,null
-doorObj,silverB,97,42,4,1,null
 doorObj,silverH,108,7,2,4,null
