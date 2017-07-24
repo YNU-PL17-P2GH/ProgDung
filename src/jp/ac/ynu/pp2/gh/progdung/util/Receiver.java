@@ -28,6 +28,7 @@ public class Receiver extends Thread{
 			ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 			ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
 			while (true) { 			//常に要求信号を受けられる
+				System.err.println("wait");
 				Object obj=ois.readObject();
 				data =(SaveData)(obj);
 				line =data.getFlag("operation");//operationというキーに要求信号を格納してほしい
@@ -39,6 +40,7 @@ public class Receiver extends Thread{
 				
 				switch (line){		//クライアントからの要求信号を受けて動作する
 				case "a": //sign up	
+					System.err.println("signup");
 					str1 = data.getFlag("userName");
 					str2 = data.getFlag("passWord");
 					//ユーザ名とパスワードをあらかじめキーに入れて送信してほしい
@@ -48,7 +50,6 @@ public class Receiver extends Thread{
 					if(flag){
 						data.setFlag("signup", "accept");
 						//要求が正常に処理されたかどうかをキーに入れて返答する
-						
 					}else{
 						data.setFlag("signup", "reject");
 					}
@@ -56,6 +57,7 @@ public class Receiver extends Thread{
 					break;
 					
 				case "b": //sign in
+					System.err.println("logon");
 					str1 = data.getFlag("userName");
 					str2 = data.getFlag("passWord");
 					if(sd.queryUser(str1, str2)){
@@ -66,6 +68,7 @@ public class Receiver extends Thread{
 					oos.writeObject(data);
 					break;
 				case "c": //save data
+					System.err.println("save");
 					str1 = data.getFlag("userName");
 					if(sd.queryUser(str1, data.getFlag("passWord")) && sd.saveData(str1, obj)){
 						data.setFlag("savedata", "accept");
@@ -75,10 +78,17 @@ public class Receiver extends Thread{
 					oos.writeObject(data);
 					break;
 				case "d": //load data
+					System.err.println("load");
 					str1 = data.getFlag("userName");
-					data.setFlag("loaddata", "accept");
-					Object loadobj=sd.loadData(str1);
-					oos.writeObject(loadobj);
+					if (sd.queryUser(str1, data.getFlag("passWord"))) {
+//						data.setFlag("loaddata", "accept");
+						Object loadobj=sd.loadData(str1);
+						((SaveData) loadobj).setFlag("loaddata", "accept");
+						oos.writeObject(loadobj);
+					} else {
+						data.setFlag("loaddata", "reject");
+						oos.writeObject(data);
+					}
 					break;
 				case "e": //disconnect
 					oos.writeObject(data);
@@ -96,6 +106,8 @@ public class Receiver extends Thread{
 					break;
 				default:  ;
 				}
+				obj = null;
+				data = null;
 			
 	      
 	     }

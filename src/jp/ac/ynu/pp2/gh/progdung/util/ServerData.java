@@ -1,6 +1,7 @@
 package jp.ac.ynu.pp2.gh.progdung.util;
 
 import java.io.BufferedReader;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -18,29 +19,27 @@ public class ServerData {
 	
 	public boolean makeUser(String usrname,String pass){   
 		try{
-			  File file = new File("./user/"+usrname+".txt");	
+			File file = new File("./user/"+usrname+".txt");	
 			//ユーザ名とパスワードを管理するファイル
-			  if(!file.exists()){
-				  FileWriter filewriter =new FileWriter(file);
-				  filewriter.write(pass);
-				  filewriter.close();
-				  
-				  file = new File("userlist.txt");
-				  filewriter = new FileWriter(file,true);
-				  filewriter.write(usrname+"\n");
-				  filewriter.close();
-				  
-				  file = new File("./savedata/"+usrname+"objdata.txt");
-				  filewriter = new FileWriter(file);
-				  filewriter.write("");
-				  filewriter.close();
-				  //セーブデータを保持するファイル
-				  
-			  }else{
-				  System.out.println("file is exists");
-				  return false;
-			  }
-			  
+			if(!file.exists()){
+				FileWriter filewriter =new FileWriter(file);
+				filewriter.write(pass);
+				filewriter.close();
+				
+				file = new File("userlist.txt");
+				filewriter = new FileWriter(file,true);
+				filewriter.write(usrname+"\n");
+				filewriter.close();
+				
+				SaveData data = new SaveData();
+				data.setFlag("userName", usrname);
+				data.setFlag("passWord", pass);
+				saveData(usrname, data);
+			}else{
+				System.out.println("file is exists");
+				return false;
+			}
+			
 		}catch(IOException e){
 			  System.out.println(e);
 		}
@@ -98,7 +97,7 @@ public class ServerData {
 			
 	}
 	
-	public Object loadData(String usrname){		//セーブデータのオブジェクトデータを返す
+	public Object loadData(String usrname) throws EOFException{		//セーブデータのオブジェクトデータを返す
 		
 		try {
 			FileInputStream infile = new FileInputStream("./savedata/"+usrname+"objdata.txt");

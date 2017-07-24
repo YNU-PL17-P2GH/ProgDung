@@ -62,6 +62,11 @@ public class TitlePanel extends BackgroundedPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (pCallback.login(lUserField.getText(), lPassField.getPassword())) {
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e1) {
+					}
+					pCallback.loadUserData();
 					pCallback.showSelect(pCallback);
 				} else {
 					JOptionPane.showMessageDialog(TitlePanel.this, "ログインできません", "", JOptionPane.ERROR_MESSAGE);

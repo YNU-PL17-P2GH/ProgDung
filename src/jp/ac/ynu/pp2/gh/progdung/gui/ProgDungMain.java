@@ -54,7 +54,7 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 		getSaveData().setFlag("operation", "f");
 		Connection.sendObject(getSaveData());
 		try {
-			return ((SaveData) Connection.receiveObject()).getFlag("check").equals("accept");
+			return (myData = (SaveData) Connection.receiveObject()).getFlag("check").equals("accept");
 		} catch (ClassCastException exception) {
 			exception.printStackTrace();
 		}
@@ -76,10 +76,22 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 
 	@Override
 	public boolean saveUserData() {
-		getSaveData().setFlag("opeartion", "c");
+		getSaveData().setFlag("operation", "c");
 		Connection.sendObject(getSaveData());
 		try {
-			return ((SaveData) Connection.receiveObject()).getFlag("savedata").equals("accept");
+			return (myData = (SaveData) Connection.receiveObject()).getFlag("savedata").equals("accept");
+		} catch (ClassCastException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public boolean loadUserData() {
+		myData.setFlag("operation", "d");
+		Connection.sendObject(myData);
+		try {
+			myData = (SaveData) Connection.receiveObject();
+			return myData.getFlag("loaddata").equals("accept");
 		} catch (ClassCastException e) {
 			throw new RuntimeException(e);
 		}
