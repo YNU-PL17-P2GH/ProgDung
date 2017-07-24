@@ -95,7 +95,6 @@ public class MeiroObject extends MapProgObject{
 				failFlag = true;
 				return;
 			}
-			map[y][x] = 2;
 			result.add(new Point(x, y));
 		}
 	}
