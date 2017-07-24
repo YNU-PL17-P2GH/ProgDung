@@ -18,7 +18,7 @@ public class ServerData {
 	
 	public boolean makeUser(String usrname,String pass){   
 		try{
-			  File file = new File(".\\user\\"+usrname+".txt");	
+			  File file = new File("./user/"+usrname+".txt");	
 			//ユーザ名とパスワードを管理するファイル
 			  if(!file.exists()){
 				  FileWriter filewriter =new FileWriter(file);
@@ -30,7 +30,7 @@ public class ServerData {
 				  filewriter.write(usrname+"\n");
 				  filewriter.close();
 				  
-				  file = new File(".\\savedata\\"+usrname+"objdata.txt");
+				  file = new File("./savedata/"+usrname+"objdata.txt");
 				  filewriter = new FileWriter(file);
 				  filewriter.write("");
 				  filewriter.close();
@@ -50,7 +50,7 @@ public class ServerData {
 	
 	public boolean queryUser(String usrname,String pass){	//ユーザ名とパスワードを照合する
 		try{
-			File file= new File(".\\user\\"+usrname+".txt");
+			File file= new File("./user/"+usrname+".txt");
 			if(file.exists()){
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String str = br.readLine();
@@ -81,7 +81,7 @@ public class ServerData {
 		FileOutputStream outfile = null;
 		ObjectOutputStream outobj=null;
 		try {
-			outfile = new FileOutputStream(".\\savedata\\"+usrname+"objdata.txt");
+			outfile = new FileOutputStream("./savedata/"+usrname+"objdata.txt");
 			outobj= new ObjectOutputStream(outfile);
 			outobj.writeObject(saveobj);
 			outfile.close();outobj.close();
@@ -97,7 +97,7 @@ public class ServerData {
 	public Object loadData(String usrname){		//セーブデータのオブジェクトデータを返す
 		
 		try {
-			FileInputStream infile = new FileInputStream(".\\savedata\\"+usrname+"objdata.txt");
+			FileInputStream infile = new FileInputStream("./savedata/"+usrname+"objdata.txt");
 			ObjectInputStream inobj;
 			inobj = new ObjectInputStream(infile);
 			Object obj =inobj.readObject();
