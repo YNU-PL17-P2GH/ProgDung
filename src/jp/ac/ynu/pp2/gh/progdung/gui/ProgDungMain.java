@@ -17,13 +17,14 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 	private boolean loggedIn;
 
 	public ProgDungMain() {
-		super("Programme Dungeona");
+		super("Algeon");
 		Connection.init();
 
 		myData = new SaveData();
 		setSize(1280, 760);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
+		setLocationRelativeTo(null);
 
 		setVisible(true);
 
