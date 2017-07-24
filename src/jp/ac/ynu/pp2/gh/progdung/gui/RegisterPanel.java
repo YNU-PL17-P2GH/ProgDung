@@ -24,7 +24,7 @@ public class RegisterPanel extends BackgroundedPanel {
 	 */
 	private static final long serialVersionUID = -2515425115370666083L;
 	
-	public RegisterPanel(TransitionCallback pCallback) {
+	public RegisterPanel(final TransitionCallback pCallback) {
 		try {
 			setBackground(ImageIO.read(getClass().getClassLoader().getResourceAsStream("media/gui/title_back.png")));
 		} catch (IOException e1) {
@@ -42,15 +42,15 @@ public class RegisterPanel extends BackgroundedPanel {
 		Font lFont = new Font(Font.MONOSPACED, Font.PLAIN, 28);
 		JLabel lUserLabel = new JLabel("ユーザーネーム");
 		lUserLabel.setFont(lFont);
-		JTextField lUserField = new JTextField(32);
+		final JTextField lUserField = new JTextField(32);
 		lUserField.setFont(lFont);
 		JLabel lPassLabel = new JLabel("パスワード");
 		lPassLabel.setFont(lFont);
-		JPasswordField lPassField = new JPasswordField(32);
+		final JPasswordField lPassField = new JPasswordField(32);
 		lPassField.setFont(lFont);
 		JLabel lPassRLabel = new JLabel("パスワード再入力");
 		lPassRLabel.setFont(lFont);
-		JPasswordField lPassRField = new JPasswordField(32);
+		final JPasswordField lPassRField = new JPasswordField(32);
 		lPassRField.setFont(lFont);
 		
 		JButton lDummyCheckButton = new JButton("チェック") {

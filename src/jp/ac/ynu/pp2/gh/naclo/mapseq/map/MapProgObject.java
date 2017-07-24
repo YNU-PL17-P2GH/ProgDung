@@ -24,12 +24,19 @@ public abstract class MapProgObject extends MapObject{	//プログラムで動�
 	}
 
 	//プログラム実行
-	public void launchRubyWithThread(Ruby ruby, StringWriter stdin, StringWriter stderr, Object... pArguments) {
+	public void launchRubyWithThread(final Ruby ruby, final StringWriter stdin, final StringWriter stderr, final Object... pArguments) {
 		new Thread() {
 			@Override
 			public void run() {
 				preRunRuby(ruby, pArguments);
-				runRuby(ruby, stdin, stderr, pArguments);
+				try{
+					runRuby(ruby, stdin, stderr, pArguments);
+				}catch (Exception e){
+					stderr.append(e.getMessage());
+				}finally{
+						handler.stdoutUpdate();
+						handler.stderrUpdate();
+				}
 				postRunRuby(ruby, pArguments);
 			}
 		}.start();
@@ -59,8 +66,7 @@ public abstract class MapProgObject extends MapObject{	//プログラムで動�
 		String rwrapper = setTimeout();
 		container.runScriptlet(rwrapper);
 		container.callMethod(ruby.getCurrentContext(), "rwrapper", pArguments);
-		handler.stdoutUpdate();
-		handler.stderrUpdate();
+		
 	}
 	
 	public Object getOperator() {

@@ -17,7 +17,7 @@ public class StoryPanel extends BackgroundedPanel {
 	 */
 	private static final long serialVersionUID = -4391381659704172647L;
 	
-	public StoryPanel(TransitionCallback pCallback) {
+	public StoryPanel(final TransitionCallback pCallback) {
 		super();
 		try {
 			setBackground(ImageIO.read(getClass().getClassLoader().getResourceAsStream("media/gui/story_back.png")));

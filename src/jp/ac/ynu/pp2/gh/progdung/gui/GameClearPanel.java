@@ -18,7 +18,7 @@ public class GameClearPanel extends BackgroundedPanel {
 	 */
 	private static final long serialVersionUID = -4391381659704172647L;
 	
-	public GameClearPanel(TransitionCallback pCallback) {
+	public GameClearPanel(final TransitionCallback pCallback) {
 		super();
 		try {
 			setBackground(ImageIO.read(getClass().getClassLoader().getResourceAsStream("media/gui/clear.png")));

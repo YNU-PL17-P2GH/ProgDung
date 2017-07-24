@@ -48,11 +48,11 @@ public class TitlePanel extends BackgroundedPanel {
 		Font lFont = new Font(Font.MONOSPACED, Font.PLAIN, 28);
 		JLabel lUserLabel = new JLabel("ユーザーネーム");
 		lUserLabel.setFont(lFont);
-		JTextField lUserField = new JTextField(32);
+		final JTextField lUserField = new JTextField(32);
 		lUserField.setFont(lFont);
 		JLabel lPassLabel = new JLabel("パスワード");
 		lPassLabel.setFont(lFont);
-		JPasswordField lPassField = new JPasswordField(32);
+		final JPasswordField lPassField = new JPasswordField(32);
 		lPassField.setFont(lFont);
 
 		JButton lLoginButton = new JButton("ログイン");

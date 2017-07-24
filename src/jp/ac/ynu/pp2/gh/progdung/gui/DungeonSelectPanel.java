@@ -21,7 +21,7 @@ public class DungeonSelectPanel extends BackgroundedPanel {
 	 */
 	private static final long serialVersionUID = -765287721854265734L;
 	
-	public DungeonSelectPanel(TransitionCallback pCallback) {
+	public DungeonSelectPanel(final TransitionCallback pCallback) {
 		super();
 
 		try {

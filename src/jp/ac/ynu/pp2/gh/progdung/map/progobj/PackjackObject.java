@@ -145,3 +145,50 @@ public class PackjackObject extends MapProgObject {
 
 	}
 }
+
+/*
+def knapsack(packjack)
+  Integer i = 0
+  Integer itemNum = packjack.getItemNum()
+  Array itemName = ["hana" ,"bin" ,"senrigan" ,"ukiwa" ,"tokei" ,"romazin" ,"tikuwa" ,"helmet"]
+  Array items = [[168, 496], [145, 325], [60, 347],  [124, 486], [124, 446], [105, 22], [126, 110], [184, 475]]
+  Integer capacity = packjack.getCapacity()
+  Array dp = Array.new(itemNum + 1){ Array.new(capacity + 1) }
+  i = 0
+  while i < capacity + 1
+    dp[0][i] = 0
+    i = i + 1
+  end
+  i = 0
+  Integer j = 0
+  while i < itemNum
+    j = 0
+    while j < capacity + 1
+      if items[i][0] <= j then
+        if items[i][1] + dp[i][j - items[i][0]] > dp[i][j] then
+          dp[i + 1][j] = items[i][1] + dp[i][j - items[i][0]]
+        else
+          dp[i + 1][j] = dp[i][j]
+        end
+      else
+        dp[i + 1][j] = dp[i][j]
+      end
+      j = j + 1
+    end
+    i = i + 1
+  end
+
+  i = itemNum
+  j = capacity
+  while i > 0
+    if dp[i][j] != dp[i - 1][j] then
+      packjack.pickItem(itemName[i - 1])
+      while dp[i][j] == dp[i][j - 1]
+        j = j - 1
+      end
+      j = j + 1 - items[i - 1][0]
+    end
+    i = i - 1
+  end
+end
+ */
