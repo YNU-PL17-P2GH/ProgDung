@@ -12,6 +12,8 @@ public interface TransitionCallback {
 
 	boolean saveUserData();
 	
+	boolean loadUserData();
+	
 	boolean isLoggedin();
 
 	// TODO 実装

@@ -2,7 +2,6 @@ package jp.ac.ynu.pp2.gh.progdung.util;
 
 import java.util.Scanner;
 
-
 public class ConnectOpe {
 
 	
@@ -44,9 +43,15 @@ public class ConnectOpe {
 				System.out.println("save data:"+data.getFlag("savedata"));
 				break;
 			case "d":
+				con.sendObject(data);
 				data=(SaveData) con.receiveObject();
+				System.out.println(data.getFlag("userName"));
 				
-				System.out.println("load data"+data.getFlag("loaddata"));
+				System.out.println("load data:"+data.getFlag("loaddata"));
+				System.out.println("sing up:"+data.getFlag("signup"));
+				System.out.println("sign in:"+data.getFlag("signin"));
+				System.out.println("save data:"+data.getFlag("savedata"));
+				System.out.println(data.getFlag("passWord"));
 				break;
 			case "e":
 				con.sendObject(data);
