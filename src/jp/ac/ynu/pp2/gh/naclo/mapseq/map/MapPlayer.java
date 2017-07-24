@@ -212,28 +212,29 @@ public class MapPlayer extends MapMoveObject{
 
 		//System.out.printf("[POS]%d / %d %d / %d\n", box_x, box_y, point_x,point_y);
 
+
 		// 壁
 		if(!this.isStartMoving()){
 			if(direction == MAP_CONST.DIRECTION.RIGHT){
 				if(myMap.getBox(box_x + 2, box_y + 1).getState() == MAP_CONST.STATE.BLOCK){
-					System.err.println("RIGHT BLOCK");
+//					System.err.println("RIGHT BLOCK");
 					return;
 				}
 			}else if(direction == MAP_CONST.DIRECTION.UP){
 				if(myMap.getBox(box_x, box_y).getState() == MAP_CONST.STATE.BLOCK
 						|| myMap.getBox(box_x + 1, box_y).getState() == MAP_CONST.STATE.BLOCK){
-					System.err.println("UP BLOCK");
+//					System.err.println("UP BLOCK");
 					return;
 				}
 			}else if(direction == MAP_CONST.DIRECTION.DOWN){
 				if(myMap.getBox(box_x, box_y + 2).getState() == MAP_CONST.STATE.BLOCK
 						|| myMap.getBox(box_x + 1, box_y + 2).getState() == MAP_CONST.STATE.BLOCK){
-					System.err.println("DOWN BLOCK");
+//					System.err.println("DOWN BLOCK");
 					return;
 				}
 			}else if(direction == MAP_CONST.DIRECTION.LEFT){
 				if(myMap.getBox(box_x - 1, box_y + 1).getState() == MAP_CONST.STATE.BLOCK){
-					System.err.println("LEFT BLOCK");
+//					System.err.println("LEFT BLOCK");
 					return;
 				}
 			}

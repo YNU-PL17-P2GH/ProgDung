@@ -11,3 +11,4 @@ fixObj,tokei,22,20
 fixObj,romazin,18,22
 fixObj,tikuwa,20,22
 fixObj,helmet,22,22
+hintObj,hondana/basic,31,11,mondai
