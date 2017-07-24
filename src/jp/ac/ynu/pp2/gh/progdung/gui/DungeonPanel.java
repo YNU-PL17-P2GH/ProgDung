@@ -62,6 +62,8 @@ public class DungeonPanel extends JLayeredPane {
 
 	private JButton saveButton;
 
+	private JPanel operatePanel;
+
 	public DungeonPanel(TransitionCallback pCallback, int selectedStage) {
 		super();
 
@@ -142,6 +144,19 @@ public class DungeonPanel extends JLayeredPane {
 		});
 		add(sourcePane);
 		setLayer(sourcePane, 2);
+
+		//操作説明
+		operatePanel = new JPanel(new FlowLayout());
+		operatePanel.setAlignmentX(FlowLayout.CENTER);
+		Font font = new Font(Font.MONOSPACED, Font.PLAIN, 24);
+		setLayer(operatePanel, 1);
+		operatePanel.setBounds(20, 250, 260, 200);
+		JLabel operateLabel = new JLabel("<html><font color=\"red\">Z : 調べる</font><br>"
+				+ "<font color=\"green\">X : メニューを開く</font><br>"
+				+ "<font color=\"blue\"> C : 走る</font></html>");
+		operateLabel.setFont(font);
+		operatePanel.add(operateLabel);
+		add(operatePanel);
 
 		// menu
 		menuPanel = new JPanel();
