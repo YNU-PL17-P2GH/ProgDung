@@ -2,18 +2,11 @@ package jp.ac.ynu.pp2.gh.progdung.map.progobj;
 
 import java.awt.Point;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
 import java.util.LinkedList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-
-import org.jruby.Ruby;
-import org.jruby.embed.ScriptingContainer;
-import org.jruby.embed.io.ReaderInputStream;
-import org.jruby.util.KCode;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST;
@@ -179,7 +172,7 @@ end
 	public String getArgumentString() {
 		return "array";
 	}
-	private void rrwrapper(Ruby ruby) {
+/*	private void rrwrapper(Ruby ruby) {
 		ScriptingContainer container = new ScriptingContainer();
 		container.setKCode(KCode.UTF8);
 
@@ -188,7 +181,7 @@ end
 //		EmbedEvalUnit lUnit = container.parse(lStream, "temp.rb");
 		container.runScriptlet(lStream, "template.rb");
 		container.callMethod(ruby.getCurrentContext(), "sort", getOperator());
-	}
+	}*/
 
 	public class Sort2Operator {
 		private int array[];

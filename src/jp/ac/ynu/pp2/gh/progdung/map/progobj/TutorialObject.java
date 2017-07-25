@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.StringWriter;
 
 import javax.imageio.ImageIO;
 
@@ -15,8 +14,6 @@ import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MapProgObject;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.RpgMap;
 import jp.ac.ynu.pp2.gh.progdung.gui.DungeonPlay;
-
-import org.jruby.Ruby;
 
 public class TutorialObject extends MapProgObject {
 
@@ -42,7 +39,7 @@ public class TutorialObject extends MapProgObject {
 	public String getArgumentString() {
 		return getObjName();
 	}
-	
+
 	@Override
 	public int getTimeout() {
 		return 0;
@@ -142,7 +139,7 @@ public class TutorialObject extends MapProgObject {
 					Thread.sleep(1000);
 				}
 				currentState = 0;
-				
+
 				if (!handler.getCallback().getSaveData().getBoolean("Tutorial006") &&
 						handler.getCallback().getSaveData().getBoolean("Tutorial005")) {
 					handler.getCallback().showHint(

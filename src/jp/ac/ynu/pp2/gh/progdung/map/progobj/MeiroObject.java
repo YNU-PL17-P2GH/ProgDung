@@ -23,7 +23,7 @@ public class MeiroObject extends MapProgObject{
 		}
 	}
 	private Vector<Point> result = new Vector<Point>();
-	private int showMap[][];
+//	private int showMap[][];
 
 	public class MeiroOperator{
 		private int map[][] = {{1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},

@@ -198,7 +198,7 @@ end
 			}
 		}
 	}
-	private boolean checkSucsess() {
+/*	private boolean checkSucsess() {
 		for(int i = 0; i < showBoard.length; i++){
 			for(int j = 0; j < showBoard[i].length; j++){
 				if(showBoard[i][j] != 1) {
@@ -208,7 +208,7 @@ end
 		}
 
 		return true;
-	}
+	}*/
 	@Override
 	public boolean getCanPass() {
 		return false;

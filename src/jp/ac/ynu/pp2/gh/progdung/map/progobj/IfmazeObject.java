@@ -2,15 +2,10 @@ package jp.ac.ynu.pp2.gh.progdung.map.progobj;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
 
 import javax.imageio.ImageIO;
 
 import org.jruby.Ruby;
-import org.jruby.embed.ScriptingContainer;
-import org.jruby.embed.io.ReaderInputStream;
-import org.jruby.util.KCode;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST;
@@ -102,7 +97,7 @@ public class IfmazeObject extends MapProgObject{
 		return "horse";
 	}
 
-	private void rrwrapper(Ruby ruby) {
+/*	private void rrwrapper(Ruby ruby) {
 		ScriptingContainer container = new ScriptingContainer();
 		container.setKCode(KCode.UTF8);
 
@@ -112,7 +107,7 @@ public class IfmazeObject extends MapProgObject{
 //		EmbedEvalUnit lUnit = container.parse(lStream, "temp.rb");
 		container.runScriptlet(lStream, "template.rb");
 		container.callMethod(ruby.getCurrentContext(), "care", getOperator());
-	}
+	}*/
 
 /*	正解コード
 def care(horse)

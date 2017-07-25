@@ -354,7 +354,7 @@ public class DungeonPanel extends JLayeredPane {
 	void stderrUpdate() {
 		stderr.flush();
 		StringBuffer sBuffer = stderr.getBuffer();
-		String string = sBuffer.toString();
+		//String string = sBuffer.toString();
 		stderrArea.setText(sBuffer.toString());
 		stderr = new StringWriter();	//初期化
 	}
