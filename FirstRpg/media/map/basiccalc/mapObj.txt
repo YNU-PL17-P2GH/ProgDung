@@ -5,8 +5,8 @@ pcObj,mini,20,25,basiccalc
 animeNamedObj,kirakira/yellow,15,39,2,2,keyA
 animeNamedObj,kirakira/yellow,41,39,2,2,keyB
 animeNamedObj,kirakira/yellow,41,25,2,2,keyC
-fixObj,hondana/wood,27,34
-fixObj,hondana/wood,29,34
+hintObj,hondana/wood,27,34, hint3
+hintObj,hondana/wood,29,34, hint2
 fixObj,bookdesk,23,24
 hintObj,hondana/wood,25,34, hint
 hintObj,hondana/basic,34,25,mondai

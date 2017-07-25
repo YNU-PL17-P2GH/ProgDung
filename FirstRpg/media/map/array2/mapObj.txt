@@ -2,8 +2,8 @@ doorObj,silver,31,6,4,4,null
 nextMap,Lobby,11,9,8,31,8,32,8,33,8,34,8,31,9,32,9,33,9,34,9,2
 progObj,ido,13,15,Array2Object
 pcObj,mini_ashi,38,25,ido
-fixObj,hondana/basic,4,23
+hintObj,hondana/basic,4,23,hint3
 fixObj,hondana/wood,17,28
-fixObj,hondana/wood,19,28
+hintObj,hondana/wood,19,28,hint2
 hintObj,hondana/wood,21,28,hint
-hintObj,hondana/verybig,5,29,mondai
+hintObj,hondana/wood,36,24,mondai

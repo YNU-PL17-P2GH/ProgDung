@@ -21,7 +21,7 @@ public class OutputObject  extends MapProgObject {
 /*	正解コード 混乱しそうだし print のみでもいいかなっと(デバックに使えるみたいなアドバイスもほしいかも？)
 def output(argument)
 	print("Hello, Algeon!!\n")
-	print("このステージには、", argument , "個の鍵が隠されています\n")
+	print("このダンジョンには、", argument , "個の問題があります!!")
 end
  */
 
@@ -38,7 +38,7 @@ end
 	@Override
 	public void runRuby(Ruby ruby, StringWriter stdin, StringWriter stderr, Object... pArguments) {
 		super.runRuby(ruby, stdin, stderr, pArguments);
-		if(stdin.getBuffer().toString().equals("Hello, Algeon!!\nこのステージには、"+ 15 + "個の鍵が隠されています\n")) {
+		if(stdin.getBuffer().toString().equals("Hello, Algeon!!\nこのダンジョンには、"+ 15 + "個の問題があります!!")) {
 			fragSuccess = true;
 		}
 	}

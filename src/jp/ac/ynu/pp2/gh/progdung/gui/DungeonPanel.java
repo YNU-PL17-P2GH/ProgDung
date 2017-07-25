@@ -312,6 +312,7 @@ public class DungeonPanel extends JLayeredPane {
 		//ヒント表示なら
 		if(lDungeonPlay.handler.getCurrentFocusedPc() instanceof MapHintObject) {
 			sourceArea.setEditable(true);
+			revalidate();
 			return;
 		}
 

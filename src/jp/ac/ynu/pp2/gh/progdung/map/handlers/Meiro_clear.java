@@ -43,6 +43,8 @@ public class Meiro_clear extends MapHandlerBase {
 				showHint("<html>魔法陣が起動した...</html>", true);
 				pc.setMahouzinOnFlag(true);
 				callback.getSaveData().setTaken("Meiro001");
+				callback.saveUserData();
+				thePlayer.setCanMave(false);
 			}
 		}
 	}

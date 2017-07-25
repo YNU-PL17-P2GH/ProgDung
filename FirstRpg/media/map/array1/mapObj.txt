@@ -13,9 +13,10 @@ fixObj,box,29,30
 fixObj,box,31,30
 fixObj,box,33,30
 fixObj,hondana/basic,23,32
-fixObj,hondana/basic,45,35
-fixObj,hondana/wood,31,35
-fixObj,hondana/wood,33,35
-fixObj,hondana/wood,35,35
-hintObj,tubo,8,39,mondai
+hintObj,hondana/basic,45,35,mondai2
+hintObj,hondana/wood,31,35,hint5
+hintObj,hondana/wood,33,35,hint3
+hintObj,hondana/wood,35,35,hint4
+hintObj,hondana/wood,10,20,mondai
 hintObj,hondana/wood,8,20,hint
+hintObj,hondana/wood,8,30,hint2

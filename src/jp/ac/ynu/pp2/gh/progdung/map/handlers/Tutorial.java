@@ -37,7 +37,7 @@ public class Tutorial extends MapHandlerBase {
 		if (object instanceof MapPcObject) {
 			if (callback.getSaveData().getBoolean("Tutorial003") &&
 					!callback.getSaveData().getBoolean("Tutorial004")) {
-				showHint("<html>これがPCです.<br>ZキーでRubyコードを入力できます.</html>", true);
+				showHint("<html>これがPCです.<br>ZキーでRubyコードを入力できます.<br>コードはdef と end に挟まれた行に書きます</html>", true);
 				callback.getSaveData().setTaken("Tutorial004");
 			}
 		}

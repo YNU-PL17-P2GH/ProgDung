@@ -45,6 +45,7 @@ public class Lastmap extends MapHandlerBase {
 				showHint("<html>魔法陣が起動した...<html>", true);
 				pc.setMahouzinOnFlag(true);
 				callback.getSaveData().setTaken("Lastmap001");
+				callback.saveUserData();
 				thePlayer.setCanMave(false);
 			}
 		}

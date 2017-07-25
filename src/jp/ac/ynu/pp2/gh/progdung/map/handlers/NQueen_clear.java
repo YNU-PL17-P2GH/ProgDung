@@ -27,10 +27,10 @@ public class NQueen_clear  extends MapHandlerBase {
 	@Override
 	public void onPlayerInteract(MapObject pObject) {
 		if(pObject instanceof MapClearObject){
-			if(!callback.getSaveData().getBoolean("Knight1002")){
+			if(!callback.getSaveData().getBoolean("NQueen001")){
 				showHint("<html>なんと鍵をみつけた!!!</html>", true);
 				pc.setMahouzinOnFlag(true);
-				callback.getSaveData().setTaken("Knight1002");
+				callback.getSaveData().setTaken("NQueen001");
 			}
 		}
 	}
