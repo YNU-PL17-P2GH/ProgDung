@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 
 import jp.ac.ynu.pp2.gh.progdung.util.Connection;
 import jp.ac.ynu.pp2.gh.progdung.util.SaveData;
+import jp.ac.ynu.pp2.gh.progdung.util.Server;
 import jp.ac.ynu.pp2.gh.progdung.util.TransitionCallback;
 
 public class ProgDungMain extends JFrame implements TransitionCallback {
@@ -32,6 +33,10 @@ public class ProgDungMain extends JFrame implements TransitionCallback {
 	}
 
 	public static void main(String[] args) {
+		if (args.length > 0 && args[0].equals("-s") ) {
+			Server.main(args);
+			return;
+		}
 		new ProgDungMain();
 	}
 
