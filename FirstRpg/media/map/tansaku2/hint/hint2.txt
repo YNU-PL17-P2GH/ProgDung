@@ -1,4 +1,4 @@
 ハノイ塔のヒント
 
-move(int a, int b)
+void move(int a, int b)メソッド
 上の関数はaからbに円盤を移動させる

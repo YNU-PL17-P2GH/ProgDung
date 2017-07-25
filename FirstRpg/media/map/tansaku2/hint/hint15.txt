@@ -1,6 +1,8 @@
-huyhuy
-asdasd
-sad
-as
-das
-dasds
+ナップサックのヒント
+
+int getItemNum()メソッド
+品物の個数の取得
+int getCapacity()メソッド
+容量の取得
+pickItem(String name)メソッド　
+nameの名前の品物を選択する

@@ -1,6 +1,7 @@
-huyhuy
-asdasd
-sad
-as
-das
-dasds
+二分検索のヒント
+
+int array.length()メンソッド
+配列の長さを返す
+int array.checkElement(int i,int target)メソッド
+探している数値が、i番目の要素と等しければ0、i番目の要素より小さければ-1、i番目の要素より大きければ1を返す。void array.setResult(int i)メソッド
+i番目が答えであると解答する。

@@ -1,6 +1,6 @@
-huyhuy
-asdasd
-sad
-as
-das
-dasds
+迷路探索のヒント
+
+int[] getGoalPos()メソッド
+ゴールの座標	//goal = {x, y}
+int[] setResult(int x, int y)メソッド
+解答

@@ -1,6 +1,6 @@
-huyhuy
-asdasd
-sad
-as
-das
-dasds
+ソートのヒント
+
+int array.length()メソッド
+配列の長さを返すboolean array.compare(int i, int j)メソッド
+i, j番目の要素を比較し、i番目がj番目以上ならtrue、そうでなければfalseを返すvoid array.exchange(int i, int j)メソッド
+i, j番目の要素を入れ替える。

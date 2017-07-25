@@ -1,6 +1,3 @@
-huyhuy
-asdasd
-sad
-as
-das
-dasds
+2分木
+
+隠れている箱は二分木法で調べてください

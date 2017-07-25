@@ -1,6 +1,3 @@
-huyhuy
-asdasd
-sad
-as
-das
-dasds
+nクイーンのヒント
+
+void boardClear() 　盤の初期化void putQueen(int x, int y)　x y にクイーンを置く

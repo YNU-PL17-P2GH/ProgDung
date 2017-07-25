@@ -16,6 +16,3 @@ hintObj,pc/laptop,67,30,hint14
 hintObj,pc/laptop,17,17,hint15
 hintObj,pc/laptop,93,18,hint16
 hintObj,pc/laptop,69,13,hint17
-hintObj,pc/laptop,8,10,hint18
-hintObj,pc/laptop,32,10,hint19
-hintObj,pc/laptop,84,10,hint20
