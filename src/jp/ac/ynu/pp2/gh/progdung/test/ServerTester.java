@@ -5,7 +5,7 @@ import java.util.Scanner;
 import jp.ac.ynu.pp2.gh.progdung.util.Connection;
 import jp.ac.ynu.pp2.gh.progdung.util.SaveData;
 
-public class ConnectionDriver {
+public class ServerTester {
 
 	
 	public static void main(String[] args) {
