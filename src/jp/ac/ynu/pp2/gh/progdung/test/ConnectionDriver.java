@@ -1,18 +1,20 @@
-package jp.ac.ynu.pp2.gh.progdung.util;
+package jp.ac.ynu.pp2.gh.progdung.test;
 
 import java.util.Scanner;
 
-public class ConnectOpe {
+import jp.ac.ynu.pp2.gh.progdung.util.Connection;
+import jp.ac.ynu.pp2.gh.progdung.util.SaveData;
+
+public class ConnectionDriver {
 
 	
 	public static void main(String[] args) {
 		// TODO 自動生成されたメソッド・スタブ
-		System.out.println("cliant active");
-		Connection con = new Connection();
-		con.init();
+		System.out.println("client active");
+		Connection.init();
 		String str;
 		
-		System.out.println("cliant active2");
+		System.out.println("client active2");
 		
 		SaveData data =new SaveData();
 		data.setFlag("userName", "shintani");
@@ -25,26 +27,26 @@ public class ConnectOpe {
 			
 			switch(str){
 			case "a":
-				con.sendObject(data);
-				data=(SaveData) con.receiveObject();
+				Connection.sendObject(data);
+				data=(SaveData) Connection.receiveObject();
 				
 				System.out.println("sing up:"+data.getFlag("signup"));
 				break;
 			case "b":
-				con.sendObject(data);
-				data=(SaveData) con.receiveObject();
+				Connection.sendObject(data);
+				data=(SaveData) Connection.receiveObject();
 				
 				System.out.println("sign in:"+data.getFlag("signin"));
 				break;
 			case "c":
-				con.sendObject(data);
-				data=(SaveData) con.receiveObject();
+				Connection.sendObject(data);
+				data=(SaveData) Connection.receiveObject();
 				
 				System.out.println("save data:"+data.getFlag("savedata"));
 				break;
 			case "d":
-				con.sendObject(data);
-				data=(SaveData) con.receiveObject();
+				Connection.sendObject(data);
+				data=(SaveData) Connection.receiveObject();
 				System.out.println(data.getFlag("userName"));
 				
 				System.out.println("load data:"+data.getFlag("loaddata"));
@@ -54,7 +56,9 @@ public class ConnectOpe {
 				System.out.println(data.getFlag("passWord"));
 				break;
 			case "e":
-				con.sendObject(data);
+				Connection.sendObject(data);
+				scan.close();
+				System.exit(0);
 				break;
 				
 			default: ;
