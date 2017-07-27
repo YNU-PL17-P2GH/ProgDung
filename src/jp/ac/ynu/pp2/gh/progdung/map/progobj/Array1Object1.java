@@ -14,7 +14,7 @@ public class Array1Object1 extends MapProgObject {
 	private int[] array	= new int[6];
 	private int[] initArray	= {0, 100, 200, 300, 400, 500};
 
-	private volatile boolean fragSuccess;
+	//private volatile boolean fragSuccess;
 
 
 	public Array1Object1(MapHandlerBase pHandler, int bx, int by, String pObjName, RpgMap pMap) {

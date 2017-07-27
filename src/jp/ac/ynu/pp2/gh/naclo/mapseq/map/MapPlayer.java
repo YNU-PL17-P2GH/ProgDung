@@ -301,11 +301,11 @@ public class MapPlayer extends MapMoveObject{
 			}
 		}
 	}
-	private int holdBox[][] = {{0, 0}, {1, 0}, {0, 1}, {1, 1}};
+//	private int holdBox[][] = {{0, 0}, {1, 0}, {0, 1}, {1, 1}};
 	private boolean canMove = true;
 	private boolean floating;
 
-	private boolean checkHold(int x,int y){
+/*	private boolean checkHold(int x,int y){
 		for(int i = 0; i < holdBox.length; i++){
 			if(x == next_x + holdBox[i][0] && y ==next_y + holdBox[i][1]){
 				return true;
@@ -313,7 +313,7 @@ public class MapPlayer extends MapMoveObject{
 		}
 		return false;
 	}
-
+*/
 	public boolean isStartMoving() {
 		return (box_x != next_x || box_y != next_y);
 	}

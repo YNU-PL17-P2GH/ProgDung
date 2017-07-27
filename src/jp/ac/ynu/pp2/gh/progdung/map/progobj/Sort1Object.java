@@ -2,18 +2,11 @@ package jp.ac.ynu.pp2.gh.progdung.map.progobj;
 
 import java.awt.Point;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
 import java.util.LinkedList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-
-import org.jruby.Ruby;
-import org.jruby.embed.ScriptingContainer;
-import org.jruby.embed.io.ReaderInputStream;
-import org.jruby.util.KCode;
 
 import jp.ac.ynu.pp2.gh.naclo.mapseq.ShareInfo;
 import jp.ac.ynu.pp2.gh.naclo.mapseq.map.MAP_CONST;
@@ -168,7 +161,7 @@ end
 	public String getArgumentString() {
 		return "array";
 	}
-	private void rrwrapper(Ruby ruby) {
+/*	private void rrwrapper(Ruby ruby) {
 		ScriptingContainer container = new ScriptingContainer();
 		container.setKCode(KCode.UTF8);
 
@@ -178,10 +171,10 @@ end
 		container.runScriptlet(lStream, "template.rb");
 		container.callMethod(ruby.getCurrentContext(), "sort", getOperator());
 	}
-
+*/
 	public class Sort1Operator {
 		private int array[];
-		private int count = 0;		//交換回数
+//		private int count = 0;		//交換回数
 
 		public Sort1Operator(){
 			showArray = new int[10];
@@ -202,7 +195,7 @@ end
 			for(int i = 0; i < array.length; i++){
 				showArray [i] = array[i];
 			}
-			count = 0;
+//			count = 0;
 		}
 
 		public boolean compare(int i, int j){	//比較
@@ -218,7 +211,7 @@ end
 			int c = array[i];
 			array[i] = array[j];
 			array[j] = c;
-			count++;
+//			count++;
 		}
 
 		public int length(){

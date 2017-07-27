@@ -1,0 +1,7 @@
+馬の世話をするメソッドはcareHorse("care")です。horse.で起動できます。.
+
+horse.careHorse("care")
+
+で起動できます。
+
+渡す文字列によって世話の内容が変化します

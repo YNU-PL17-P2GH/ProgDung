@@ -1,6 +1,5 @@
 package jp.ac.ynu.pp2.gh.progdung.gui;
 
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -9,6 +8,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -36,28 +36,44 @@ public class GameClearPanel extends BackgroundedPanel {
 		layout1.setAlignment(FlowLayout.CENTER);
 		setLayout(layout1);
 
-		Font lFont = new Font(Font.MONOSPACED, Font.PLAIN, 72);
-		JLabel clearLabel = new JLabel("Congratulation!!!");
-		clearLabel.setFont(lFont);
-		clearLabel.setForeground(Color.YELLOW);
+		//Font lFont = new Font(Font.MONOSPACED, Font.PLAIN, 72);
+		//JLabel clearLabel = new JLabel("Congratulation!!!");
+		JLabel clearLabel = null;
+		try {
+			clearLabel = new JLabel(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("media/gui/clear_text_common.png"))));
+		} catch (IOException e1) {
+			throw new RuntimeException(e1);
+		}
+		/*clearLabel.setFont(lFont);
+		clearLabel.setForeground(Color.YELLOW);*/
 
-		Font font = new Font(Font.MONOSPACED, Font.PLAIN, 32);
+		//Font font = new Font(Font.MONOSPACED, Font.PLAIN, 32);
 		JLabel clearText =  null;
 		if(clearStage == 0) {
-			clearText = new JLabel("<html><Div Align=\"center\">あなたは英知のかけらを手に入れた<br>"
+			try {
+				clearText = new JLabel(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("media/gui/clear_text_next.png"))));
+			} catch (IOException e1) {
+				throw new RuntimeException(e1);
+			}
+			/*clearText = new JLabel("<html><Div Align=\"center\">あなたは英知のかけらを手に入れた<br>"
 					+ "それは目に見えなず、形もない<br>"
-					+ "しかし、それは確かにあなたの手の中に...</Div></html>");
+					+ "しかし、それは確かにあなたの手の中に...</Div></html>");*/
 		}else if(clearStage == 1) {
-			clearText = new JLabel("<html><Div Align=\"center\">あなたは英知を手に入れた<br>"
+			try {
+				clearText = new JLabel(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("media/gui/clear_text_end.png"))));
+			} catch (IOException e1) {
+				throw new RuntimeException(e1);
+			}
+			/*clearText = new JLabel("<html><Div Align=\"center\">あなたは英知を手に入れた<br>"
 					+ "それには、色も匂いもない<br>"
-					+ "しかし、あなたはその存在を強く認識しているだろう...</Div></html>");
+					+ "しかし、あなたはその存在を強く認識しているだろう...</Div></html>");*/
 		}
-		clearText.setFont(font);
+		/*clearText.setFont(font);
 		clearText.setForeground(Color.LIGHT_GRAY);
-		clearLabel.setHorizontalAlignment(JLabel.CENTER);
+		clearLabel.setHorizontalAlignment(JLabel.CENTER);*/
 
 
-		JLabel nextText = null;
+		/*JLabel nextText = null;
 		if(clearStage == 0) {
 			nextText = new JLabel("<html>あなたがもし更なる英知を求めるなら 次なるステージへと向かうといい...</html>");
 		}else if(clearStage == 1) {
@@ -66,7 +82,7 @@ public class GameClearPanel extends BackgroundedPanel {
 					+ "THANK YOU FOR PLAYING</Div></html>");
 		}
 		nextText.setFont(font);
-		nextText.setForeground(Color.WHITE);
+		nextText.setForeground(Color.WHITE);*/
 
 		JButton lButton = new JButton("難易度選択へ戻る");
 		lButton.addActionListener(new ActionListener() {
@@ -76,12 +92,12 @@ public class GameClearPanel extends BackgroundedPanel {
 				pCallback.showSelect(pCallback);
 			}
 		});
-
+		lButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 16));
 		add(clearLabel);
 		add(new Separator());
 		add(clearText);
 		add(new Separator());
-		add(nextText);
+		//add(nextText);
 		add(lButton);
 
 	}

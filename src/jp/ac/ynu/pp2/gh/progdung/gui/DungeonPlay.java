@@ -222,4 +222,8 @@ public class DungeonPlay extends Canvas {
 	public void showGameClear(int stage) {
 		callback.showGameClear(callback, stage);
 	}
+
+	public void saveUserData() {
+		callback.saveUserData();
+	}
 }

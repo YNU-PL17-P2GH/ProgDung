@@ -1,0 +1,7 @@
+馬の状態を知るメソッドはgetHorseState()です。
+
+horse.getHorseState()
+
+で起動できます。
+
+変数にその値を記録するべきでしょう

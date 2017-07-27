@@ -3,10 +3,9 @@ nextMap,Lobby,32,34,8,38,7,39,7,40,7,41,7,38,8,39,8,40,8,41,8,2
 progObj,output,40,11,OutputObject
 pcObj,mini,38,15,output
 animeObj,kirakira/yellow,40,9,2,2
-hintObj,hondana/wood,36,7,hint
-fixObj,hondana/wood,38,26
-fixObj,hondana/wood,16,11
-fixObj,hondana/wood,10,24
-fixObj,hondana/wood,18,36
-fixObj,hondana/wood,36,38
+hintObj,hondana/wood,16,11,hint
+hintObj,hondana/wood,38,26,hint3
+hintObj,hondana/wood,10,24,hint2
+hintObj,hondana/wood,18,36,hint4
+hintObj,hondana/wood,36,38,hint5
 hintObj,hondana/basic,36,7,mondai
