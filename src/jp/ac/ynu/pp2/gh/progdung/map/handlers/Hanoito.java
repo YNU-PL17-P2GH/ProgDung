@@ -36,7 +36,9 @@ public class Hanoito extends MapHandlerBase{
 	public void onMapLoad() {
 		if(callback.getSaveData().getBoolean("Hanoito001")) {
 			for(MapObject tObject: theObj) {
-				((HanoitoObject)tObject).cleared();
+				if(tObject instanceof HanoitoObject) {
+					((HanoitoObject)tObject).cleared();
+				}
 			}
 		}
 	}

@@ -137,6 +137,17 @@ end
 			showTower[1][i] = 0;
 			showTower[2][i] = 0;
 		}
+		for(int i = 0;i < showIndex.length;i++){
+			if(showIndex[i] < 0) {
+				for(int j = 0; j < 8; j++) {
+					getMap().getBox(box_x + showTowerOffsetW[i] + j, box_y + 2).setState(MAP_CONST.STATE.EMPTY);
+				}
+			}else{
+				for(int j = 0; j < 8; j++) {
+					getMap().getBox(box_x + showTowerOffsetW[i] + j, box_y + 2).setState(MAP_CONST.STATE.BLOCK);
+				}
+			}
+		}
 	}
 
 
