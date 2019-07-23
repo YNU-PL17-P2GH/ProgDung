@@ -92,7 +92,7 @@ public class Tutorial extends MapHandlerBase {
 	@Override
 	public void onMapLoad() {
 		if (!callback.getSaveData().getBoolean("Tutorial002")) {
-			showHint("<html>まずはマップを探索してみましょう.<br>下に道が続いているようですね.</html>", true);
+			showHint("<html>まずはマップを探索してみましょう.<br>下に道をふさいでいる石像があるようです.<br>石像に触れてみましょう.</html>", true);
 			callback.getSaveData().setTaken("Tutorial002");
 		}
 		if(callback.getSaveData().getBoolean("Tutorial011")) {
